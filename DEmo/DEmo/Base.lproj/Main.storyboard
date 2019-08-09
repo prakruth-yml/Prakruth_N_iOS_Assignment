@@ -82,6 +82,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" id="ubY-Vg-0U6"/>
                     <connections>
                         <outlet property="codeTransitButton" destination="mFN-b7-63X" id="zky-uy-0Qe"/>
                         <outlet property="logoImage" destination="bwV-AD-R92" id="9NU-rP-YqO"/>

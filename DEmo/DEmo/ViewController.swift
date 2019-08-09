@@ -8,7 +8,8 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+
+class ViewController: UIViewController, UITextFieldDelegate {
 
 //    @IBOutlet weak var buttonInVC: UIButton!
     
@@ -34,17 +35,13 @@ class ViewController: UIViewController {
     
     @IBAction func codeTransitButtonDidPress(buttonElement: UIButton){
         
-        print("Button Pressed \(buttonElement.currentTitle ?? "nil")")
-//        var newVC = UIViewController()
-//        self.navigationController?.pushViewController(newVC, animated: true)
-        
-//        var storyBoard = UIStoryboard(name: "Main", bundle: nil)
-//        var newVC = storyBoard.instantiateViewController(withIdentifier: "CodeTransit") as! ViaProgramVC
-//        self.navigationController?.pushViewController(newVC, animated: true)
-        
-        
-        
+        print("Button Pressed \(buttonElement.currentTitle ?? "nil") \(nameTextField.text)")
+        let secondVC = ProgramV_C()
+        secondVC.nameFromVC = self.nameTextField.text
+        self.present(secondVC, animated: true, completion: nil)
     }
+    
+    
     
     func setUpUI(){
         
@@ -52,15 +49,18 @@ class ViewController: UIViewController {
         logoImage?.layer.cornerRadius = 7.0
         storyTransitButton?.layer.cornerRadius = 7.0
         codeTransitButton?.layer.cornerRadius = 7.0
+        
+        self.nameTextField.delegate = self
+        
+        //CXheck it
+        NotificationCenter.default.addObserver(self,selector: #selector(self.keyBoardWillShow), name: NSNotification.Name.UIKeyBoardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self,selector: #selector(self.keyBoardWillHide), name: NSNotification.Name.UIKeyBoardWillHide, object: nil)
+        
     }
     
-    func addChildVC(childVC: UIViewController){
-        
-        addChild(childVC)
-        containerView.addSubview(childVC.view)
-        childVC.view.frame = containerView.frame
-        childVC.didMove(toParent: self)
-//        childVC.didMove
+    func textFieldShouldReturn(_ textField: UITextField)-> Bool{
+        textField.resignFirstResponder()
+        return true
     }
 }
 
