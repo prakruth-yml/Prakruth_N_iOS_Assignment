@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var storyTransitButton: UIButton!
     @IBOutlet weak var codeTransitButton: UIButton!
+    let containerView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,12 +32,35 @@ class ViewController: UIViewController {
         print("Button Pressed \(buttonElement.currentTitle ?? "nil")")
     }
     
+    @IBAction func codeTransitButtonDidPress(buttonElement: UIButton){
+        
+        print("Button Pressed \(buttonElement.currentTitle ?? "nil")")
+//        var newVC = UIViewController()
+//        self.navigationController?.pushViewController(newVC, animated: true)
+        
+//        var storyBoard = UIStoryboard(name: "Main", bundle: nil)
+//        var newVC = storyBoard.instantiateViewController(withIdentifier: "CodeTransit") as! ViaProgramVC
+//        self.navigationController?.pushViewController(newVC, animated: true)
+        
+        
+        
+    }
+    
     func setUpUI(){
         
         titleLabel?.layer.cornerRadius = 5.0
         logoImage?.layer.cornerRadius = 7.0
         storyTransitButton?.layer.cornerRadius = 7.0
         codeTransitButton?.layer.cornerRadius = 7.0
+    }
+    
+    func addChildVC(childVC: UIViewController){
+        
+        addChild(childVC)
+        containerView.addSubview(childVC.view)
+        childVC.view.frame = containerView.frame
+        childVC.didMove(toParent: self)
+//        childVC.didMove
     }
 }
 

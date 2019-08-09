@@ -28,8 +28,24 @@ class StroyBoardVC: UIViewController {
 
     func setupUI(){
         
+        //Function Initializations
         staticTextLabel?.layer.cornerRadius = 7.0
+        staticTextLabel?.isUserInteractionEnabled = true
+        colorChangeView?.layer.cornerRadius = 7.0
+        self.colorChangeView.backgroundColor = UIColor(red: CGFloat.random(in: 0..<1), green: CGFloat.random(in: 0..<1), blue: CGFloat.random(in: 0..<1), alpha: 1.0)
+        
+        
+        //
+        let staticTextGesture = UITapGestureRecognizer(target: self, action: #selector(StroyBoardVC.didPressLabel(sender: )))
+        staticTextLabel.addGestureRecognizer(staticTextGesture)
+    }
+    
+    @objc func didPressLabel(sender: UITapGestureRecognizer){
+        
+        self.colorChangeView.backgroundColor = UIColor(red: CGFloat.random(in: 0..<1), green: CGFloat.random(in: 0..<1), blue: CGFloat.random(in: 0..<1), alpha: 1.0)
+        print("Label Press")
     }
     
 
 }
+/*NEED TO ADD: CHANGE COLOR WHEN MOVING BETWEEN FOREGROUND AND BACKGROUND USING NOTIFICATIONS*/
