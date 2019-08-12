@@ -24,7 +24,7 @@ class ProgramV_C: UIViewController {
     
     func setupUI(){
         
-        let labelCoords = CGRect(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height/2, width: 180, height: 21)
+        let labelCoords = CGRect(x: UIScreen.main.bounds.width/2, y: 30, width: 180, height: 21)
         nameLabel = UILabel(frame: labelCoords)
         nameLabel?.center.x = UIScreen.main.bounds.width/2
 //        nameLabel?.text = "Name will appear here"
@@ -45,14 +45,31 @@ class ProgramV_C: UIViewController {
             nameLabel?.text = text
         }
         else{
+            nameLabel?.text = "Default"
             print("NIL")
         }
-        print()
+//        textLabelAnimateDidStart()
     }
     
     @objc func didPressBackButton(){
         
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        self.textLabelAnimateDidStart()
+    }
+    
+    func textLabelAnimateDidStart(){
+        
+        let animation = { () -> Void in
+            self.nameLabel.center.y += 100
+        }
+//        UIView.animate(withDuration: 3, animations: animation )
+        UIView.animate(withDuration: 3, animations: {
+            self.nameLabel.center.y += 100
+        })
     }
     
 }
