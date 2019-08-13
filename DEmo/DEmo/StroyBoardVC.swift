@@ -24,8 +24,9 @@ class StroyBoardVC: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
     }
     
-    @IBAction func backButtonDidPress(button: UIButton){
-        
+    //@IBAction func backButtonDidPress(button: UIButton){
+    
+    @objc func backButtonDidPress(){
         self.dismiss(animated: true, completion: nil)
     }
 
@@ -45,6 +46,7 @@ class StroyBoardVC: UIViewController {
         //
         let staticTextGesture = UITapGestureRecognizer(target: self, action: #selector(StroyBoardVC.didPressLabel(sender: )))
         staticTextLabel.addGestureRecognizer(staticTextGesture)
+        goBackButton.addTarget(self, action: #selector(backButtonDidPress), for: .touchUpInside)
     }
     
     @objc func didPressLabel(sender: UITapGestureRecognizer){

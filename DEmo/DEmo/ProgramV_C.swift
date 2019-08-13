@@ -63,12 +63,8 @@ class ProgramV_C: UIViewController {
     
     func textLabelAnimateDidStart(){
         
-        let animation = { () -> Void in
-            self.nameLabel.center.y += 100
-        }
-//        UIView.animate(withDuration: 3, animations: animation )
-        UIView.animate(withDuration: 3, animations: {
-            self.nameLabel.center.y += 100
+        UIView.animate(withDuration: 1, animations: {
+            self.nameLabel.center.y = UIScreen.main.bounds.height/2
         })
     }
     

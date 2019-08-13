@@ -55,9 +55,6 @@
                                 <state key="normal" title="Code Transit">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
-                                <connections>
-                                    <action selector="codeTransitButtonDidPressWithButtonElement:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gUE-at-a3l"/>
-                                </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EF1-2R-e5u">
                                 <rect key="frame" x="70" y="555" width="110" height="30"/>
@@ -80,6 +77,7 @@
                         <outlet property="codeTransitButton" destination="mFN-b7-63X" id="zky-uy-0Qe"/>
                         <outlet property="logoImage" destination="bwV-AD-R92" id="9NU-rP-YqO"/>
                         <outlet property="logoTitleLabel" destination="eiQ-ho-Wib" id="nuL-mO-B3X"/>
+                        <outlet property="name" destination="8bC-Xf-vdC" id="WsI-ap-Mt5"/>
                         <outlet property="nameTextField" destination="C4h-wP-xQk" id="7m2-8Y-jSs"/>
                         <outlet property="storyTransitButton" destination="EF1-2R-e5u" id="TZb-8D-9lE"/>
                         <outlet property="titleLabel" destination="Ezo-hx-nIa" id="MeJ-xe-852"/>
@@ -133,9 +131,6 @@
                                 <state key="normal" title="Go Back">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
-                                <connections>
-                                    <action selector="backButtonDidPressWithButton:" destination="vQQ-1b-lWu" eventType="touchUpInside" id="HfT-Wc-RsX"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
