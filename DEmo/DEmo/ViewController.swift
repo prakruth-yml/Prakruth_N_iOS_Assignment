@@ -76,20 +76,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     //@objc func isAlphabetOnly()
-    func textFieldDidEndEditing(_ nameTextField: UITextField) {
-        
-        print("Done Editting")
-        if(isAlphabetOnly2()){
-            self.codeTransitButtonDidPress(buttonElement: codeTransitButton)
-        }
-        else{
-            let alert = UIAlertController(title: "Warning", message: "Please Enter only Letters", preferredStyle: .alert)
-            let action = UIAlertAction(title: "Close", style: .default, handler: nil)
-            alert.addAction(action)
-            _ = textFieldShouldClear(nameTextField)
-            present(alert, animated: true, completion: nil)
-        }
-    }
+//    func textFieldDidEndEditing(_ nameTextField: UITextField) {
+//
+////        self.codeTransitButtonDidPress(buttonElement: codeTransitButton)
+//    }
     
    // @IBAction func codeTransitButtonDidPress(buttonElement: UIButton){
     @objc func codeTransitButtonDidPress(buttonElement: UIButton){
@@ -98,17 +88,18 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let secondVC = ProgramV_C()
         textFieldInput = self.nameTextField.text
         secondVC.nameFromVC = self.nameTextField.text
+        self.navigationController?.pushViewController(secondVC, animated: true)
         
-        if(self.isAlphabetOnly2()){
-            self.present(secondVC, animated: true, completion: nil)
-        }
-        else{
-            let alert = UIAlertController(title: "Warning", message: "Please Enter only Letters", preferredStyle: .alert)
-            let action = UIAlertAction(title: "Close", style: .default, handler: nil)
-            alert.addAction(action)
-            nameTextField?.text = ""
-            present(alert, animated: true, completion: nil)
-        }
+//        if(self.isAlphabetOnly2()){
+//            self.navigationController?.pushViewController(secondVC, animated: true)
+//        }
+//        else{
+//            let alert = UIAlertController(title: "Warning", message: "Please Enter only Letters", preferredStyle: .alert)
+//            let action = UIAlertAction(title: "Close", style: .default, handler: nil)
+//            alert.addAction(action)
+//            nameTextField?.text = ""
+//            present(alert, animated: true, completion: nil)
+//        }
 
     }
 
@@ -162,11 +153,36 @@ class ViewController: UIViewController, UITextFieldDelegate {
         nameTextField.text = ""
         return true
     }
+
+    func isAlphabetOnly22(str: String) -> Bool{
+        print(str)
+        let range = NSRange(location: 0, length: str.count)
+        let regex = try! NSRegularExpression(pattern: "[0-9]+")
+        if(regex.firstMatch(in: str, options: [], range: range)) != nil{
+            return false
+        }
+        else{
+            return true
+        }
+    }
+
     
-//    func textFieldDidEndEditing(_ nameTextField: UITextField) {
-//
-//        print("Done editting")
-//        textFieldShouldClear(nameTextField)
-//    }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if let str = textField.text{
+            if str.count > 0{
+                print("Changed \(string) \(str)")
+                if(isAlphabetOnly22(str: string)){
+                    return true
+                }
+                else{
+                    print("Matched")
+                    return false
+                }
+                
+            }
+            return true
+        }
+        return true
+    }
 }
 

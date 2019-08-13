@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB27BAEE2302FA93009FD45B /* String+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB27BAED2302FA93009FD45B /* String+Custom.swift */; };
 		AB8A398322FC15990057225D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8A398222FC15990057225D /* AppDelegate.swift */; };
 		AB8A398522FC159C0057225D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8A398422FC159C0057225D /* ViewController.swift */; };
 		AB8A398822FC15A00057225D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB8A398622FC15A00057225D /* Main.storyboard */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AB27BAED2302FA93009FD45B /* String+Custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Custom.swift"; sourceTree = "<group>"; };
 		AB8A397F22FC15990057225D /* DEmo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DEmo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB8A398222FC15990057225D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AB8A398422FC159C0057225D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 			children = (
 				AB8A398222FC15990057225D /* AppDelegate.swift */,
 				AB8A398422FC159C0057225D /* ViewController.swift */,
+				AB27BAED2302FA93009FD45B /* String+Custom.swift */,
 				AB8A398622FC15A00057225D /* Main.storyboard */,
 				AB8A398922FC15C30057225D /* Assets.xcassets */,
 				AB8A398B22FC15C40057225D /* LaunchScreen.storyboard */,
@@ -153,6 +156,7 @@
 			files = (
 				AB8A399722FC417D0057225D /* ViaProgramVC.swift in Sources */,
 				ABB9438E22FDBB8D00134826 /* ProgramVC.swift in Sources */,
+				AB27BAEE2302FA93009FD45B /* String+Custom.swift in Sources */,
 				AB8A398522FC159C0057225D /* ViewController.swift in Sources */,
 				AB8A398322FC15990057225D /* AppDelegate.swift in Sources */,
 				AB8A399922FC419B0057225D /* StroyBoardVC.swift in Sources */,
