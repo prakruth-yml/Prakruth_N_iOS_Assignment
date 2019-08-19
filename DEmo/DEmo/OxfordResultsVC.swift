@@ -11,6 +11,8 @@ import UIKit
 class OxfordResultsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var meaningLabel: UILabel!
+    
     var wordToSearch: String = "car"
     let urlString = "https://od-api.oxforddictionaries.com/api/v2"
     let appID = "701c9c97"
@@ -23,9 +25,9 @@ class OxfordResultsVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     var meaning : [String] = []
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return 0
+//    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return meaning.count
@@ -34,6 +36,7 @@ class OxfordResultsVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reusableCell", for: indexPath) as! UITableViewCell
         cell.textLabel?.text = meaning[indexPath.item]
+        cell.textLabel?.numberOfLines = 0
         return cell
     }
     
@@ -51,6 +54,11 @@ class OxfordResultsVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         if(meaning.count < 1){
             print("JNOO ")
         }
+        tableView.tableFooterView = UIView()
+        meaningLabel.text = wordToSearch
+        meaningLabel.numberOfLines = 0
+        meaningLabel.font = meaningLabel.font.withSize(20)
+        meaningLabel.font = UIFont.boldSystemFont(ofSize: 30)
 
         // Do any additional setup after loading the view.
     }
