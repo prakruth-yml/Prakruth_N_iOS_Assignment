@@ -13,7 +13,7 @@ class OxfordResultsVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var meaningLabel: UILabel!
     
-    var wordToSearch: String = "car"
+    var wordToSearch: String = ""
     let urlString = "https://od-api.oxforddictionaries.com/api/v2"
     let appID = "701c9c97"
     let appKey = "ab5b061ec5a81e1e172b828302ee964e"
@@ -24,6 +24,7 @@ class OxfordResultsVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     var defaultSession = URLSession(configuration: URLSessionConfiguration.default)
     
     var meaning : [String] = []
+    var meaningFromVC: String?
     
 //    func numberOfSections(in tableView: UITableView) -> Int {
 //        return 0
@@ -42,10 +43,15 @@ class OxfordResultsVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     
 
     override func viewDidLoad() {
+        
+        print("Here")
         super.viewDidLoad()
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        
+        self.wordToSearch = self.meaningFromVC ?? "nil"
+        print(wordToSearch)
         
         networkingSetup()
         sleep(3)

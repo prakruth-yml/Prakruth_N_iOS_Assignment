@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="KUw-DT-6gk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VVi-U4-Ux2">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -220,12 +220,16 @@
                                 <rect key="frame" x="84" y="548" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="buttonDidPushWithButton:" destination="VVi-U4-Ux2" eventType="touchUpInside" id="ReC-8K-ZEJ"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="lgC-ge-4jF"/>
                     </view>
                     <connections>
+                        <outlet property="meaningButton" destination="z1Q-qC-vAq" id="Sxr-xz-ThE"/>
                         <outlet property="titleField" destination="2VA-TU-hRq" id="PTR-KJ-bWf"/>
                         <outlet property="titleLabel" destination="Up2-MC-d5t" id="rwD-Ga-BSQ"/>
                     </connections>
