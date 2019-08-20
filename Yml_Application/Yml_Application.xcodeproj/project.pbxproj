@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB2569B7230BD5460034BCBF /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2569B6230BD5460034BCBF /* CollectionViewCell.swift */; };
 		ABB9437B22FD480D00134826 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB9437A22FD480D00134826 /* AppDelegate.swift */; };
 		ABB9437D22FD480D00134826 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB9437C22FD480D00134826 /* ViewController.swift */; };
 		ABB9438022FD480D00134826 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABB9437E22FD480D00134826 /* Main.storyboard */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AB2569B6230BD5460034BCBF /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		ABB9437722FD480D00134826 /* Yml_Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yml_Application.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABB9437A22FD480D00134826 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ABB9437C22FD480D00134826 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 			children = (
 				ABB9437A22FD480D00134826 /* AppDelegate.swift */,
 				ABB9437C22FD480D00134826 /* ViewController.swift */,
+				AB2569B6230BD5460034BCBF /* CollectionViewCell.swift */,
 				ABB9437E22FD480D00134826 /* Main.storyboard */,
 				ABB9438122FD480F00134826 /* Assets.xcassets */,
 				ABB9438322FD480F00134826 /* LaunchScreen.storyboard */,
@@ -137,6 +140,7 @@
 			files = (
 				ABB9437D22FD480D00134826 /* ViewController.swift in Sources */,
 				ABB9437B22FD480D00134826 /* AppDelegate.swift in Sources */,
+				AB2569B7230BD5460034BCBF /* CollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
