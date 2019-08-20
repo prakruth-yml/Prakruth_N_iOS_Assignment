@@ -14,7 +14,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var getStartedButton: UIButton!
-    @IBOutlet weak var ymlLogo: UIImageView!
+    @IBOutlet weak var ymlLogoImage: UIImageView!
 
     override func viewDidLoad() {
         
@@ -46,9 +46,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     func setupGUI(){
         getStartedButton?.layer.cornerRadius = 9.0
-        ymlLogo?.layer.cornerRadius = 9.0
+        ymlLogoImage?.layer.cornerRadius = 9.0
         collectionView?.isPagingEnabled = true
-        ymlLogo?.layer.zPosition = 1.0
+        ymlLogoImage?.layer.zPosition = 1.0
     }
 
 
