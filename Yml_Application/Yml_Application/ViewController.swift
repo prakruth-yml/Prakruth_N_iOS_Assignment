@@ -35,6 +35,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let imageToBackGround = UIImage(named: cell?.imageNames[indexPath.row] ?? "nil")
         
         cell?.image.image = UIImage(named: cell?.imageNames[indexPath.row] ?? "nil")
+        cell?.layer.cornerRadius = 9.0
         cell?.productLogo.image = UIImage(named: cell?.productLogoArray[indexPath.row] ?? "nil")
         cell?.productDescription.text = cell?.productDescriptionArray[indexPath.row]
         cell?.productTitle.text = cell?.productTitleArray[indexPath.row]
@@ -45,9 +46,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     func setupGUI(){
         getStartedButton?.layer.cornerRadius = 9.0
-        ymlLogo?.layer.cornerRadius = 20.0 //Not Working
-        
-        //let temp = UICollectionViewFlowLayout()
+        ymlLogo?.layer.cornerRadius = 9.0
+        collectionView?.isPagingEnabled = true
+        ymlLogo?.layer.zPosition = 1.0
     }
 
 
