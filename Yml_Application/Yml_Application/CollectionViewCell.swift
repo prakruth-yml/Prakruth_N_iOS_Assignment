@@ -14,10 +14,10 @@ class CollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var productTitle: UILabel!
     @IBOutlet weak var image: UIImageView!
     
-    let imageNames = ["mobile-70", "home-depot-mobile", "home-mob", "molekule-mobile2"]
-    let productLogoArray = ["state-farm-logo", "thd-logo", "paypal-logo", "molekule"]
-    let productTitleArray = ["State Farm", "The Home Depot", "PayPal", "Molekule"]
-    let productDescriptionArray = ["All things insurance, all things banking, all in one app.", "The ultimate power tool: A best-in-class digital experience for The Home Depot.", "Payment giant goes mobile-by-design.", "The world's first intelligent air purifier, & the app putting clean air in people's hands. "]
+    let imageNames = ["", "mobile-70", "home-depot-mobile", "home-mob", "molekule-mobile2"]
+    let productLogoArray = ["", "state-farm-logo", "thd-logo", "paypal-logo", "molekule"]
+    let productTitleArray = ["Hello", "State Farm", "The Home Depot", "PayPal", "Molekule"]
+    let productDescriptionArray = ["We are a design and innovation agency, creating digital products and experiences that have a lasting impact.", "All things insurance, all things banking, all in one app.", "The ultimate power tool: A best-in-class digital experience for The Home Depot.", "Payment giant goes mobile-by-design.", "The world's first intelligent air purifier, & the app putting clean air in people's hands. "]
     
     
     //    @IBOutlet weak var productBackgroundImage: UIImageView!

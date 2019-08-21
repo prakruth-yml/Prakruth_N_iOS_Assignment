@@ -25,7 +25,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return 5
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -37,7 +37,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         cell?.image.image = UIImage(named: cell?.imageNames[indexPath.row] ?? "nil")
         cell?.layer.cornerRadius = 9.0
         cell?.productLogo.image = UIImage(named: cell?.productLogoArray[indexPath.row] ?? "nil")
+        cell?.productLogo.clipsToBounds = true
+        cell?.productLogo.layer.cornerRadius = 9.0
         cell?.productDescription.text = cell?.productDescriptionArray[indexPath.row]
+//        cell?.productDescription.numberOfLines = 0
+        cell?.productDescription.adjustsFontSizeToFitWidth = true
         cell?.productTitle.text = cell?.productTitleArray[indexPath.row]
         
         return cell ?? UICollectionViewCell()
