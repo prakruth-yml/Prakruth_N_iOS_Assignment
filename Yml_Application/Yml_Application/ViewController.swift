@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
     
     
 
@@ -40,7 +40,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         return CGSize(width: width, height: height)
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    func scrollViewEndDecelerating(_ scrollView: UIScrollView) {
 ////        var tt  = collectionView.indexPathsForVisibleItems.first
 ////        self.tracker = (tracker+1)%numberOfPages
 ////        self.pageControl?.currentPage = tracker
@@ -52,9 +52,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 
     }
     
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView){
+//        pageControl.currentPage = collectionView.indexPath(for: collectionView.visibleCells.first!)?.row ?? 0
+    }
+    
+    //CLARIFY
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         pageControl.currentPage = collectionView.indexPath(for: collectionView.visibleCells.first!)?.row ?? 0
-
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -115,6 +119,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         ymlLogoImage?.layer.zPosition = 1.0 
         self.collectionView.frame = CGRect()
         pageControl?.numberOfPages = self.numberOfPages
+        pageControl?.pageIndicatorTintColor = .black
+        pageControl?.currentPageIndicatorTintColor = .white
     }
 
 
