@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate,  {
     
     
 
@@ -52,7 +52,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         getStartedButton?.layer.cornerRadius = 9.0
         ymlLogoImage?.layer.cornerRadius = 9.0
         collectionView?.isPagingEnabled = true
-        ymlLogoImage?.layer.zPosition = 1.0
+        ymlLogoImage?.layer.zPosition = 1.0 
+        self.collectionView.frame = CGRect()
     }
 
 
