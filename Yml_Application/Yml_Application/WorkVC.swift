@@ -9,28 +9,17 @@
 import UIKit
 
 class WorkVC: UIViewController{
-//
-//    var aboutUsVC: AboutUsVC?
-//    var newsVC: NewsVC?
-//    var carrersVC: CarrersVC?
-//    var contactUsVC: ContactUsVC?
+    
+    @IBOutlet weak var homePageImage: UIImageView!
+    @IBOutlet weak var ymlLogoImage: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //tabBarController?.delegate = self
-
-//        tabBarController?.selectedViewController = self
-//        tabBarController?.selectedIndex = 0
-//        tabBarController?.viewControllers = [aboutUsVC, newsVC, carrersVC, contactUsVC] as? [UIViewController]
-        // Do any additional setup after loading the view.
+        setupGUI()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        print("dcascv")
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        print("avdsva")
+    func setupGUI(){
+//        ymlLogoImage.layer.cornerRadius = 12.0
     }
 
     /*
