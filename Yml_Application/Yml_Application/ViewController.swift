@@ -15,6 +15,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var getStartedButton: UIButton!
     @IBOutlet weak var ymlLogoImage: UIImageView!
+    @IBOutlet weak var pageControl: UIPageControl!
+    
+    let numberOfPages = 5
+    var tracker = -1
 
     override func viewDidLoad() {
         
@@ -25,7 +29,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return numberOfPages
     }
     
     
@@ -34,6 +38,54 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let height = collectionView.frame.size.height
         let width = collectionView.frame.size.width
         return CGSize(width: width, height: height)
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+////        var tt  = collectionView.indexPathsForVisibleItems.first
+////        self.tracker = (tracker+1)%numberOfPages
+////        self.pageControl?.currentPage = tracker
+////        print("dsav a")
+////        print(tt?.row)
+//        print("dasvv avs")
+//        print(collectionView.indexPath(for: collectionView.visibleCells.first!)!.row)
+//        pageControl.currentPage = collectionView.indexPath(for: collectionView.visibleCells.first!)!.row
+
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        pageControl.currentPage = collectionView.indexPath(for: collectionView.visibleCells.first!)?.row ?? 0
+
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        //var tt = collectionView.cellForItem(at: indexPath)
+//        if tracker ==
+//        var tt  = collectionView.indexPathsForVisibleItems.first
+//        self.tracker = (tracker+1)%numberOfPages
+//        self.pageControl?.currentPage = tracker
+//        print("dsav a")
+//        print(tt?.row)
+        
+//        if {
+//            if pageControl.currentPage == indexPath.row {
+//                pageControl.currentPage = collectionView.indexPath(for: collectionView.visibleCells.first!)!.row
+//            }
+//        }
+//
+//        else{
+//        }
+        
+//
+//            if let collectionView = collectionView{
+//                if pageControl.currentPage == indexPath.row {
+//                    pageControl.currentPage = collectionView.indexPath(for: collectionView.visibleCells.first!)!.row
+//                }
+//            }
+//            else{
+//            }
+        
+//            pageControl.currentPage = collectionView.indexPath(for: collectionView.visibleCells.first!)!.row
+
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -62,6 +114,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         collectionView?.isPagingEnabled = true
         ymlLogoImage?.layer.zPosition = 1.0 
         self.collectionView.frame = CGRect()
+        pageControl?.numberOfPages = self.numberOfPages
     }
 
 
