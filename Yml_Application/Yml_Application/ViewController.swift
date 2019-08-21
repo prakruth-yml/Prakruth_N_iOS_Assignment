@@ -18,13 +18,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     @IBOutlet weak var pageControl: UIPageControl!
     
     let numberOfPages = 5
-    var tracker = -1
 
     override func viewDidLoad() {
         
+        super.viewDidLoad()
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
-        super.viewDidLoad()
         setupGUI()
     }
 
@@ -51,10 +50,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //        pageControl.currentPage = collectionView.indexPath(for: collectionView.visibleCells.first!)!.row
 
     }
-    
-    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView){
-//        pageControl.currentPage = collectionView.indexPath(for: collectionView.visibleCells.first!)?.row ?? 0
-    }
+//
+//    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView){
+////        pageControl.currentPage = collectionView.indexPath(for: collectionView.visibleCells.first!)?.row ?? 0
+//    }
     
     //CLARIFY
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -90,6 +89,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
 //            pageControl.currentPage = collectionView.indexPath(for: collectionView.visibleCells.first!)!.row
 
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//        let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
+//        pageControl.currentPage = Int(pageNumber)
+//        print(scrollView.contentOffset.x)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
