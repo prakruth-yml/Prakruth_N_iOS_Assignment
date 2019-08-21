@@ -8,22 +8,30 @@
 
 import UIKit
 
-class WorkVC: UITabBarController, UITabBarControllerDelegate {
-
-    var aboutUsVC: AboutUsVC?
-    var newsVC: NewsVC?
-    var carrersVC: CarrersVC?
-    var contactUsVC: ContactUsVC?
+class WorkVC: UIViewController{
+//
+//    var aboutUsVC: AboutUsVC?
+//    var newsVC: NewsVC?
+//    var carrersVC: CarrersVC?
+//    var contactUsVC: ContactUsVC?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //tabBarController?.delegate = self
 
-        tabBarController?.selectedViewController = self
-        tabBarController?.selectedIndex = 0
-        tabBarController?.viewControllers = [aboutUsVC, newsVC, carrersVC, contactUsVC] as? [UIViewController]
+//        tabBarController?.selectedViewController = self
+//        tabBarController?.selectedIndex = 0
+//        tabBarController?.viewControllers = [aboutUsVC, newsVC, carrersVC, contactUsVC] as? [UIViewController]
         // Do any additional setup after loading the view.
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        print("dcascv")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("avdsva")
+    }
 
     /*
     // MARK: - Navigation
