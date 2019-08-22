@@ -15,6 +15,7 @@ class WorkVC: UIViewController{
     @IBOutlet weak var ymlLogoImage: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     
+    var webView: WKWebView!
     var workCell: WorkVCTableViewCell?
     var url = ""
 //    @IBOutlet weak var workDescriptionLabel: UILabel!
@@ -30,7 +31,38 @@ class WorkVC: UIViewController{
         tableView.tableFooterView = UIView()
         print(tableView.frame.height)
         tableView.rowHeight = tableView.frame.height - 50
+        let webConfigs = WKWebViewConfiguration()
+        webView = WKWebView(frame: .zero, configuration: webConfigs)
+        webView.uiDelegate = self
+        
+//        var myNewView = UIView(frame: CGRect(x: 10, y: 100, width: 300, height: 200))
+//        myNewView.backgroundColor=UIColor.lightGray
+//
+//        // Add rounded corners to UIView
+//        myNewView.layer.cornerRadius=25
+//
+//        // Add border to UIView
+//        myNewView.layer.borderWidth=2
+//
+//        // Change UIView Border Color to Red
+//        myNewView.layer.borderColor = UIColor.red.cgColor
+        
+        
+//        let url = URL(string: "https://www.google.com")
+//                let myrequest = URLRequest(url: url!)
+//                webView.load(myrequest)
+//                var webViewView = UIView(frame: tableView.frame)
+//                webViewView.backgroundColor = .red
+////                webViewView.addSubview(<#T##view: UIView##UIView#>)
+////        view = webView
+//                self.tableView.addSubview(webViewView)
+        // Add UIView as a Subview
+//        self.view.addSubview(webViewView)
+        
     }
+    
+    
+    
     
 //    override func viewDidAppear(_ animated: Bool) {
 //        super.viewDidAppear(animated)
@@ -44,7 +76,19 @@ class WorkVC: UIViewController{
     }
     
     @objc func didPressLabel(_ sender: UITapGestureRecognizer){
-        print(url)
+        
+//        let url = URL(string: self.url)
+//        let myrequest = URLRequest(url: url!)
+//        webView.load(myrequest)
+//        var webViewView = UIView(frame: tableView.frame)
+//        webViewView.backgroundColor = .red
+//        webViewView = webView
+//        self.tableView.addSubview(webViewView)
+//        view = webView
+        
+        
+        let viewController: UINavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewVC2") as! UINavigationController
+        self.present(viewController, animated: false, completion: nil)
     }
     
     func setupGUI(){

@@ -1,14 +1,14 @@
 //
-//  ContactUsVC.swift
+//  WebViewVC3.swift
 //  Yml_Application
 //
-//  Created by Prakruth Nagaraj on 21/08/19.
+//  Created by Prakruth Nagaraj on 22/08/19.
 //  Copyright © 2019 Prakruth Nagaraj. All rights reserved.
 //
 
 import UIKit
 
-class ContactUsVC: UIViewController {
+class WebViewVC3: UINavigationController{
 
     override func viewDidLoad() {
         super.viewDidLoad()

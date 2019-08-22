@@ -21,7 +21,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="vMa-PT-5ZZ">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" sectionInsetReference="safeArea" id="Npn-Mt-rTn">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Npn-Mt-rTn">
                                     <size key="itemSize" width="376" height="763"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -29,7 +29,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="cellToReuse" reuseIdentifier="cellToReuse" id="DKQ-cd-ry3" customClass="CollectionViewCell" customModule="Yml_Application" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="71.5" width="376" height="763"/>
+                                        <rect key="frame" x="0.0" y="66.5" width="376" height="763"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="376" height="763"/>
@@ -195,6 +195,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="StN-34-BI4">
+                                <rect key="frame" x="0.0" y="85.5" width="414" height="725"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_home_page" translatesAutoresizingMaskIntoConstraints="NO" id="zBb-ZP-e1X">
                                 <rect key="frame" x="302" y="97" width="68" height="73.5"/>
                                 <constraints>
@@ -297,10 +301,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="HM6-d1-OfG" firstAttribute="leading" secondItem="Xhc-Ha-gni" secondAttribute="leading" id="0Re-p1-SQY"/>
+                            <constraint firstItem="StN-34-BI4" firstAttribute="centerY" secondItem="aT1-9Z-WB2" secondAttribute="centerY" id="2Mb-6q-k6s"/>
+                            <constraint firstItem="StN-34-BI4" firstAttribute="centerX" secondItem="wk3-A7-Pez" secondAttribute="centerX" id="51s-7C-YHx"/>
                             <constraint firstItem="wk3-A7-Pez" firstAttribute="trailing" secondItem="aT1-9Z-WB2" secondAttribute="trailingMargin" id="5os-Me-g2e"/>
                             <constraint firstItem="wk3-A7-Pez" firstAttribute="top" secondItem="zBb-ZP-e1X" secondAttribute="bottom" constant="15" id="DlM-dS-8eN"/>
+                            <constraint firstItem="StN-34-BI4" firstAttribute="width" secondItem="Xhc-Ha-gni" secondAttribute="width" id="PQR-TK-Nw4"/>
                             <constraint firstItem="zBb-ZP-e1X" firstAttribute="top" secondItem="Xhc-Ha-gni" secondAttribute="top" constant="9" id="TFy-i8-SRV"/>
                             <constraint firstItem="zBb-ZP-e1X" firstAttribute="leading" secondItem="1xN-0Z-k9J" secondAttribute="trailing" constant="191" id="UZr-2f-zno"/>
+                            <constraint firstItem="StN-34-BI4" firstAttribute="height" secondItem="Xhc-Ha-gni" secondAttribute="height" id="VeK-gM-YoF"/>
                             <constraint firstItem="1xN-0Z-k9J" firstAttribute="top" secondItem="Xhc-Ha-gni" secondAttribute="top" constant="8" id="Z3a-5w-MJl"/>
                             <constraint firstItem="1xN-0Z-k9J" firstAttribute="leading" secondItem="Xhc-Ha-gni" secondAttribute="leading" constant="30" id="bOA-Pw-kze"/>
                             <constraint firstItem="wk3-A7-Pez" firstAttribute="leading" secondItem="aT1-9Z-WB2" secondAttribute="leadingMargin" id="cV5-Mt-lbl"/>
