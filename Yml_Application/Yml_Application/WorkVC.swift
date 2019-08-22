@@ -22,6 +22,9 @@ class WorkVC: UIViewController{
         worksData = getData()
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.tableFooterView = UIView()
+        print(tableView.frame.height)
+        tableView.rowHeight = tableView.frame.height - 50
     }
     
     func getData() -> [Data]{
