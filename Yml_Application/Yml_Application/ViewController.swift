@@ -14,13 +14,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var getStartedButton: UIButton!
     @IBOutlet weak var ymlLogoImage: UIImageView!
     @IBOutlet weak var pageControl: UIPageControl!
-    let numberOfPages = 5
+    
+    var products: [OnboardScreenData] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
         setupGUI()
+        products = initValues()
     }
     
     func setupGUI(){
@@ -28,17 +30,36 @@ class ViewController: UIViewController {
         ymlLogoImage?.layer.cornerRadius = 9.0
         collectionView?.isPagingEnabled = true
         self.collectionView.frame = CGRect()
-        pageControl?.numberOfPages = self.numberOfPages
+        pageControl?.numberOfPages = self.products.count
         pageControl?.pageIndicatorTintColor = .black
         pageControl?.currentPageIndicatorTintColor = .white
+    }
+    
+    func initValues() -> [OnboardScreenData] {
+        return[OnboardScreenData(bgName: "", productLogo: "", productTitle: "Hello", productDesc: "We are a design and innovation agency, creating digital products and experiences that have a lasting impact."), OnboardScreenData(bgName: "mobile-70", productLogo: "state-farm-logo", productTitle: "State Farm", productDesc: "All things insurance, all things banking, all in one app."), OnboardScreenData(bgName: "home-depot-mobile", productLogo: "thd-logo", productTitle: "The Home Depot", productDesc: "The ultimate power tool: A best-in-class digital experience for The Home Depot."), OnboardScreenData(bgName: "home-mob", productLogo: "paypal-logo", productTitle: "PayPal", productDesc: "Payment giant goes mobile-by-design."), OnboardScreenData(bgName: "molekule-mobile2", productLogo: "molekule", productTitle: "Molekule", productDesc: "he world's first intelligent air purifier, & the app putting clean air in people's hands.")]
     }
 
 }
 
 extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate{
     
+    struct OnboardScreenData {
+        
+        let bgImageName: String
+        let productLogoName: String
+        let productTitleName: String
+        let productDescriptionName: String
+        
+        init(bgName: String, productLogo: String, productTitle: String, productDesc: String){
+            self.bgImageName = bgName
+            self.productLogoName = productLogo
+            self.productTitleName = productTitle
+            self.productDescriptionName = productDesc
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return numberOfPages
+        return products.count
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -51,13 +72,13 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate, 
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellToReuse", for: indexPath) as? CollectionViewCell
-        cell?.image.image = UIImage(named: cell?.imageNames[indexPath.row] ?? "nil")
-        cell?.productLogo.image = UIImage(named: cell?.productLogoArray[indexPath.row] ?? "nil")
+        cell?.image.image = UIImage(named: products[indexPath.row].bgImageName)
+        cell?.productLogo.image = UIImage(named: products[indexPath.row].productLogoName)
         cell?.productLogo.clipsToBounds = true
         cell?.productLogo.layer.cornerRadius = 9.0
-        cell?.productDescription.text = cell?.productDescriptionArray[indexPath.row]
+        cell?.productDescription.text = products[indexPath.row].productDescriptionName
         cell?.productDescription.adjustsFontSizeToFitWidth = true
-        cell?.productTitle.text = cell?.productTitleArray[indexPath.row]
+        cell?.productTitle.text = products[indexPath.row].productTitleName
         return cell ?? UICollectionViewCell()
     }
 }
