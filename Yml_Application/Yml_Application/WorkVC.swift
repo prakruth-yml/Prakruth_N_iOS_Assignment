@@ -7,12 +7,17 @@
 //
 
 import UIKit
+import WebKit
 
 class WorkVC: UIViewController{
     
     @IBOutlet weak var homePageImage: UIImageView!
     @IBOutlet weak var ymlLogoImage: UIImageView!
     @IBOutlet weak var tableView: UITableView!
+    
+    var workCell: WorkVCTableViewCell?
+    var url = ""
+//    @IBOutlet weak var workDescriptionLabel: UILabel!
     
     var worksData: [Data] = []
     
@@ -27,12 +32,23 @@ class WorkVC: UIViewController{
         tableView.rowHeight = tableView.frame.height - 50
     }
     
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        workCell = WorkVCTableViewCell()
+//        print(workCell?.workDescription.text)
+//
+//    }
+    
     func getData() -> [Data]{
-        return[Data(imageName: "tnf-hero", titleText: "THE NORTH FACE", desc: "How The North Face redefined loyalty to embrace the great outdoors."), Data(imageName: "clover_go_photo", titleText: "CLOVER", desc: "How Clover Go has become an open ecosystem for point-of-sale payments."), Data(imageName: "hero-still-featured", titleText: "C3.AI", desc: "How this new website helped C3.ai make enterprise AI simple.")]
+        return[Data(imageName: "tnf-hero", titleText: "THE NORTH FACE", desc: "How The North Face redefined loyalty to embrace the great outdoors.", webUrl: "https://ymedialabs.com/project/the-north-face"), Data(imageName: "clover_go_photo", titleText: "CLOVER", desc: "How Clover Go has become an open ecosystem for point-of-sale payments.", webUrl: "https://ymedialabs.com/project/clover"), Data(imageName: "hero-still-featured", titleText: "C3.AI", desc: "How this new website helped C3.ai make enterprise AI simple.", webUrl: "https://ymedialabs.com/project/c3")]
+    }
+    
+    @objc func didPressLabel(_ sender: UITapGestureRecognizer){
+        print(url)
     }
     
     func setupGUI(){
-
+        
     }
 
     /*
@@ -52,11 +68,13 @@ extension WorkVC{
         let imageName: String
         let titleText: String
         let description: String
+        let webUrl: String
         
-        init(imageName: String, titleText: String, desc: String){
+        init(imageName: String, titleText: String, desc: String, webUrl: String){
             self.imageName = imageName
             self.titleText = titleText
             self.description = desc
+            self.webUrl = webUrl
         }
     }
 }
@@ -73,4 +91,20 @@ extension WorkVC: UITableViewDelegate, UITableViewDataSource{
         cell?.workDescription.text = worksData[indexPath.row].description
         return cell ?? UITableViewCell()
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        let cell = tableView.cellForRow(at: indexPath) as? WorkVCTableViewCell
+        let cellTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.didPressLabel(_:)))
+        url = worksData[indexPath.row].webUrl
+        cell?.workDescription.addGestureRecognizer(cellTapGesture)
+    }
+    
+    //CLARIFY
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath){
+        print("dcabskdc")
+    }
+}
+
+extension WorkVC: WKUIDelegate{
+    
 }
