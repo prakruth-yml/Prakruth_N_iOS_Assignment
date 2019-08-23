@@ -546,6 +546,7 @@
                     </view>
                     <connections>
                         <outlet property="segmentControl" destination="QOx-mX-8AC" id="Tni-Ey-uFK"/>
+                        <outlet property="tableView" destination="BrK-ch-xr3" id="xBf-aK-Iw2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0gb-ah-aYL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -592,11 +593,18 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eUR-Q1-UNp">
+                                <rect key="frame" x="9" y="96" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="mXI-bR-LJY"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Carrer" image="icon_carrers" id="UXd-Zc-WgZ"/>
+                    <connections>
+                        <outlet property="imageView" destination="eUR-Q1-UNp" id="nqN-R7-I7Y"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yha-TU-sH0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

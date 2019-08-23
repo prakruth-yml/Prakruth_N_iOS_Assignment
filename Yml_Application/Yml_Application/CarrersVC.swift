@@ -10,9 +10,10 @@ import UIKit
 
 class CarrersVC: UIViewController {
 
+    @IBOutlet weak var imageView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        imageView.loadImageFromURL2(url: URL(string: "https://ymedialabs.com/wp-content/uploads/2019/07/mcdonalds-lead.jpeg")!)
         // Do any additional setup after loading the view.
     }
     
@@ -27,4 +28,15 @@ class CarrersVC: UIViewController {
     }
     */
 
+}
+
+extension UIImageView{
+    
+    func loadImageFromURL2(url: URL) {
+        if let imageData = try? Data(contentsOf: url){
+            if let image = UIImage(data: imageData){
+                self.image = image
+            }
+        }
+    }
 }

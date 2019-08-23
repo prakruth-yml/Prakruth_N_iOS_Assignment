@@ -28,7 +28,6 @@ class WorkVC: UIViewController{
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView()
-        print(tableView.frame.height)
         tableView.rowHeight = tableView.frame.height - 50
     }
     
