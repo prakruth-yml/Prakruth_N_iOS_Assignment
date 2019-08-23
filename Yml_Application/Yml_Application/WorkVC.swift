@@ -24,67 +24,25 @@ class WorkVC: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupGUI()
         worksData = getData()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView()
         print(tableView.frame.height)
         tableView.rowHeight = tableView.frame.height - 50
-        
-        
-//        var myNewView = UIView(frame: CGRect(x: 10, y: 100, width: 300, height: 200))
-//        myNewView.backgroundColor=UIColor.lightGray
-//
-//        // Add rounded corners to UIView
-//        myNewView.layer.cornerRadius=25
-//
-//        // Add border to UIView
-//        myNewView.layer.borderWidth=2
-//
-//        // Change UIView Border Color to Red
-//        myNewView.layer.borderColor = UIColor.red.cgColor
-        
-        
-//        let url = URL(string: "https://www.google.com")
-//                let myrequest = URLRequest(url: url!)
-//                webView.load(myrequest)
-//                var webViewView = UIView(frame: tableView.frame)
-//                webViewView.backgroundColor = .red
-////                webViewView.addSubview(<#T##view: UIView##UIView#>)
-////        view = webView
-//                self.tableView.addSubview(webViewView)
-        // Add UIView as a Subview
-//        self.view.addSubview(webViewView)
-        
     }
     
-    
-    
-    
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        workCell = WorkVCTableViewCell()
-//        print(workCell?.workDescription.text)
-//
-//    }
-    
+    //DataSource for Cell
     func getData() -> [Data]{
         return[Data(imageName: "tnf-hero", titleText: "THE NORTH FACE", desc: "How The North Face redefined loyalty to embrace the great outdoors.", webUrl: "https://ymedialabs.com/project/the-north-face"), Data(imageName: "clover_go_photo", titleText: "CLOVER", desc: "How Clover Go has become an open ecosystem for point-of-sale payments.", webUrl: "https://ymedialabs.com/project/clover"), Data(imageName: "hero-still-featured", titleText: "C3.AI", desc: "How this new website helped C3.ai make enterprise AI simple.", webUrl: "https://ymedialabs.com/project/c3")]
     }
     
     @objc func didPressLabel(_ sender: UITapGestureRecognizer){
-        
-//        let viewController: UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "WebViewVC4") as? WebViewVC4 ?? UIViewController()
-        let viewController = self.storyboard?.instantiateViewController(withIdentifier: "WebViewVC4") as? WebViewVC4
+ 
+        let viewController = self.storyboard?.instantiateViewController(withIdentifier: String(describing: WebViewVC4.self)) as? WebViewVC4
         viewController?.urlStr = url
         self.navigationController?.pushViewController(viewController!, animated: true)
     }
-    
-    func setupGUI(){
-        
-    }
-
     /*
     // MARK: - Navigation
 

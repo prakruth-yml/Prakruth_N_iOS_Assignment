@@ -22,6 +22,7 @@
 		ABB9438022FD480D00134826 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABB9437E22FD480D00134826 /* Main.storyboard */; };
 		ABB9438222FD480F00134826 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABB9438122FD480F00134826 /* Assets.xcassets */; };
 		ABB9438522FD480F00134826 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABB9438322FD480F00134826 /* LaunchScreen.storyboard */; };
+		ABDDD210230FDEF100FFB268 /* NewsDisplayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDDD20F230FDEF100FFB268 /* NewsDisplayVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		ABB9438122FD480F00134826 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ABB9438422FD480F00134826 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ABB9438622FD480F00134826 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ABDDD20F230FDEF100FFB268 /* NewsDisplayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDisplayVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 				ABB9437C22FD480D00134826 /* ViewController.swift */,
 				AB2569B6230BD5460034BCBF /* CollectionViewCell.swift */,
 				ABB9437E22FD480D00134826 /* Main.storyboard */,
+				ABDDD20F230FDEF100FFB268 /* NewsDisplayVC.swift */,
 				AB98024F230D556B006434CC /* AboutUsVC.swift */,
 				AB980251230D557B006434CC /* NewsVC.swift */,
 				AB980253230D5594006434CC /* CarrersVC.swift */,
@@ -185,6 +188,7 @@
 				AB2569B7230BD5460034BCBF /* CollectionViewCell.swift in Sources */,
 				AB980250230D556B006434CC /* AboutUsVC.swift in Sources */,
 				AB980252230D557B006434CC /* NewsVC.swift in Sources */,
+				ABDDD210230FDEF100FFB268 /* NewsDisplayVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
