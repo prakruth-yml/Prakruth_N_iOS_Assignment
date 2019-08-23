@@ -28,12 +28,12 @@ class NewsDisplayVC: UIViewController {
     
     //Design DataSource Function for cell
     func getDesignData() -> [DesignData]{
-        return [DesignData(imageName: "https://ymedialabs.com/wp-content/uploads/2019/07/mcdonalds-lead.jpeg", titleText: "Agency / Culture / Design / Leadership / Technology", descriptionTextL: "We Are People: What it Means to Have a People-First Approach"), DesignData(imageName: "https://ymedialabs.com/wp-content/uploads/2021/17/31_CpkmgfGBP59ieX6t6dT2wA.png", titleText: "Design / Technology", descriptionTextL: "Speaking the Same Language: How UX and Data Strategy Can Work Together to Design for Voice-Based AI"), DesignData(imageName: "https://ymedialabs.com/wp-content/uploads/2019/06/design-mocks.png", titleText: "Customer Experience / Design / Technology", descriptionTextL: "Don’t Overthink It: Design is a Tool For Making Businesses Better")]
+        return [DesignData(imageName: "https://ymedialabs.com/wp-content/uploads/2019/07/mcdonalds-lead.jpeg", titleText: "Agency / Culture / Design / Leadership / Technology", descriptionTextL: "We Are People: What it Means to Have a People-First Approach"), DesignData(imageName: "https://ymedialabs.com/wp-content/uploads/2019/05/earnin-rect.png", titleText: "Design / Technology", descriptionTextL: "Speaking the Same Language: How UX and Data Strategy Can Work Together to Design for Voice-Based AI"), DesignData(imageName: "https://ymedialabs.com/wp-content/uploads/2019/06/design-mocks.png", titleText: "Customer Experience / Design / Technology", descriptionTextL: "Don’t Overthink It: Design is a Tool For Making Businesses Better")]
     }
     
     //FinTech DataSource Function for cell
     func getFinTechData() -> [DesignData]{
-        return [DesignData(imageName: "https://ymedialabs.com/wp-content/uploads/2019/05/earnin-rect.png", titleText: "Customer Experience / Fintech / Technology / Trending", descriptionTextL: "YML Partners With FinTech App, Earnin, on Customer Experience Development Work"), DesignData(imageName: "https://ymedialabs.com/wp-content/uploads/2018/05/pexels-photo-905869.jpeg", titleText: "FinTech", descriptionTextL: "B2B and B2C Applications for IoT in Banking"), DesignData(imageName: "", titleText: "", descriptionTextL: "")]
+        return [DesignData(imageName: "https://ymedialabs.com/wp-content/uploads/2019/05/earnin-rect.png", titleText: "Customer Experience / Fintech / Technology / Trending", descriptionTextL: "YML Partners With FinTech App, Earnin, on Customer Experience Development Work"), DesignData(imageName: "https://ymedialabs.com/wp-content/uploads/2018/05/pexels-photo-905869.jpeg", titleText: "FinTech", descriptionTextL: "B2B and B2C Applications for IoT in Banking")]
     }
     
     //Action function to capture segment change
@@ -49,6 +49,8 @@ class NewsDisplayVC: UIViewController {
             case 1:
                 data = getFinTechData()
             tableView.reloadData()
+//                sleep()
+            print(data.count)
             default:
                 print(3)
         }
