@@ -38,9 +38,9 @@ class WorkVC: UIViewController{
     
     @objc func didPressLabel(_ sender: UITapGestureRecognizer){
  
-        let viewController = self.storyboard?.instantiateViewController(withIdentifier: String(describing: WebViewVC4.self)) as? WebViewVC4
-        viewController?.urlStr = url
-        self.navigationController?.pushViewController(viewController!, animated: true)
+        guard let viewController = self.storyboard?.instantiateViewController(withIdentifier: String(describing: WebViewVC4.self)) as? WebViewVC4 else{fatalError()}
+        viewController.urlStr = url
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
     /*
     // MARK: - Navigation
@@ -88,8 +88,7 @@ extension WorkVC: UITableViewDelegate, UITableViewDataSource{
         let cellTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.didPressLabel(_:)))
         url = worksData[indexPath.row].webUrl
         cell?.workDescription.addGestureRecognizer(cellTapGesture)
-    }
-    
+    }    
     //CLARIFY
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath){
         print("dcabskdc")

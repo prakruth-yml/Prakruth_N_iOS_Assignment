@@ -21,8 +21,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
-        setupGUI()
         products = initValues()
+        setupGUI()
     }
     
     //Function to add GUI Initializations
