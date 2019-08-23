@@ -31,9 +31,7 @@ class WorkVC: UIViewController{
         tableView.tableFooterView = UIView()
         print(tableView.frame.height)
         tableView.rowHeight = tableView.frame.height - 50
-        let webConfigs = WKWebViewConfiguration()
-        webView = WKWebView(frame: .zero, configuration: webConfigs)
-        webView.uiDelegate = self
+        
         
 //        var myNewView = UIView(frame: CGRect(x: 10, y: 100, width: 300, height: 200))
 //        myNewView.backgroundColor=UIColor.lightGray
@@ -77,18 +75,10 @@ class WorkVC: UIViewController{
     
     @objc func didPressLabel(_ sender: UITapGestureRecognizer){
         
-//        let url = URL(string: self.url)
-//        let myrequest = URLRequest(url: url!)
-//        webView.load(myrequest)
-//        var webViewView = UIView(frame: tableView.frame)
-//        webViewView.backgroundColor = .red
-//        webViewView = webView
-//        self.tableView.addSubview(webViewView)
-//        view = webView
-        
-        
-        let viewController: UINavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewVC2") as! UINavigationController
-        self.present(viewController, animated: false, completion: nil)
+//        let viewController: UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "WebViewVC4") as? WebViewVC4 ?? UIViewController()
+        let viewController = self.storyboard?.instantiateViewController(withIdentifier: "WebViewVC4") as? WebViewVC4
+        viewController?.urlStr = url
+        self.navigationController?.pushViewController(viewController!, animated: true)
     }
     
     func setupGUI(){
