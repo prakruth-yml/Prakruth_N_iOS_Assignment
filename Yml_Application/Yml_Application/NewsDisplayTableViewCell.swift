@@ -10,10 +10,10 @@ import UIKit
 
 class NewsDisplayTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var newImageView: UIImageView!
     @IBOutlet weak var titleText: UILabel!
     @IBOutlet weak var descriptionText: UILabel!
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -26,3 +26,27 @@ class NewsDisplayTableViewCell: UITableViewCell {
     }
 
 }
+
+extension UIImageView {
+    func loadImageFromURL(url: URL) {
+        DispatchQueue.global().async { [weak self] in
+            if let data = try? Data(contentsOf: url) {
+                if let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        self?.image = image
+                    }
+                }
+            }
+        }
+    }
+}
+
+//extension UIImageView{
+//    func loadImageFromURL(url: URL){
+//        if let imageData = try? Data(contentsOf: url){
+//            if let image = UIImage(data: imageData){
+//                self.image = image
+//            }
+//        }
+//    }
+//}

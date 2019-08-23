@@ -21,6 +21,8 @@ class NewsDisplayVC: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView()
+        tableView.rowHeight = tableView.frame.height - 50
+        data = getDesignData()
     }
     
     
@@ -41,9 +43,12 @@ class NewsDisplayVC: UIViewController {
         switch sender.selectedSegmentIndex{
             case 0:
                 data = getDesignData()
+                tableView.reloadData()
+                print(data.count)
             
             case 1:
                 data = getFinTechData()
+            tableView.reloadData()
             default:
                 print(3)
         }
@@ -52,11 +57,25 @@ class NewsDisplayVC: UIViewController {
 
 extension NewsDisplayVC: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(data.count)
         return data.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        
+//        let cell = UITableViewCell(frame: tableView.frame)
+//        tableView.backgroundColor = .green
+//        return cell
+////
+        tableView.backgroundColor = .green
+        print(data[indexPath.row].titleText)
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "NewsDisplayTableViewCell", for: <#T##IndexPath#>)
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NewsDisplayTableViewCell.self), for: indexPath) as? NewsDisplayTableViewCell
+        let urlTemp = URL(string: data[indexPath.row].imageName)
+        cell?.newImageView.loadImageFromURL(url: urlTemp!)
+        cell?.titleText.text = data[indexPath.row].titleText
+        cell?.descriptionText.text = data[indexPath.row].descriptionTextL
+        return cell ?? UITableViewCell()
     }
 
 
@@ -69,18 +88,14 @@ extension NewsDisplayVC{
         let titleText: String
         let descriptionTextL: String
     }
-    
-    struct FinTechData {
-        
-    }
 }
 
-extension UIImageView{
-    func loadImageFromURL(url: URL){
-        if let imageData = try? Data(contentsOf: url){
-            if let image = UIImage(data: imageData){
-                self.image = image
-            }
-        }
-    }
-}
+//extension UIImageView{
+//    func loadImageFromURL(url: URL){
+//        if let imageData = try? Data(contentsOf: url){
+//            if let image = UIImage(data: imageData){
+//                self.image = image
+//            }
+//        }
+//    }
+//}
