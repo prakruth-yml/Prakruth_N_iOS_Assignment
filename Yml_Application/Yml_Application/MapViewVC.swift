@@ -1,19 +1,32 @@
 //
-//  CarrersVC.swift
+//  MapViewVC.swift
 //  Yml_Application
 //
-//  Created by Prakruth Nagaraj on 21/08/19.
+//  Created by Prakruth Nagaraj on 24/08/19.
 //  Copyright © 2019 Prakruth Nagaraj. All rights reserved.
 //
 
 import UIKit
 import GoogleMaps
 
-class CarrersVC: UIViewController {
+class MapViewVC: UIViewController {
+    
+    var latitute: Double = 0.0
+    var longitude: Double = 0.0
+    var name = ""
 
-    @IBOutlet weak var imageView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        let camera = GMSCameraPosition.camera(withLatitude: latitute, longitude: longitude, zoom: 8.0)
+        let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+        view = mapView
+        
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: latitute, longitude: longitude)
+        marker.title = name
+//        marker.snippet = "Aus"
+        marker.map = mapView
+
         // Do any additional setup after loading the view.
     }
     
@@ -29,14 +42,3 @@ class CarrersVC: UIViewController {
     */
 
 }
-
-//extension UIImageView{
-//    
-//    func loadImageFromURL2(url: URL) {
-//        if let imageData = try? Data(contentsOf: url){
-//            if let image = UIImage(data: imageData){
-//                self.image = image
-//            }
-//        }
-//    }
-//}
