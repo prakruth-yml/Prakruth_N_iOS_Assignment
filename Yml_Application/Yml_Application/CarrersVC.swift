@@ -7,13 +7,22 @@
 //
 
 import UIKit
+import GoogleMaps
 
 class CarrersVC: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
-//        imageView.loadImageFromURL2(url: URL(string: "https://ymedialabs.com/wp-content/uploads/2019/07/mcdonalds-lead.jpeg")!)
+        let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
+        let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+        view = mapView
+        
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
+        marker.title = "Sydney"
+        marker.snippet = "Aus"
+        marker.map = mapView
         // Do any additional setup after loading the view.
     }
     
