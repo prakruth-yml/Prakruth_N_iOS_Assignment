@@ -17,6 +17,7 @@ class CarrersVC: UIViewController {
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     var avPlayerView: AVPlayer = AVPlayer()
+    var jsonReturnData: [Data] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +68,7 @@ extension AVPlayer {
 
 extension CarrersVC: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return jsonReturnData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -76,6 +77,10 @@ extension CarrersVC: UITableViewDelegate, UITableViewDataSource{
             cell.role.text = "ascawc"
             cell.location.text = "vasvasfbva"
             print(cell.domain.text)
+            
+            cell.domain.text = jsonReturnData[indexPath.row].domain
+            cell.role.text = jsonReturnData[indexPath.row].role
+            cell.location.text = jsonReturnData[indexPath.row].location
             return cell
         }
         return UITableViewCell()
@@ -86,7 +91,43 @@ extension CarrersVC: UITableViewDelegate, UITableViewDataSource{
     }
 }
 
-
+extension CarrersVC{
+    struct Root: Decodable{
+        let data: [Data]
+    }
+    
+    struct Data: Decodable{
+        let domain: String
+        let role: String
+        let location: String
+    }
+    
+    func getData() {
+        let urlStr = "http://jsonstub.com/positions"
+        guard let url = URL(string: urlStr) else { fatalError() }
+        var request = URLRequest(url: url)
+        let userKey = "5b87065d-b207-44fc-aa26-b9e1253720d6"
+        let projectKey = "9a5070e8-cd53-46d4-ae0a-c25f3458c81c"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue(userKey, forHTTPHeaderField: "JsonStub-User-Key")
+        request.addValue(projectKey, forHTTPHeaderField: "JsonStub-Project-Key")
+        
+        let session = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
+            if let error = error{
+                print("Errors")
+            }
+            if let response = response, let data = data{
+                let mainData = try? JSONDecoder().decode(Root.self, from: data)
+                let data = mainData?.data
+                self.jsonReturnData = data!
+                DispatchQueue.main.sync {
+                    self.tableView.reloadData()
+                }
+            }
+            })
+        session.resume()
+    }
+}
 
 //extension UIImageView{
 //    
