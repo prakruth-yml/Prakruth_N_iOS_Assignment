@@ -7,27 +7,55 @@
 //
 
 import UIKit
-import GoogleMaps
+import AVFoundation
+import AVKit
+
 
 class CarrersVC: UIViewController {
 
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var videoPlayerView: UIView!
+    @IBOutlet weak var playPauseButton: UIButton!
+    var avPlayerView: AVPlayer = AVPlayer()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        guard let ymlVideoURL = URL(string: "https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4") else { fatalError("No Video") }
+        avPlayerView = AVPlayer(url: ymlVideoURL)
+        let avPlayerLayer = AVPlayerLayer(player: avPlayerView)
+        avPlayerLayer.frame = videoPlayerView.bounds
+        videoPlayerView.layer.addSublayer(avPlayerLayer)
+        let viewTapGesture = UILongPressGestureRecognizer(target: self, action: #selector(mouseDidMoveOverView(_:)))
+        viewTapGesture.minimumPressDuration = 1.0
+        videoPlayerView.addGestureRecognizer(viewTapGesture)
     }
-    */
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        avPlayerView.pause()
+    }
+    
+    @objc func mouseDidMoveOverView(_ sender: UILongPressGestureRecognizer){
 
+        if avPlayerView.isPlaying{
+            avPlayerView.pause()
+        }
+        else{
+            avPlayerView.play()
+        }
+    }
+}
+
+extension AVPlayer {
+    var isPlaying: Bool {
+        if rate != 0{
+            return true
+        }
+        return false
+    }
 }
 
 //extension UIImageView{
