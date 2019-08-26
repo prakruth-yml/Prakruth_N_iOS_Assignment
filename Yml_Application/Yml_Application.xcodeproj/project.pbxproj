@@ -18,6 +18,7 @@
 		AB27D35023116E0F0005C1BE /* MapsResponse in Resources */ = {isa = PBXBuildFile; fileRef = AB27D34F23116E0F0005C1BE /* MapsResponse */; };
 		AB27D35223116EB20005C1BE /* GeoMapsResponse in Resources */ = {isa = PBXBuildFile; fileRef = AB27D35123116EB20005C1BE /* GeoMapsResponse */; };
 		AB27D354231172ED0005C1BE /* Temp2.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB27D353231172ED0005C1BE /* Temp2.swift */; };
+		AB29A0FA2313D1F90095CB2E /* CarrersTableVIewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB29A0F92313D1F90095CB2E /* CarrersTableVIewCell.swift */; };
 		AB89330923102262007A054C /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB89330823102262007A054C /* Models.swift */; };
 		AB98024E230D4DC3006434CC /* WorkVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB98024D230D4DC3006434CC /* WorkVC.swift */; };
 		AB980250230D556B006434CC /* AboutUsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB98024F230D556B006434CC /* AboutUsVC.swift */; };
@@ -47,6 +48,7 @@
 		AB27D34F23116E0F0005C1BE /* MapsResponse */ = {isa = PBXFileReference; lastKnownFileType = text; path = MapsResponse; sourceTree = "<group>"; };
 		AB27D35123116EB20005C1BE /* GeoMapsResponse */ = {isa = PBXFileReference; lastKnownFileType = text; path = GeoMapsResponse; sourceTree = "<group>"; };
 		AB27D353231172ED0005C1BE /* Temp2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Temp2.swift; sourceTree = "<group>"; };
+		AB29A0F92313D1F90095CB2E /* CarrersTableVIewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrersTableVIewCell.swift; sourceTree = "<group>"; };
 		AB89330823102262007A054C /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		AB98024D230D4DC3006434CC /* WorkVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkVC.swift; sourceTree = "<group>"; };
 		AB98024F230D556B006434CC /* AboutUsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsVC.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				AB27D34D23115DA90005C1BE /* MapViewVC.swift */,
 				AB27D35123116EB20005C1BE /* GeoMapsResponse */,
 				AB27D353231172ED0005C1BE /* Temp2.swift */,
+				AB29A0F92313D1F90095CB2E /* CarrersTableVIewCell.swift */,
 			);
 			path = Yml_Application;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 				ABDDD212230FF8C100FFB268 /* NewsDisplayTableViewCell.swift in Sources */,
 				AB980256230D55A2006434CC /* ContactUsVC.swift in Sources */,
 				ABB9437D22FD480D00134826 /* ViewController.swift in Sources */,
+				AB29A0FA2313D1F90095CB2E /* CarrersTableVIewCell.swift in Sources */,
 				ABB9437B22FD480D00134826 /* AppDelegate.swift in Sources */,
 				AB98024E230D4DC3006434CC /* WorkVC.swift in Sources */,
 				AB2656D3230FA3320027944E /* WebViewVC4.swift in Sources */,
