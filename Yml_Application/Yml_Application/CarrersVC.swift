@@ -24,6 +24,7 @@ class CarrersVC: UIViewController {
         tableView?.delegate = self
         tableView?.dataSource = self
         tableView.tableFooterView = UIView()
+        getData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -114,7 +115,7 @@ extension CarrersVC{
         
         let session = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
             if let error = error{
-                print("Errors")
+                print(error)
             }
             if let response = response, let data = data{
                 let mainData = try? JSONDecoder().decode(Root.self, from: data)

@@ -22,7 +22,8 @@ class NewsDisplayVC: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView()
-        tableView.rowHeight = tableView.frame.height - 50
+        tableView.separatorColor = .gray
+        tableView.separatorStyle = UITableViewCell.SeparatorStyle.singleLine
         data = getDesignData()
     }
     
