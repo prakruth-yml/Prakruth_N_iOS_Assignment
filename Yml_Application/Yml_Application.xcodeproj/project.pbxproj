@@ -44,6 +44,12 @@
 		ABF487B423150BAF005701C8 /* NewsVC-Extension+PickerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF487B323150BAF005701C8 /* NewsVC-Extension+PickerViewDelegate.swift */; };
 		ABF487B623150DBA005701C8 /* NewsDisplayVC-Extension+TableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF487B523150DBA005701C8 /* NewsDisplayVC-Extension+TableViewDelegate.swift */; };
 		ABF487B823150DD0005701C8 /* NewsDisplayVC-Extension+TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF487B723150DD0005701C8 /* NewsDisplayVC-Extension+TableViewDataSource.swift */; };
+		ABF487BB231510C4005701C8 /* CarrersDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF487BA231510C4005701C8 /* CarrersDataModel.swift */; };
+		ABF487BD231510D3005701C8 /* CarrersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF487BC231510D3005701C8 /* CarrersViewModel.swift */; };
+		ABF487BF23151191005701C8 /* CarrersVC-Extension+TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF487BE23151191005701C8 /* CarrersVC-Extension+TableViewDataSource.swift */; };
+		ABF487C12315119D005701C8 /* CarrersVC-Extension+TableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF487C02315119D005701C8 /* CarrersVC-Extension+TableViewDelegate.swift */; };
+		ABF487C3231511FF005701C8 /* AvPlayer-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF487C2231511FF005701C8 /* AvPlayer-Extension.swift */; };
+		ABF487C5231512C8005701C8 /* CarrersVC-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF487C4231512C8005701C8 /* CarrersVC-Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +94,12 @@
 		ABF487B323150BAF005701C8 /* NewsVC-Extension+PickerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewsVC-Extension+PickerViewDelegate.swift"; sourceTree = "<group>"; };
 		ABF487B523150DBA005701C8 /* NewsDisplayVC-Extension+TableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewsDisplayVC-Extension+TableViewDelegate.swift"; sourceTree = "<group>"; };
 		ABF487B723150DD0005701C8 /* NewsDisplayVC-Extension+TableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewsDisplayVC-Extension+TableViewDataSource.swift"; sourceTree = "<group>"; };
+		ABF487BA231510C4005701C8 /* CarrersDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrersDataModel.swift; sourceTree = "<group>"; };
+		ABF487BC231510D3005701C8 /* CarrersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrersViewModel.swift; sourceTree = "<group>"; };
+		ABF487BE23151191005701C8 /* CarrersVC-Extension+TableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CarrersVC-Extension+TableViewDataSource.swift"; sourceTree = "<group>"; };
+		ABF487C02315119D005701C8 /* CarrersVC-Extension+TableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CarrersVC-Extension+TableViewDelegate.swift"; sourceTree = "<group>"; };
+		ABF487C2231511FF005701C8 /* AvPlayer-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AvPlayer-Extension.swift"; sourceTree = "<group>"; };
+		ABF487C4231512C8005701C8 /* CarrersVC-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CarrersVC-Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +130,7 @@
 				AB29A1022314E8E10095CB2E /* WorkModel.swift */,
 				AB29A100231434B30095CB2E /* AboutUsModel.swift */,
 				AB84FE2B2315081F001908EB /* NewsDataModel.swift */,
+				ABF487BA231510C4005701C8 /* CarrersDataModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -136,6 +149,7 @@
 				AB29A10B2314FB2B0095CB2E /* WorkVC-Extension+TableViewDelegate.swift */,
 				AB24C158230EA6A700713E32 /* WorkVCTableViewCell.swift */,
 				ABF487B023150B30005701C8 /* News Tab */,
+				ABF487B923151097005701C8 /* Carrers */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -146,6 +160,7 @@
 				AB84FE252315028E001908EB /* OnBoardScreenViewModel.swift */,
 				AB29A1072314F9260095CB2E /* WorkViewModel.swift */,
 				AB84FE2D2315082C001908EB /* NewsViewModel.swift */,
+				ABF487BC231510D3005701C8 /* CarrersViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -183,9 +198,8 @@
 			isa = PBXGroup;
 			children = (
 				ABB9437A22FD480D00134826 /* AppDelegate.swift */,
+				ABF487C2231511FF005701C8 /* AvPlayer-Extension.swift */,
 				ABDDD211230FF8C100FFB268 /* NewsDisplayTableViewCell.swift */,
-				AB98024F230D556B006434CC /* AboutUsVC.swift */,
-				AB980253230D5594006434CC /* CarrersVC.swift */,
 				AB980255230D55A2006434CC /* ContactUsVC.swift */,
 				AB27D34F23116E0F0005C1BE /* MapsResponse */,
 				ABB9438122FD480F00134826 /* Assets.xcassets */,
@@ -196,6 +210,7 @@
 				AB27D35123116EB20005C1BE /* GeoMapsResponse */,
 				AB27D353231172ED0005C1BE /* Temp2.swift */,
 				AB29A0F92313D1F90095CB2E /* CarrersTableVIewCell.swift */,
+				AB98024F230D556B006434CC /* AboutUsVC.swift */,
 			);
 			path = Yml_Application;
 			sourceTree = "<group>";
@@ -211,6 +226,17 @@
 				ABF487B723150DD0005701C8 /* NewsDisplayVC-Extension+TableViewDataSource.swift */,
 			);
 			path = "News Tab";
+			sourceTree = "<group>";
+		};
+		ABF487B923151097005701C8 /* Carrers */ = {
+			isa = PBXGroup;
+			children = (
+				AB980253230D5594006434CC /* CarrersVC.swift */,
+				ABF487C4231512C8005701C8 /* CarrersVC-Extension.swift */,
+				ABF487BE23151191005701C8 /* CarrersVC-Extension+TableViewDataSource.swift */,
+				ABF487C02315119D005701C8 /* CarrersVC-Extension+TableViewDelegate.swift */,
+			);
+			path = Carrers;
 			sourceTree = "<group>";
 		};
 		B7C90E31C08655CE5550D253 /* Frameworks */ = {
@@ -340,9 +366,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB980254230D5594006434CC /* CarrersVC.swift in Sources */,
+				ABF487BB231510C4005701C8 /* CarrersDataModel.swift in Sources */,
 				ABDDD212230FF8C100FFB268 /* NewsDisplayTableViewCell.swift in Sources */,
 				AB29A101231434B30095CB2E /* AboutUsModel.swift in Sources */,
 				ABF487B423150BAF005701C8 /* NewsVC-Extension+PickerViewDelegate.swift in Sources */,
+				ABF487C5231512C8005701C8 /* CarrersVC-Extension.swift in Sources */,
 				AB980256230D55A2006434CC /* ContactUsVC.swift in Sources */,
 				ABB9437D22FD480D00134826 /* ViewController.swift in Sources */,
 				AB29A0FA2313D1F90095CB2E /* CarrersTableVIewCell.swift in Sources */,
@@ -350,9 +378,11 @@
 				AB98024E230D4DC3006434CC /* WorkVC.swift in Sources */,
 				AB84FE262315028E001908EB /* OnBoardScreenViewModel.swift in Sources */,
 				ABF487B223150B5F005701C8 /* NewsVC-Extension+PickerViewDataSource.swift in Sources */,
+				ABF487C12315119D005701C8 /* CarrersVC-Extension+TableViewDelegate.swift in Sources */,
 				AB29A10A2314FA570095CB2E /* WorkVC-Extension+TableViewDataSource.swift in Sources */,
 				AB84FE28231504A6001908EB /* OnBoardScreen-Extension+CollectionViewDelegate.swift in Sources */,
 				AB84FE2A231504E1001908EB /* OnBoardScreen-Extension+CollectionViewDataSource.swift in Sources */,
+				ABF487BD231510D3005701C8 /* CarrersViewModel.swift in Sources */,
 				AB2656D3230FA3320027944E /* WebViewVC4.swift in Sources */,
 				AB29A1082314F9260095CB2E /* WorkViewModel.swift in Sources */,
 				AB24C159230EA6A700713E32 /* WorkVCTableViewCell.swift in Sources */,
@@ -361,10 +391,12 @@
 				AB24C155230E9DEE00713E32 /* OnboardScreenData.swift in Sources */,
 				AB2569B7230BD5460034BCBF /* CollectionViewCell.swift in Sources */,
 				AB29A10C2314FB2B0095CB2E /* WorkVC-Extension+TableViewDelegate.swift in Sources */,
+				ABF487C3231511FF005701C8 /* AvPlayer-Extension.swift in Sources */,
 				AB27D34E23115DA90005C1BE /* MapViewVC.swift in Sources */,
 				AB84FE2C2315081F001908EB /* NewsDataModel.swift in Sources */,
 				AB980250230D556B006434CC /* AboutUsVC.swift in Sources */,
 				AB27D354231172ED0005C1BE /* Temp2.swift in Sources */,
+				ABF487BF23151191005701C8 /* CarrersVC-Extension+TableViewDataSource.swift in Sources */,
 				AB84FE2E2315082C001908EB /* NewsViewModel.swift in Sources */,
 				ABF487B823150DD0005701C8 /* NewsDisplayVC-Extension+TableViewDataSource.swift in Sources */,
 				AB980252230D557B006434CC /* NewsVC.swift in Sources */,
