@@ -11,25 +11,12 @@ import UIKit
 class NewsVC: UIViewController {
     
     @IBOutlet weak var pickerView: UIPickerView!
-    
-    let newsTypes = ["Select Option", "Design", "FinTech"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         pickerView?.delegate = self
         pickerView?.dataSource = self
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 }
 
 extension NewsVC: UIPickerViewDelegate, UIPickerViewDataSource{
@@ -38,7 +25,6 @@ extension NewsVC: UIPickerViewDelegate, UIPickerViewDataSource{
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        self.view.endEditing(true)
         return newsTypes[row]
     }
     
