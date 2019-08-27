@@ -1,11 +1,10 @@
 import Foundation
 
-struct ResponseFromJSON: Decodable{
-    let data: [CarrersData]
+struct Root: Decodable{
+    let data: [JSONData]
 }
-
-struct CarrersData: Decodable{
+struct JSONData: Decodable{
     let domain: String
-    let role: String
+    let position: String
     let location: String
 }

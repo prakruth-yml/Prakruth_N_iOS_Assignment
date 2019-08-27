@@ -15,6 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     static let googleMapsApiKey = "AIzaSyArwfy3UB_E4yrogRUN72Mf8iBamt3T98o"
+    static let jsonStubKey = "5b87065d-b207-44fc-aa26-b9e1253720d6"
+    static let jsonStubProjectKey = "9a5070e8-cd53-46d4-ae0a-c25f3458c81c"
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {

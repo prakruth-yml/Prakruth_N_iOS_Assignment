@@ -11,17 +11,18 @@ import WebKit
 
 class WebViewVC4: UIViewController, WKNavigationDelegate {
 
-    var webView: WKWebView!
+    var webView: WKWebView?
     var urlStr = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let webConfigs = WKWebViewConfiguration()
         webView = WKWebView(frame: .zero, configuration: webConfigs)
-        webView.uiDelegate = self as? WKUIDelegate        
+        webView?.uiDelegate = self as? WKUIDelegate
         let url = URL(string: self.urlStr)
         let myrequest = URLRequest(url: url!)
-        webView.load(myrequest)
+        webView?.load(myrequest)
+        view.addSubview(webView ?? WKWebView())
         view = webView
     }
 }
