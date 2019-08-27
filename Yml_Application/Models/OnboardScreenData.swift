@@ -1,4 +1,3 @@
-
 struct OnboardScreenData {
     
     let bgImageName: String

@@ -28,13 +28,21 @@ class CarrersViewModel{
             if let response = response, let data = data{
                 let mainData = try? JSONDecoder().decode(ResponseFromJSON.self, from: data)
                 print(mainData)
-//                let data = mainData?.data
-//                self.jsonReturnData = data!
-//                DispatchQueue.main.sync {
-//                    tableView.reloadData()
-//                }
+                //                let data = mainData?.data
+                //                self.jsonReturnData = data!
+                //                DispatchQueue.main.sync {
+                //                    tableView.reloadData()
+                //                }
             }
         })
         session.resume()
+    }
+}
+
+extension URLRequest {
+    func asyncDownload(completion: @escaping (_ data: Data?, _ response: URLResponse?, _ error: Error?) -> ()) {
+        URLSession.shared
+        .dataTask(with: self, completionHandler: completion)
+            .resume()
     }
 }

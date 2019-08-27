@@ -50,6 +50,9 @@
 		ABF487C12315119D005701C8 /* CarrersVC-Extension+TableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF487C02315119D005701C8 /* CarrersVC-Extension+TableViewDelegate.swift */; };
 		ABF487C3231511FF005701C8 /* AvPlayer-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF487C2231511FF005701C8 /* AvPlayer-Extension.swift */; };
 		ABF487C5231512C8005701C8 /* CarrersVC-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF487C4231512C8005701C8 /* CarrersVC-Extension.swift */; };
+		ABF487C7231524EA005701C8 /* ContactUsDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF487C6231524EA005701C8 /* ContactUsDataModel.swift */; };
+		ABF487C923152505005701C8 /* ContactUsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF487C823152505005701C8 /* ContactUsViewModel.swift */; };
+		ABF487CD23152662005701C8 /* ContactUs-Extension+MFMailComposerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF487CC23152662005701C8 /* ContactUs-Extension+MFMailComposerDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,7 +86,7 @@
 		AB980255230D55A2006434CC /* ContactUsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactUsVC.swift; sourceTree = "<group>"; };
 		ABB9437722FD480D00134826 /* Yml_Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yml_Application.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABB9437A22FD480D00134826 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		ABB9437C22FD480D00134826 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = ../Controller/ViewController.swift; sourceTree = "<group>"; };
+		ABB9437C22FD480D00134826 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		ABB9437F22FD480D00134826 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		ABB9438122FD480F00134826 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ABB9438422FD480F00134826 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -100,6 +103,9 @@
 		ABF487C02315119D005701C8 /* CarrersVC-Extension+TableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CarrersVC-Extension+TableViewDelegate.swift"; sourceTree = "<group>"; };
 		ABF487C2231511FF005701C8 /* AvPlayer-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AvPlayer-Extension.swift"; sourceTree = "<group>"; };
 		ABF487C4231512C8005701C8 /* CarrersVC-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CarrersVC-Extension.swift"; sourceTree = "<group>"; };
+		ABF487C6231524EA005701C8 /* ContactUsDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactUsDataModel.swift; sourceTree = "<group>"; };
+		ABF487C823152505005701C8 /* ContactUsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactUsViewModel.swift; sourceTree = "<group>"; };
+		ABF487CC23152662005701C8 /* ContactUs-Extension+MFMailComposerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContactUs-Extension+MFMailComposerDelegate.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +137,7 @@
 				AB29A100231434B30095CB2E /* AboutUsModel.swift */,
 				AB84FE2B2315081F001908EB /* NewsDataModel.swift */,
 				ABF487BA231510C4005701C8 /* CarrersDataModel.swift */,
+				ABF487C6231524EA005701C8 /* ContactUsDataModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -140,16 +147,13 @@
 			children = (
 				ABB9437E22FD480D00134826 /* Main.storyboard */,
 				ABB9438322FD480F00134826 /* LaunchScreen.storyboard */,
-				ABB9437C22FD480D00134826 /* ViewController.swift */,
-				AB84FE27231504A6001908EB /* OnBoardScreen-Extension+CollectionViewDelegate.swift */,
-				AB84FE29231504E1001908EB /* OnBoardScreen-Extension+CollectionViewDataSource.swift */,
-				AB2569B6230BD5460034BCBF /* CollectionViewCell.swift */,
-				AB98024D230D4DC3006434CC /* WorkVC.swift */,
-				AB29A1092314FA570095CB2E /* WorkVC-Extension+TableViewDataSource.swift */,
-				AB29A10B2314FB2B0095CB2E /* WorkVC-Extension+TableViewDelegate.swift */,
-				AB24C158230EA6A700713E32 /* WorkVCTableViewCell.swift */,
+				AB2656D2230FA3320027944E /* WebViewVC4.swift */,
+				ABF487D023152884005701C8 /* OnBoard Screen */,
+				ABF487CE2315286D005701C8 /* Work */,
+				ABF487CF23152879005701C8 /* About Us */,
 				ABF487B023150B30005701C8 /* News Tab */,
 				ABF487B923151097005701C8 /* Carrers */,
+				ABF487CB23152548005701C8 /* ContactUs */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -161,21 +165,14 @@
 				AB29A1072314F9260095CB2E /* WorkViewModel.swift */,
 				AB84FE2D2315082C001908EB /* NewsViewModel.swift */,
 				ABF487BC231510D3005701C8 /* CarrersViewModel.swift */,
+				ABF487C823152505005701C8 /* ContactUsViewModel.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		AB29A1062314F6C60095CB2E /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controller;
 			sourceTree = "<group>";
 		};
 		ABB9436E22FD480D00134826 = {
 			isa = PBXGroup;
 			children = (
-				AB29A1062314F6C60095CB2E /* Controller */,
 				AB24C153230E9D9600713E32 /* Models */,
 				AB29A0FD231424D70095CB2E /* View */,
 				AB29A0FF231424F60095CB2E /* ViewModel */,
@@ -199,18 +196,12 @@
 			children = (
 				ABB9437A22FD480D00134826 /* AppDelegate.swift */,
 				ABF487C2231511FF005701C8 /* AvPlayer-Extension.swift */,
-				ABDDD211230FF8C100FFB268 /* NewsDisplayTableViewCell.swift */,
-				AB980255230D55A2006434CC /* ContactUsVC.swift */,
 				AB27D34F23116E0F0005C1BE /* MapsResponse */,
 				ABB9438122FD480F00134826 /* Assets.xcassets */,
 				ABB9438622FD480F00134826 /* Info.plist */,
-				AB2656D2230FA3320027944E /* WebViewVC4.swift */,
 				AB27D34B231154F80005C1BE /* ApiKeys.rtf */,
-				AB27D34D23115DA90005C1BE /* MapViewVC.swift */,
 				AB27D35123116EB20005C1BE /* GeoMapsResponse */,
 				AB27D353231172ED0005C1BE /* Temp2.swift */,
-				AB29A0F92313D1F90095CB2E /* CarrersTableVIewCell.swift */,
-				AB98024F230D556B006434CC /* AboutUsVC.swift */,
 			);
 			path = Yml_Application;
 			sourceTree = "<group>";
@@ -224,6 +215,7 @@
 				ABDDD20F230FDEF100FFB268 /* NewsDisplayVC.swift */,
 				ABF487B523150DBA005701C8 /* NewsDisplayVC-Extension+TableViewDelegate.swift */,
 				ABF487B723150DD0005701C8 /* NewsDisplayVC-Extension+TableViewDataSource.swift */,
+				ABDDD211230FF8C100FFB268 /* NewsDisplayTableViewCell.swift */,
 			);
 			path = "News Tab";
 			sourceTree = "<group>";
@@ -235,8 +227,49 @@
 				ABF487C4231512C8005701C8 /* CarrersVC-Extension.swift */,
 				ABF487BE23151191005701C8 /* CarrersVC-Extension+TableViewDataSource.swift */,
 				ABF487C02315119D005701C8 /* CarrersVC-Extension+TableViewDelegate.swift */,
+				AB29A0F92313D1F90095CB2E /* CarrersTableVIewCell.swift */,
 			);
 			path = Carrers;
+			sourceTree = "<group>";
+		};
+		ABF487CB23152548005701C8 /* ContactUs */ = {
+			isa = PBXGroup;
+			children = (
+				AB980255230D55A2006434CC /* ContactUsVC.swift */,
+				ABF487CC23152662005701C8 /* ContactUs-Extension+MFMailComposerDelegate.swift */,
+				AB27D34D23115DA90005C1BE /* MapViewVC.swift */,
+			);
+			path = ContactUs;
+			sourceTree = "<group>";
+		};
+		ABF487CE2315286D005701C8 /* Work */ = {
+			isa = PBXGroup;
+			children = (
+				AB98024D230D4DC3006434CC /* WorkVC.swift */,
+				AB29A1092314FA570095CB2E /* WorkVC-Extension+TableViewDataSource.swift */,
+				AB29A10B2314FB2B0095CB2E /* WorkVC-Extension+TableViewDelegate.swift */,
+				AB24C158230EA6A700713E32 /* WorkVCTableViewCell.swift */,
+			);
+			path = Work;
+			sourceTree = "<group>";
+		};
+		ABF487CF23152879005701C8 /* About Us */ = {
+			isa = PBXGroup;
+			children = (
+				AB98024F230D556B006434CC /* AboutUsVC.swift */,
+			);
+			path = "About Us";
+			sourceTree = "<group>";
+		};
+		ABF487D023152884005701C8 /* OnBoard Screen */ = {
+			isa = PBXGroup;
+			children = (
+				ABB9437C22FD480D00134826 /* ViewController.swift */,
+				AB84FE27231504A6001908EB /* OnBoardScreen-Extension+CollectionViewDelegate.swift */,
+				AB84FE29231504E1001908EB /* OnBoardScreen-Extension+CollectionViewDataSource.swift */,
+				AB2569B6230BD5460034BCBF /* CollectionViewCell.swift */,
+			);
+			path = "OnBoard Screen";
 			sourceTree = "<group>";
 		};
 		B7C90E31C08655CE5550D253 /* Frameworks */ = {
@@ -385,8 +418,10 @@
 				ABF487BD231510D3005701C8 /* CarrersViewModel.swift in Sources */,
 				AB2656D3230FA3320027944E /* WebViewVC4.swift in Sources */,
 				AB29A1082314F9260095CB2E /* WorkViewModel.swift in Sources */,
+				ABF487CD23152662005701C8 /* ContactUs-Extension+MFMailComposerDelegate.swift in Sources */,
 				AB24C159230EA6A700713E32 /* WorkVCTableViewCell.swift in Sources */,
 				ABF487B623150DBA005701C8 /* NewsDisplayVC-Extension+TableViewDelegate.swift in Sources */,
+				ABF487C7231524EA005701C8 /* ContactUsDataModel.swift in Sources */,
 				AB29A1032314E8E10095CB2E /* WorkModel.swift in Sources */,
 				AB24C155230E9DEE00713E32 /* OnboardScreenData.swift in Sources */,
 				AB2569B7230BD5460034BCBF /* CollectionViewCell.swift in Sources */,
@@ -399,6 +434,7 @@
 				ABF487BF23151191005701C8 /* CarrersVC-Extension+TableViewDataSource.swift in Sources */,
 				AB84FE2E2315082C001908EB /* NewsViewModel.swift in Sources */,
 				ABF487B823150DD0005701C8 /* NewsDisplayVC-Extension+TableViewDataSource.swift in Sources */,
+				ABF487C923152505005701C8 /* ContactUsViewModel.swift in Sources */,
 				AB980252230D557B006434CC /* NewsVC.swift in Sources */,
 				ABDDD210230FDEF100FFB268 /* NewsDisplayVC.swift in Sources */,
 			);
