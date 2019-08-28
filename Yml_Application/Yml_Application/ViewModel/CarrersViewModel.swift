@@ -22,7 +22,7 @@ class CarrersViewModel{
         let httpHeaders = ["Content-Type":"application/json", "JsonStub-User-Key": userKey, "JsonStub-Project-Key": projectKey]
         let urlInits = URLInitializations(url: urlTemp, httpMethod: HTTPMethod.get, httpHeaders: httpHeaders, httpTask: HTTPTask.requestWithHeaders(header: httpHeaders))
         
-        MakeRequest.performRequest(urlBase: urlInits) { (data) in
+        MakeRequest.shared.performRequest(urlBase: urlInits) { (data) in
             let jsonResponse = try? JSONDecoder().decode(Root.self, from: data)
             guard let jsonResponseDict = jsonResponse else { fatalError() }
             self.jsonItems = jsonResponseDict.data

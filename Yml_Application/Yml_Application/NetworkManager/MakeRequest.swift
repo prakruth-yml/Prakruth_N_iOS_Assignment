@@ -26,9 +26,12 @@ enum HTTPTask{
 
 class MakeRequest: MakeBaseRequest {
   
-    private var task: URLSessionTask?
+    static let shared = MakeRequest()
     
-    static func performRequest(urlBase: URLInitializations, completion: @escaping (Data) -> Void) {
+    private init(){
+    }
+    
+    func performRequest(urlBase: URLInitializations, completion: @escaping (Data) -> Void) {
         
         var request = URLRequest(url: urlBase.baseURL)
         request.httpMethod = urlBase.httpMethod.rawValue
@@ -52,7 +55,8 @@ class MakeRequest: MakeBaseRequest {
         session.resume()
     }
     
-    static func addHeaders(request: inout URLRequest, httpHeader: HTTPHeader){
+    
+    func addHeaders(request: inout URLRequest, httpHeader: HTTPHeader){
         for (key, value) in httpHeader{
             request.addValue(value, forHTTPHeaderField: key)
             print("\(key) \(value)")

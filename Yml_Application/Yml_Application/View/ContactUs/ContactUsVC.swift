@@ -60,11 +60,9 @@ class ContactUsVC: BaseVC {
     
     @objc func didPressLocations(_ sender: UITapGestureRecognizer){
         let actionArray = [UIAlertAction(title: "Google Maps", style: .default, handler:{ (alert: UIAlertAction?) -> Void in
-            print("IN GMAS")
             let temp = self.viewModel.getBangalore()
             self.openApplicationWithURL(urlStr: "comgooglemaps://center=\(temp.latitude),\(temp.longitude)&zoom=14")
         }), UIAlertAction(title: "Apple Maps", style: .default, handler: { (alert: UIAlertAction?) -> Void in
-            print("IN APM")
             let temp = self.viewModel.getBangalore()
             self.openApplicationWithURL(urlStr: "http://maps.apple.com/maps?daddr=\(temp.latitude),\(temp.longitude)")
         })]
@@ -76,7 +74,6 @@ class ContactUsVC: BaseVC {
             let temp = self.viewModel.getLa()
             self.openApplicationWithURL(urlStr: "comgooglemaps://center=\(temp.latitude),\(temp.longitude)&zoom=14")
         }), UIAlertAction(title: "Apple Maps", style: .default, handler: { (alert: UIAlertAction?) -> Void in
-            print("IN APM")
             let temp = self.viewModel.getLa()
             self.openApplicationWithURL(urlStr: "http://maps.apple.com/maps?daddr=\(temp.latitude),\(temp.longitude)")
         })]

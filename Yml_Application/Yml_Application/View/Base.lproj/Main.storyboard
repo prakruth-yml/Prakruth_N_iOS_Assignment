@@ -211,27 +211,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="logo-jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="1xN-0Z-k9J">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo-jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="1xN-0Z-k9J">
                                 <rect key="frame" x="20" y="53" width="68" height="73"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="9"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="icon_home_page" translatesAutoresizingMaskIntoConstraints="NO" id="zBb-ZP-e1X">
-                                <rect key="frame" x="326" y="53" width="68" height="73.5"/>
-                            </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HM6-d1-OfG">
-                                <rect key="frame" x="0.0" y="150" width="414" height="663"/>
+                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_home_page" translatesAutoresizingMaskIntoConstraints="NO" id="zBb-ZP-e1X">
+                                <rect key="frame" x="324" y="53" width="70" height="74"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HM6-d1-OfG">
+                                <rect key="frame" x="0.0" y="164" width="414" height="649"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="WorkVCTableViewCell" rowHeight="394" id="U4Z-dS-KYZ" customClass="WorkVCTableViewCell" customModule="Yml_Application" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="394"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="WorkVCTableViewCell" rowHeight="392" id="U4Z-dS-KYZ" customClass="WorkVCTableViewCell" customModule="Yml_Application" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="392"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="U4Z-dS-KYZ" id="39Q-rF-M1W">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="393.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="391.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="desktop-70" translatesAutoresizingMaskIntoConstraints="NO" id="f4d-4Q-yeV">
@@ -243,17 +244,17 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
+                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="How The North Face redefined loyalty to embrace the great outdoors." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v88-dU-ajD">
+                                                    <rect key="frame" x="20" y="219" width="374" height="164"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="32"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                                 <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="The North Face" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Etb-Cu-n3N">
-                                                    <rect key="frame" x="20" y="183" width="145" height="27.5"/>
+                                                    <rect key="frame" x="20" y="183" width="145" height="28"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="20"/>
                                                     <color key="textColor" red="0.37055522200000002" green="0.37056469920000001" blue="0.37055957319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="How The North Face redefined loyalty to embrace the great outdoors." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v88-dU-ajD">
-                                                    <rect key="frame" x="20" y="218" width="374" height="165"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="32"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -269,16 +270,24 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wk3-A7-Pez" userLabel="LineSeperator">
-                                <rect key="frame" x="20" y="141" width="374" height="1"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wk3-A7-Pez" userLabel="LineSeperator">
+                                <rect key="frame" x="20" y="146.5" width="374" height="1"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="1"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="WpG-OW-Q4z"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="1xN-0Z-k9J" firstAttribute="trailing" secondItem="zBb-ZP-e1X" secondAttribute="leading" id="hHg-dI-dwL"/>
+                            <constraint firstItem="HM6-d1-OfG" firstAttribute="centerX" secondItem="aT1-9Z-WB2" secondAttribute="centerX" id="DxU-4o-26x"/>
+                            <constraint firstItem="wk3-A7-Pez" firstAttribute="centerX" secondItem="aT1-9Z-WB2" secondAttribute="centerX" id="J6D-Vb-5j4"/>
+                            <constraint firstItem="HM6-d1-OfG" firstAttribute="bottom" secondItem="Xhc-Ha-gni" secondAttribute="bottom" id="T9a-rY-IN1"/>
+                            <constraint firstItem="wk3-A7-Pez" firstAttribute="bottom" secondItem="HM6-d1-OfG" secondAttribute="top" multiplier="0.9" id="kKg-MY-KEf"/>
+                            <constraint firstItem="HM6-d1-OfG" firstAttribute="trailing" secondItem="Xhc-Ha-gni" secondAttribute="trailing" id="kXG-dj-e8g"/>
+                            <constraint firstItem="Xhc-Ha-gni" firstAttribute="top" secondItem="wk3-A7-Pez" secondAttribute="top" multiplier="0.3" id="lrk-I5-3ih"/>
+                            <constraint firstItem="wk3-A7-Pez" firstAttribute="trailing" secondItem="aT1-9Z-WB2" secondAttribute="trailingMargin" id="nuh-zI-A6q"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Xhc-Ha-gni"/>
                     </view>
