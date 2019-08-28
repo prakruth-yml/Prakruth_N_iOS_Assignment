@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CarrersTableVIewCell: UITableViewCell {
+class CarrersTableVIewCell: BaseTVCell {
     
     @IBOutlet weak var domain: UILabel!
     @IBOutlet weak var role: UILabel!

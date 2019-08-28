@@ -16,7 +16,7 @@ enum HTTPTask{
     case request
     case requestWithHeaders(header: HTTPHeader)
 //    case requestWithHeaderAndBody(urlParameters: Parameters, headersToAdd: HTTPHeader?, bodyToAdd: HTTPBody?)
-//    case requestWithBody(urlBase: URLInitializations)
+    case requestWithBody(httpBody: HTTPBody)
 
 //    case request
 //    case requestWithHeaders
@@ -37,6 +37,8 @@ class MakeRequest: MakeBaseRequest {
             case .request: print(1)
             case .requestWithHeaders(let header):
                 self.addHeaders(request: &request, httpHeader: header)
+            case .requestWithBody(let httpBody):
+                request.httpMethod = "POST"
             default: print(2)
         }
         let session = URLSession.shared.dataTask(with: request, completionHandler: { data,response,error in

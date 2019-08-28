@@ -1,6 +1,6 @@
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: BaseVC {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var getStartedButton: UIButton!
@@ -18,7 +18,8 @@ class ViewController: UIViewController {
     }
     
     //Function to add GUI Initializations
-    func setupGUI(){
+    override func setupGUI(){
+        super.setupGUI()
         getStartedButton?.layer.cornerRadius = 9.0
         ymlLogoImage?.layer.cornerRadius = 9.0
         collectionView?.isPagingEnabled = true

@@ -1,19 +1,15 @@
 //
-//  WorkVCTableViewCell.swift
+//  BaseTVCell.swift
 //  Yml_Application
 //
-//  Created by Prakruth Nagaraj on 22/08/19.
+//  Created by Prakruth Nagaraj on 28/08/19.
 //  Copyright © 2019 Prakruth Nagaraj. All rights reserved.
 //
 
 import UIKit
 
-class WorkVCTableViewCell: BaseTVCell {
-    
-    @IBOutlet weak var workImage: UIImageView!
-    @IBOutlet weak var workTitle: UILabel!
-    @IBOutlet weak var workDescription: UILabel!
-    
+class BaseTVCell: UITableViewCell {
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,6 +17,7 @@ class WorkVCTableViewCell: BaseTVCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+
         // Configure the view for the selected state
     }
 

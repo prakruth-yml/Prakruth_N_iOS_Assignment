@@ -20,11 +20,10 @@ class CarrersViewModel{
         
         guard let urlTemp = URL(string: "http://jsonstub.com/positions") else { fatalError() }
         let httpHeaders = ["Content-Type":"application/json", "JsonStub-User-Key": userKey, "JsonStub-Project-Key": projectKey]
-        var urlInits = URLInitializations(url: urlTemp, httpMethod: HTTPMethod.get, httpHeaders: httpHeaders, httpTask: HTTPTask.requestWithHeaders(header: httpHeaders))
+        let urlInits = URLInitializations(url: urlTemp, httpMethod: HTTPMethod.get, httpHeaders: httpHeaders, httpTask: HTTPTask.requestWithHeaders(header: httpHeaders))
         
         MakeRequest.performRequest(urlBase: urlInits) { (data) in
             let jsonResponse = try? JSONDecoder().decode(Root.self, from: data)
-            print(jsonResponse)
             guard let jsonResponseDict = jsonResponse else { fatalError() }
             self.jsonItems = jsonResponseDict.data
             DispatchQueue.main.async {

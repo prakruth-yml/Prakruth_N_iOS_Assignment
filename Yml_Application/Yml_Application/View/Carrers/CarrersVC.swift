@@ -11,7 +11,7 @@ import AVFoundation
 import AVKit
 
 
-class CarrersVC: UIViewController {
+class CarrersVC: BaseVC {
 
     @IBOutlet weak var videoPlayerView: UIView!
     @IBOutlet weak var playPauseButton: UIButton!

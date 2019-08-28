@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewsDisplayVC: UIViewController {
+class NewsDisplayVC: BaseVC {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentControl: UISegmentedControl!
@@ -26,8 +26,7 @@ class NewsDisplayVC: UIViewController {
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.singleLine
         viewModel.getDesignData()
     }
-    
-    //DOUBT: Nidhis Doubt. 
+  
     //Action function to capture segment change
     @IBAction func segmentIndexChanged(sender: UISegmentedControl){
         

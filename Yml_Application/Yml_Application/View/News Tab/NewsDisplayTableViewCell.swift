@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewsDisplayTableViewCell: UITableViewCell {
+class NewsDisplayTableViewCell: BaseTVCell {
     
     @IBOutlet weak var newImageView: UIImageView!
     @IBOutlet weak var titleText: UILabel!

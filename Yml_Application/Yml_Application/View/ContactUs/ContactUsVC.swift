@@ -1,15 +1,7 @@
-//
-//  ContactUsVC.swift
-//  Yml_Application
-//
-//  Created by Prakruth Nagaraj on 21/08/19.
-//  Copyright © 2019 Prakruth Nagaraj. All rights reserved.
-//
-
 import UIKit
 import MessageUI
 
-class ContactUsVC: UIViewController {
+class ContactUsVC: BaseVC {
 
     @IBOutlet weak var callUsNumber: UILabel!
     @IBOutlet weak var businessEmail: UILabel!
@@ -35,14 +27,8 @@ class ContactUsVC: UIViewController {
     
     @objc func didPressCallUs(_ sender: UITapGestureRecognizer){
         
-        if let number = callUsNumber {
-            let temp = "tel://\(number.text ?? "973926767")"
-            if let phoneCallURL = URL(string: temp) {
-                let application:UIApplication = UIApplication.shared
-                application.open(phoneCallURL, options: [:], completionHandler: nil)
-                //                if (application.canOpenURL(phoneCallURL)) {//                }
-            }
-        }
+        guard let number = callUsNumber else { fatalError() }
+        openApplicationWithURL(urlStr: "tel://\(number.text ?? "973926767")")
     }
     
     @objc func didPressEmail(_ sender: UITapGestureRecognizer){
@@ -59,36 +45,19 @@ class ContactUsVC: UIViewController {
 //        
 //        }
         let email = "prakruth.bcbs@gmail.com"
-        if let url = URL(string: "mailto:\(email)") {
-            UIApplication.shared.open(url)
-        }
+        openApplicationWithURL(urlStr: "mailto:\(email)")
     }
     
     @objc func didPressFollowUs(_ sender: UITapGestureRecognizer){
-        
-        if let fbUrl = URL(string: "fb://profile/prakruth.nagaraj"){
-            let application: UIApplication = UIApplication.shared
-            application.open(fbUrl, options: [:], completionHandler: nil)
-        }
-    }
-    
-    func showMaps(latitude: Double, longitude: Double, name: String){
-        if let viewController = self.storyboard?.instantiateViewController(withIdentifier: String(describing: MapViewVC.self)) as? MapViewVC{
-            viewController.latitute = latitude
-            viewController.longitude = longitude
-            viewController.name = name
-            self.navigationController?.pushViewController(viewController, animated: true)
-        }
+        openApplicationWithURL(urlStr: "fb://profile/prakruth.nagaraj")
     }
     
     @objc func didPressLocations(_ sender: UITapGestureRecognizer){
-        //getLatLongFromString(addr: "Bangalore")
         let temp = viewModel.getBangalore()
         showMaps(latitude: temp.latitude, longitude: temp.longitude, name: temp.name)
     }
     
     @objc func didPressLocationsSV(_ sender: UITapGestureRecognizer){
-        //getLatLongFromString(addr: "Bangalore")
         let temp = viewModel.getLa()
         showMaps(latitude: temp.latitude, longitude: temp.longitude, name: temp.name)
     }
@@ -117,9 +86,41 @@ class ContactUsVC: UIViewController {
     }
 }
 
+extension ContactUsVC {
+    
+    func showMaps(latitude: Double, longitude: Double, name: String){
+        if let viewController = self.storyboard?.instantiateViewController(withIdentifier: String(describing: MapViewVC.self)) as? MapViewVC{
+            viewController.latitute = latitude
+            viewController.longitude = longitude
+            viewController.name = name
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
+    }
+    
+    func showAlert(alertTitle: String, message: String, actionTitle: String, actionStyle: UIAlertAction.Style){
+        let alert = UIAlertController(title: alertTitle, message: message, preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: actionTitle, style: actionStyle, handler: nil)
+        alert.addAction(alertAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func openApplicationWithURL(urlStr: String){
+        guard let url = URL(string: urlStr) else { fatalError() }
+        let application = UIApplication.shared
+        if application.canOpenURL(url){
+            application.open(url, options: [:], completionHandler: nil)
+        }
+        else{
+            showAlert(alertTitle: "Oops!!!", message: "Couldn't Open the Application", actionTitle: "Close", actionStyle: .cancel)
+        }
+    }
+}
+
 extension ContactUsVC: MFMailComposeViewControllerDelegate {
     
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)
     }
+    
+    
 }

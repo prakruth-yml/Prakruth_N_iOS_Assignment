@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class WorkVC: UIViewController{
+class WorkVC: BaseVC{
     
     @IBOutlet weak var homePageImage: UIImageView!
     @IBOutlet weak var ymlLogoImage: UIImageView!
