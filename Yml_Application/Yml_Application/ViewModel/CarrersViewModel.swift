@@ -8,40 +8,30 @@
 
 import Foundation
 class CarrersViewModel{
-
+    
     var jsonItems: [JSONData] = []
     typealias jsonHandler = (() -> Void)
     typealias videoHandler = ((URL) -> Void)
 
     func loadPositionsFromJson(_ compHandler: @escaping jsonHandler){
         
-        let urlStr = "http://jsonstub.com/positions"
         let userKey = "5b87065d-b207-44fc-aa26-b9e1253720d6"
         let projectKey = "9a5070e8-cd53-46d4-ae0a-c25f3458c81c"
-        guard let url = URL(string: urlStr) else { return }
-        var request = URLRequest(url: url)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(userKey, forHTTPHeaderField: "JsonStub-User-Key")
-        request.addValue(projectKey, forHTTPHeaderField: "JsonStub-Project-Key")
-        print(request.httpMethod)
-        request.httpMethod = "GET"
-        let session = URLSession.shared.dataTask(with: request, completionHandler: { data,response,error in
-            if let error = error{
-                print(error)
+        
+        guard let urlTemp = URL(string: "http://jsonstub.com/positions") else { fatalError() }
+        let httpHeaders = ["Content-Type":"application/json", "JsonStub-User-Key": userKey, "JsonStub-Project-Key": projectKey]
+        var urlInits = URLInitializations(url: urlTemp, httpMethod: HTTPMethod.get, httpHeaders: httpHeaders, httpTask: HTTPTask.requestWithHeaders(header: httpHeaders))
+        
+        MakeRequest.performRequest(urlBase: urlInits) { (data) in
+            let jsonResponse = try? JSONDecoder().decode(Root.self, from: data)
+            print(jsonResponse)
+            guard let jsonResponseDict = jsonResponse else { fatalError() }
+            self.jsonItems = jsonResponseDict.data
+            DispatchQueue.main.async {
+                compHandler()
             }
-            if let data = data{
-                
-                let jsonResponse = try? JSONDecoder().decode(Root.self, from: data)
-                print(jsonResponse)
-                guard let jsonResponseDict = jsonResponse else { fatalError() }
-                self.jsonItems = jsonResponseDict.data
-                DispatchQueue.main.async {
-                    compHandler()
-                }
-            }
-        })
-            session.resume()
         }
+    }
 }
 
 

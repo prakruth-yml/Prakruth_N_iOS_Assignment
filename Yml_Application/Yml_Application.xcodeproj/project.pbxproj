@@ -41,7 +41,9 @@
 		ABF487C3231511FF005701C8 /* AvPlayer-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF487C2231511FF005701C8 /* AvPlayer-Extension.swift */; };
 		ABF487C7231524EA005701C8 /* ContactUsDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF487C6231524EA005701C8 /* ContactUsDataModel.swift */; };
 		ABF487C923152505005701C8 /* ContactUsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF487C823152505005701C8 /* ContactUsViewModel.swift */; };
-		ABF487F323163DA7005701C8 /* Initializations.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF487F223163DA7005701C8 /* Initializations.swift */; };
+		ABF487F323163DA7005701C8 /* MakeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF487F223163DA7005701C8 /* MakeRequest.swift */; };
+		ABF487F523165BB1005701C8 /* URLInitializations.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF487F423165BB1005701C8 /* URLInitializations.swift */; };
+		ABF487F723165C55005701C8 /* MakeBaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF487F623165C55005701C8 /* MakeBaseRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,7 +85,9 @@
 		ABF487C2231511FF005701C8 /* AvPlayer-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AvPlayer-Extension.swift"; sourceTree = "<group>"; };
 		ABF487C6231524EA005701C8 /* ContactUsDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactUsDataModel.swift; sourceTree = "<group>"; };
 		ABF487C823152505005701C8 /* ContactUsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactUsViewModel.swift; sourceTree = "<group>"; };
-		ABF487F223163DA7005701C8 /* Initializations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initializations.swift; sourceTree = "<group>"; };
+		ABF487F223163DA7005701C8 /* MakeRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeRequest.swift; sourceTree = "<group>"; };
+		ABF487F423165BB1005701C8 /* URLInitializations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLInitializations.swift; sourceTree = "<group>"; };
+		ABF487F623165C55005701C8 /* MakeBaseRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeBaseRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,7 +247,9 @@
 		ABF487F123157CB6005701C8 /* NetworkManager */ = {
 			isa = PBXGroup;
 			children = (
-				ABF487F223163DA7005701C8 /* Initializations.swift */,
+				ABF487F223163DA7005701C8 /* MakeRequest.swift */,
+				ABF487F423165BB1005701C8 /* URLInitializations.swift */,
+				ABF487F623165C55005701C8 /* MakeBaseRequest.swift */,
 			);
 			path = NetworkManager;
 			sourceTree = "<group>";
@@ -382,6 +388,7 @@
 				ABB9437D22FD480D00134826 /* ViewController.swift in Sources */,
 				AB29A0FA2313D1F90095CB2E /* CarrersTableVIewCell.swift in Sources */,
 				ABB9437B22FD480D00134826 /* AppDelegate.swift in Sources */,
+				ABF487F523165BB1005701C8 /* URLInitializations.swift in Sources */,
 				AB98024E230D4DC3006434CC /* WorkVC.swift in Sources */,
 				AB84FE262315028E001908EB /* OnBoardScreenViewModel.swift in Sources */,
 				ABF487BD231510D3005701C8 /* CarrersViewModel.swift in Sources */,
@@ -395,9 +402,10 @@
 				ABF487C3231511FF005701C8 /* AvPlayer-Extension.swift in Sources */,
 				AB27D34E23115DA90005C1BE /* MapViewVC.swift in Sources */,
 				AB84FE2C2315081F001908EB /* NewsDataModel.swift in Sources */,
+				ABF487F723165C55005701C8 /* MakeBaseRequest.swift in Sources */,
 				AB980250230D556B006434CC /* AboutUsVC.swift in Sources */,
 				AB27D354231172ED0005C1BE /* Temp2.swift in Sources */,
-				ABF487F323163DA7005701C8 /* Initializations.swift in Sources */,
+				ABF487F323163DA7005701C8 /* MakeRequest.swift in Sources */,
 				AB84FE2E2315082C001908EB /* NewsViewModel.swift in Sources */,
 				ABF487C923152505005701C8 /* ContactUsViewModel.swift in Sources */,
 				AB980252230D557B006434CC /* NewsVC.swift in Sources */,
