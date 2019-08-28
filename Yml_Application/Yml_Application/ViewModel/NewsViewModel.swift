@@ -1,14 +1,12 @@
-//
-//  NewsViewModel.swift
-//  Yml_Application
-//
-//  Created by Prakruth Nagaraj on 27/08/19.
-//  Copyright © 2019 Prakruth Nagaraj. All rights reserved.
-//
-
 import Foundation
 
 class NewsViewModel{
+    
+    enum SegmentCase: Int {
+        case Design
+        case FinTech
+        case Default
+    }
     
 //    var NewsDataModel.newsTypes = ["Select Option", "Design", "FinTech"]
     var newsTypes: [String] = []
@@ -16,7 +14,7 @@ class NewsViewModel{
     
     //Design DataSource Function for cell
     func getDesignData() {
-        dataToDisplay =  [NewsDataModel.NewsData(imageName: "https://ymedialabs.com/wp-content/uploads/2019/07/mcdonalds-lead.jpeg", titleText: "Agency / Culture / Design / Leadership / Technology", descriptionTextL: "We Are People: What it Means to Have a People-First ApproachWe Are People: What it Means to Have a People-First ApproachWe Are People: What it Means to Have a People-First ApproachWe Are People: What it Means to Have a People-First ApproachWe Are People: What it Means to Have a People-First ApproachWe Are People: What it Means to Have a People-First ApproachWe Are People: What it Means to Have a People-First ApproachWe Are People: What it Means to Have a People-First ApproachWe Are People: What it Means to Have a People-First Approach", urlStr: "https://ymedialabs.com/project/the-north-face"), NewsDataModel.NewsData(imageName: "https://ymedialabs.com/wp-content/uploads/2019/05/earnin-rect.png", titleText: "Design / Technology", descriptionTextL: "Speaking the Same Language: How UX and Data Strategy Can Work Together to Design for Voice-Based AI", urlStr: "http://www.ymedialabs.com/getting-to-know-hamish-macphail-chief-financial-officer-at-y-media-labs"), NewsDataModel.NewsData(imageName: "https://ymedialabs.com/wp-content/uploads/2019/06/design-mocks.png", titleText: "Customer Experience / Design / Technology", descriptionTextL: "Don’t Overthink It: Design is a Tool For Making Businesses Better", urlStr: "http://www.ymedialabs.com/voice-based-ai")]
+        dataToDisplay =  [NewsDataModel.NewsData(imageName: "https://ymedialabs.com/wp-content/uploads/2019/07/mcdonalds-lead.jpeg", titleText: "Agency / Culture / Design / Leadership / Technology", descriptionTextL: "We Are People: What it Means to Have a People-First Approach", urlStr: "https://ymedialabs.com/project/the-north-face"), NewsDataModel.NewsData(imageName: "https://ymedialabs.com/wp-content/uploads/2019/05/earnin-rect.png", titleText: "Design / Technology", descriptionTextL: "Speaking the Same Language: How UX and Data Strategy Can Work Together to Design for Voice-Based AI", urlStr: "http://www.ymedialabs.com/getting-to-know-hamish-macphail-chief-financial-officer-at-y-media-labs"), NewsDataModel.NewsData(imageName: "https://ymedialabs.com/wp-content/uploads/2019/06/design-mocks.png", titleText: "Customer Experience / Design / Technology", descriptionTextL: "Don’t Overthink It: Design is a Tool For Making Businesses Better", urlStr: "http://www.ymedialabs.com/voice-based-ai")]
     }
     
     //FinTech DataSource Function for cell
@@ -26,5 +24,13 @@ class NewsViewModel{
     
     func setNewsTypes(){
         newsTypes = ["Select Option", "Design", "FinTech"]
+    }
+    
+    func changeSegment(segmentIndex: Int){
+        switch segmentIndex{
+            case SegmentCase.Design.rawValue: getDesignData()
+            case SegmentCase.FinTech.rawValue: getFinTechData()
+            default: let _ = SegmentCase.Default
+        }
     }
 }

@@ -17,17 +17,12 @@ class WorkVC: UIViewController{
     
     var viewModel = WorkViewModel()
     
-//    var workModel = WorkModel()
-    var webView: WKWebView!
     var workCell: WorkVCTableViewCell?
     var url = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.getData()
-        
-        //DOUBT: Is this valid to keep in View
-//        print(viewModel.workData[0].titleText)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView()

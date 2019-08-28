@@ -79,7 +79,7 @@ extension CarrersVC: UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CarrersTableVIewCell.self)) as? CarrersTableVIewCell {
-            cell.domain.text = "viewModel.jsonItems[indexPath.row].domainviewModel.jsonItems[indexPath.row].domainviewModel.jsonItems[indexPath.row].domainviewModel.jsonItems[indexPath.row].domainviewModel.jsonItems[indexPath.row].domainviewModel.jsonItems[indexPath.row].domainviewModel.jsonItems[indexPath.row].domainviewModel.jsonItems[indexPath.row].domainviewModel.jsonItems[indexPath.row].domainviewModel.jsonItems[indexPath.row].domainviewModel.jsonItems[indexPath.row].domain"
+            cell.domain.text = viewModel.jsonItems[indexPath.row].domain
             cell.role.text = viewModel.jsonItems[indexPath.row].position
             cell.location.text = viewModel.jsonItems[indexPath.row].location
             return cell

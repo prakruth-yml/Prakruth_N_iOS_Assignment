@@ -20,7 +20,8 @@ class WebViewVC4: UIViewController, WKNavigationDelegate {
         webView = WKWebView(frame: .zero, configuration: webConfigs)
         webView?.uiDelegate = self as? WKUIDelegate
         let url = URL(string: self.urlStr)
-        let myrequest = URLRequest(url: url!)
+        guard let urlNop = url else { fatalError() }
+        let myrequest = URLRequest(url: urlNop)
         webView?.load(myrequest)
         view.addSubview(webView ?? WKWebView())
         view = webView

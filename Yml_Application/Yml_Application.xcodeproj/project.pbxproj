@@ -41,6 +41,7 @@
 		ABF487C3231511FF005701C8 /* AvPlayer-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF487C2231511FF005701C8 /* AvPlayer-Extension.swift */; };
 		ABF487C7231524EA005701C8 /* ContactUsDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF487C6231524EA005701C8 /* ContactUsDataModel.swift */; };
 		ABF487C923152505005701C8 /* ContactUsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF487C823152505005701C8 /* ContactUsViewModel.swift */; };
+		ABF487F323163DA7005701C8 /* Initializations.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF487F223163DA7005701C8 /* Initializations.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +83,7 @@
 		ABF487C2231511FF005701C8 /* AvPlayer-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AvPlayer-Extension.swift"; sourceTree = "<group>"; };
 		ABF487C6231524EA005701C8 /* ContactUsDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactUsDataModel.swift; sourceTree = "<group>"; };
 		ABF487C823152505005701C8 /* ContactUsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactUsViewModel.swift; sourceTree = "<group>"; };
+		ABF487F223163DA7005701C8 /* Initializations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initializations.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +170,7 @@
 		ABB9437922FD480D00134826 /* Yml_Application */ = {
 			isa = PBXGroup;
 			children = (
+				ABF487F123157CB6005701C8 /* NetworkManager */,
 				AB24C153230E9D9600713E32 /* Models */,
 				AB29A0FD231424D70095CB2E /* View */,
 				AB29A0FF231424F60095CB2E /* ViewModel */,
@@ -235,6 +238,14 @@
 				AB2569B6230BD5460034BCBF /* CollectionViewCell.swift */,
 			);
 			path = "OnBoard Screen";
+			sourceTree = "<group>";
+		};
+		ABF487F123157CB6005701C8 /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				ABF487F223163DA7005701C8 /* Initializations.swift */,
+			);
+			path = NetworkManager;
 			sourceTree = "<group>";
 		};
 		B7C90E31C08655CE5550D253 /* Frameworks */ = {
@@ -386,6 +397,7 @@
 				AB84FE2C2315081F001908EB /* NewsDataModel.swift in Sources */,
 				AB980250230D556B006434CC /* AboutUsVC.swift in Sources */,
 				AB27D354231172ED0005C1BE /* Temp2.swift in Sources */,
+				ABF487F323163DA7005701C8 /* Initializations.swift in Sources */,
 				AB84FE2E2315082C001908EB /* NewsViewModel.swift in Sources */,
 				ABF487C923152505005701C8 /* ContactUsViewModel.swift in Sources */,
 				AB980252230D557B006434CC /* NewsVC.swift in Sources */,

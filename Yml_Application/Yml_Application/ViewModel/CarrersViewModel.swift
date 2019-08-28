@@ -23,6 +23,8 @@ class CarrersViewModel{
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue(userKey, forHTTPHeaderField: "JsonStub-User-Key")
         request.addValue(projectKey, forHTTPHeaderField: "JsonStub-Project-Key")
+        print(request.httpMethod)
+        request.httpMethod = "GET"
         let session = URLSession.shared.dataTask(with: request, completionHandler: { data,response,error in
             if let error = error{
                 print(error)
@@ -30,6 +32,7 @@ class CarrersViewModel{
             if let data = data{
                 
                 let jsonResponse = try? JSONDecoder().decode(Root.self, from: data)
+                print(jsonResponse)
                 guard let jsonResponseDict = jsonResponse else { fatalError() }
                 self.jsonItems = jsonResponseDict.data
                 DispatchQueue.main.async {
@@ -39,14 +42,6 @@ class CarrersViewModel{
         })
             session.resume()
         }
-}
-
-extension URLRequest {
-//    func asyncDownload(completion: @escaping (_ data: Data?, _ response: URLResponse?, _ error: Error?) -> ()) {
-//        URLSession.shared
-//        .dataTask(with: self, completionHandler: completion)
-//            .resume()
-//    }
 }
 
 

@@ -30,14 +30,8 @@ class NewsDisplayVC: UIViewController {
     //DOUBT: Nidhis Doubt. 
     //Action function to capture segment change
     @IBAction func segmentIndexChanged(sender: UISegmentedControl){
-        switch sender.selectedSegmentIndex{
-            case 0:
-                viewModel.getDesignData()
-            case 1:
-                viewModel.getFinTechData()
-            default:
-                print("")
-        }
+        
+        viewModel.changeSegment(segmentIndex: sender.selectedSegmentIndex)
         tableView.reloadData()
     }
     
@@ -60,8 +54,8 @@ extension NewsDisplayVC: UITableViewDelegate, UITableViewDataSource{
         tableView.backgroundColor = .green
         print(viewModel.dataToDisplay[indexPath.row].titleText)
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NewsDisplayTableViewCell.self), for: indexPath) as? NewsDisplayTableViewCell
-        let urlTemp = URL(string: viewModel.dataToDisplay[indexPath.row].imageName)
-        cell?.newImageView.loadImageFromURL(url: urlTemp!)
+        guard let urlTemp = URL(string: viewModel.dataToDisplay[indexPath.row].imageName) else { fatalError() }
+        cell?.newImageView.loadImageFromURL(url: urlTemp)
         cell?.titleText.text = viewModel.dataToDisplay[indexPath.row].titleText
         cell?.descriptionText.text = viewModel.dataToDisplay[indexPath.row].descriptionTextL
         print(tableView.rowHeight)

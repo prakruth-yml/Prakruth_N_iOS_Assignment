@@ -202,59 +202,43 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Yml_Application/ViewModel/CarrersViewModel.swift"
-            timestampString = "588608046.348099"
+            timestampString = "588661385.038506"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "loadPositionsFromJson(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Yml_Application/ViewModel/CarrersViewModel.swift"
+            timestampString = "588661385.038954"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "35"
             endingLineNumber = "35"
             landmarkName = "loadPositionsFromJson(_:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Yml_Application.CarrersViewModel.loadPositionsFromJson(() -&gt; ()) -&gt; ()"
-                  moduleName = "Yml_Application"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/prakruthnagaraj/Desktop/Prakruth/Office/Assignments/Yml_Application/Yml_Application/ViewModel/CarrersViewModel.swift"
-                  timestampString = "588607755.516014"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "35"
-                  endingLineNumber = "35"
-                  offsetFromSymbolStart = "1115">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Yml_Application.CarrersViewModel.loadPositionsFromJson(() -&gt; ()) -&gt; ()"
-                  moduleName = "Yml_Application"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/prakruthnagaraj/Desktop/Prakruth/Office/Assignments/Yml_Application/Yml_Application/ViewModel/CarrersViewModel.swift"
-                  timestampString = "588607755.518307"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "36"
-                  endingLineNumber = "36"
-                  offsetFromSymbolStart = "18">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Yml_Application/ViewModel/CarrersViewModel.swift"
-            timestampString = "588608046.348177"
+            timestampString = "588661385.0392669"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
             landmarkName = "loadPositionsFromJson(_:)"
             landmarkType = "7">
          </BreakpointContent>
