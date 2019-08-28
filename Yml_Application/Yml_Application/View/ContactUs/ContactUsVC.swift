@@ -11,6 +11,10 @@ class ContactUsVC: BaseVC {
     
     var viewModel = ContactUsViewModel()
     
+//    var openGMaps = { (urlStr: String) -> Void in
+//        self.openApplicationWithURL(urlStr: urlStr)
+//    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let callUsTGR = UITapGestureRecognizer(target: self, action: #selector(didPressCallUs(_:)))
@@ -23,6 +27,8 @@ class ContactUsVC: BaseVC {
         businessEmail.addGestureRecognizer(emailTGR)
         followUs.addGestureRecognizer(followUsTGR)
         locations.addGestureRecognizer(locationsTGR)
+        
+        showAlert(alertTitle: "Hello", message: "Hello", actionTitle: "Close", actionStyle: .cancel)
     }
     
     @objc func didPressCallUs(_ sender: UITapGestureRecognizer){
@@ -53,13 +59,28 @@ class ContactUsVC: BaseVC {
     }
     
     @objc func didPressLocations(_ sender: UITapGestureRecognizer){
-        let temp = viewModel.getBangalore()
-        showMaps(latitude: temp.latitude, longitude: temp.longitude, name: temp.name)
+        let actionArray = [UIAlertAction(title: "Google Maps", style: .default, handler:{ (alert: UIAlertAction?) -> Void in
+            print("IN GMAS")
+            let temp = self.viewModel.getBangalore()
+            self.openApplicationWithURL(urlStr: "comgooglemaps://center=\(temp.latitude),\(temp.longitude)&zoom=14")
+        }), UIAlertAction(title: "Apple Maps", style: .default, handler: { (alert: UIAlertAction?) -> Void in
+            print("IN APM")
+            let temp = self.viewModel.getBangalore()
+            self.openApplicationWithURL(urlStr: "http://maps.apple.com/maps?daddr=\(temp.latitude),\(temp.longitude)")
+        })]
+        showAlert(alertTitle: "Get Directions", message: "Your Choice?",  actionStyle: .default, alertActionArray: actionArray)
     }
     
     @objc func didPressLocationsSV(_ sender: UITapGestureRecognizer){
-        let temp = viewModel.getLa()
-        showMaps(latitude: temp.latitude, longitude: temp.longitude, name: temp.name)
+        let actionArray = [UIAlertAction(title: "Google Maps", style: .default, handler: { (alert: UIAlertAction?) -> Void in
+            let temp = self.viewModel.getLa()
+            self.openApplicationWithURL(urlStr: "comgooglemaps://center=\(temp.latitude),\(temp.longitude)&zoom=14")
+        }), UIAlertAction(title: "Apple Maps", style: .default, handler: { (alert: UIAlertAction?) -> Void in
+            print("IN APM")
+            let temp = self.viewModel.getLa()
+            self.openApplicationWithURL(urlStr: "http://maps.apple.com/maps?daddr=\(temp.latitude),\(temp.longitude)")
+        })]
+        showAlert(alertTitle: "Get Directions", message: "Your Choice?",  actionStyle: .default, alertActionArray: actionArray)
     }
     
     //Function to make API call to Google. Returns json response with the lats and longs
@@ -89,18 +110,28 @@ class ContactUsVC: BaseVC {
 extension ContactUsVC {
     
     func showMaps(latitude: Double, longitude: Double, name: String){
-        if let viewController = self.storyboard?.instantiateViewController(withIdentifier: String(describing: MapViewVC.self)) as? MapViewVC{
-            viewController.latitute = latitude
-            viewController.longitude = longitude
-            viewController.name = name
-            self.navigationController?.pushViewController(viewController, animated: true)
-        }
+//        if let viewController = self.storyboard?.instantiateViewController(withIdentifier: String(describing: MapViewVC.self)) as? MapViewVC{
+//            viewController.latitute = latitude
+//            viewController.longitude = longitude
+//            viewController.name = name
+//            self.navigationController?.pushViewController(viewController, animated: true)
+//        }
+        
+        
     }
     
     func showAlert(alertTitle: String, message: String, actionTitle: String, actionStyle: UIAlertAction.Style){
         let alert = UIAlertController(title: alertTitle, message: message, preferredStyle: .alert)
         let alertAction = UIAlertAction(title: actionTitle, style: actionStyle, handler: nil)
         alert.addAction(alertAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func showAlert(alertTitle: String, message: String, actionStyle: UIAlertAction.Style, alertActionArray: [UIAlertAction]) {
+        let alert = UIAlertController(title: alertTitle, message: message, preferredStyle: .actionSheet)
+        for item in alertActionArray{
+            alert.addAction(item)
+        }
         self.present(alert, animated: true, completion: nil)
     }
     
