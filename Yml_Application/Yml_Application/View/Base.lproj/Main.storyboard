@@ -209,13 +209,19 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
-                                                <button opaque="NO" alpha="0.29999999999999999" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sEa-79-p38">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sEa-79-p38">
                                                     <rect key="frame" x="8" y="48.5" width="50" height="50"/>
                                                     <state key="normal" image="icon_left"/>
+                                                    <connections>
+                                                        <action selector="didPressLeftButton:" destination="BI6-0p-AnG" eventType="touchUpInside" id="Gg6-BD-2Q8"/>
+                                                    </connections>
                                                 </button>
-                                                <button opaque="NO" alpha="0.29999999999999999" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JgI-ZY-HWf">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JgI-ZY-HWf">
                                                     <rect key="frame" x="305" y="48.5" width="50" height="50"/>
                                                     <state key="normal" image="icon_right"/>
+                                                    <connections>
+                                                        <action selector="didPressRightButton:" destination="BI6-0p-AnG" eventType="touchUpInside" id="nMv-6r-dU3"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </view>

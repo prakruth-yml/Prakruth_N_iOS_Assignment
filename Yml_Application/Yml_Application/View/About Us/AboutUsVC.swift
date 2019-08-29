@@ -18,13 +18,18 @@ class AboutUsVC: BaseVC {
         guard let currentItem = visibleItems.object(at: 0) as? IndexPath else { fatalError() }
         let nextItem = IndexPath(item: currentItem.item + 1, section: 0)
         if nextItem.row < viewModel.imageNames.count {
-            collectionView.scrollToItem(at: nextItem, at: .left, animated: true)
+            collectionView.scrollToItem(at: nextItem, at: .right, animated: true)
         }
     
     }
     
     @IBAction func didPressLeftButton(_ button: UIButton){
-        
+        let visibleItems: NSArray = collectionView.indexPathsForVisibleItems as NSArray
+        guard let currentItem = visibleItems.object(at: 0) as? IndexPath else { fatalError() }
+        let nextItem = IndexPath(item: currentItem.item + 1, section: 0)
+        if nextItem.row < viewModel.imageNames.count {
+            collectionView.scrollToItem(at: nextItem, at: .left, animated: true)
+        }
     }
 }
 
