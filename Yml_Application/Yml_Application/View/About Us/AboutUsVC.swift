@@ -13,17 +13,8 @@ class AboutUsVC: BaseVC {
     }
     
     @IBAction func didPressRightButton(_ button: UIButton){
-        
-//        let visibleItems: NSArray = collectionView.indexPathsForVisibleItems as NSArray
-//        guard let currentItem = visibleItems.object(at: 0) as? IndexPath else { fatalError() }
-//        let nextItem = IndexPath(item: currentItem.item + 1, section: 0)
-//        if nextItem.row < viewModel.imageNames.count {
-//            collectionView.scrollToItem(at: nextItem, at: .right, animated: true)
-//        }
-//
         let visibleItems = collectionView.indexPathsForVisibleItems as Array
         guard let currentItem = visibleItems[0] as? IndexPath else { fatalError() }
-//        guard let currentItem = visibleItems.object(at: 0) as? IndexPath else { fatalError() }
         let nextItem = IndexPath(item: currentItem.item + 1, section: 0)
         if nextItem.row < viewModel.imageNames.count {
             collectionView.scrollToItem(at: nextItem, at: .right, animated: true)
