@@ -50,6 +50,8 @@
 		ABF487FF23168FED005701C8 /* BaseTVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF487FE23168FED005701C8 /* BaseTVController.swift */; };
 		ABF4880123168FFF005701C8 /* BaseCVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF4880023168FFF005701C8 /* BaseCVController.swift */; };
 		ABF488032316931B005701C8 /* BaseWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF488022316931B005701C8 /* BaseWebView.swift */; };
+		ABF488052317DCF0005701C8 /* AboutUsCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF488042317DCF0005701C8 /* AboutUsCVCell.swift */; };
+		ABF488072317E7C7005701C8 /* AboutUsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF488062317E7C7005701C8 /* AboutUsVM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +102,8 @@
 		ABF487FE23168FED005701C8 /* BaseTVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTVController.swift; sourceTree = "<group>"; };
 		ABF4880023168FFF005701C8 /* BaseCVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCVController.swift; sourceTree = "<group>"; };
 		ABF488022316931B005701C8 /* BaseWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseWebView.swift; sourceTree = "<group>"; };
+		ABF488042317DCF0005701C8 /* AboutUsCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsCVCell.swift; sourceTree = "<group>"; };
+		ABF488062317E7C7005701C8 /* AboutUsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsVM.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +168,7 @@
 			children = (
 				AB84FE252315028E001908EB /* OnBoardScreenViewModel.swift */,
 				AB29A1072314F9260095CB2E /* WorkViewModel.swift */,
+				ABF488062317E7C7005701C8 /* AboutUsVM.swift */,
 				AB84FE2D2315082C001908EB /* NewsViewModel.swift */,
 				ABF487BC231510D3005701C8 /* CarrersViewModel.swift */,
 				ABF487C823152505005701C8 /* ContactUsViewModel.swift */,
@@ -249,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				AB98024F230D556B006434CC /* AboutUsVC.swift */,
+				ABF488042317DCF0005701C8 /* AboutUsCVCell.swift */,
 			);
 			path = "About Us";
 			sourceTree = "<group>";
@@ -402,6 +408,7 @@
 				ABF487BB231510C4005701C8 /* CarrersDataModel.swift in Sources */,
 				ABDDD212230FF8C100FFB268 /* NewsDisplayTableViewCell.swift in Sources */,
 				AB29A101231434B30095CB2E /* AboutUsModel.swift in Sources */,
+				ABF488072317E7C7005701C8 /* AboutUsVM.swift in Sources */,
 				ABF488032316931B005701C8 /* BaseWebView.swift in Sources */,
 				AB980256230D55A2006434CC /* ContactUsVC.swift in Sources */,
 				ABB9437D22FD480D00134826 /* ViewController.swift in Sources */,
@@ -431,6 +438,7 @@
 				ABF487F323163DA7005701C8 /* MakeRequest.swift in Sources */,
 				AB84FE2E2315082C001908EB /* NewsViewModel.swift in Sources */,
 				ABF487C923152505005701C8 /* ContactUsViewModel.swift in Sources */,
+				ABF488052317DCF0005701C8 /* AboutUsCVCell.swift in Sources */,
 				AB980252230D557B006434CC /* NewsVC.swift in Sources */,
 				ABDDD210230FDEF100FFB268 /* NewsDisplayVC.swift in Sources */,
 				ABF487FD23168FC1005701C8 /* BaseCVCell.swift in Sources */,

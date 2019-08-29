@@ -1,4 +1,5 @@
 import Foundation
-class AboutUsModel {
-    
+
+struct ImageCVData{
+    var imageName: String
 }
