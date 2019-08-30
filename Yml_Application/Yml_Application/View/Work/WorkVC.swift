@@ -28,7 +28,18 @@ class WorkVC: BaseVC{
         tableView.tableFooterView = UIView()
         tableView.separatorColor = .black
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.singleLine
+         print("Work Loaded")
 //        tableView.rowHeight = tableView.frame.height
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("Work Appeared")
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("Work Disappeared")
     }
 
     @objc func didPressLabel(_ sender: UITapGestureRecognizer){

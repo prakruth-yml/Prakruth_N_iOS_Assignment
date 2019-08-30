@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		819E90B913ADB36325C00924 /* Pods_Yml_Application.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D691F86EDB60E0F459B242 /* Pods_Yml_Application.framework */; };
+		AB23997D2318E801002A79D9 /* AboutUsDescriptionCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB23997C2318E801002A79D9 /* AboutUsDescriptionCVCell.swift */; };
 		AB24C155230E9DEE00713E32 /* OnboardScreenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24C154230E9DEE00713E32 /* OnboardScreenData.swift */; };
 		AB24C159230EA6A700713E32 /* WorkVCTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24C158230EA6A700713E32 /* WorkVCTableViewCell.swift */; };
 		AB2569B7230BD5460034BCBF /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2569B6230BD5460034BCBF /* CollectionViewCell.swift */; };
@@ -58,6 +59,7 @@
 		07D691F86EDB60E0F459B242 /* Pods_Yml_Application.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Yml_Application.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22CB7DC4A2C820D1022F22AC /* Pods-Yml_Application.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yml_Application.release.xcconfig"; path = "Target Support Files/Pods-Yml_Application/Pods-Yml_Application.release.xcconfig"; sourceTree = "<group>"; };
 		8E51D1C6F25F3CBFD2B21B99 /* Pods-Yml_Application.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yml_Application.debug.xcconfig"; path = "Target Support Files/Pods-Yml_Application/Pods-Yml_Application.debug.xcconfig"; sourceTree = "<group>"; };
+		AB23997C2318E801002A79D9 /* AboutUsDescriptionCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsDescriptionCVCell.swift; sourceTree = "<group>"; };
 		AB24C154230E9DEE00713E32 /* OnboardScreenData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardScreenData.swift; sourceTree = "<group>"; };
 		AB24C158230EA6A700713E32 /* WorkVCTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkVCTableViewCell.swift; sourceTree = "<group>"; };
 		AB2569B6230BD5460034BCBF /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 			children = (
 				AB98024F230D556B006434CC /* AboutUsVC.swift */,
 				ABF488042317DCF0005701C8 /* AboutUsCVCell.swift */,
+				AB23997C2318E801002A79D9 /* AboutUsDescriptionCVCell.swift */,
 			);
 			path = "About Us";
 			sourceTree = "<group>";
@@ -436,6 +439,7 @@
 				AB980250230D556B006434CC /* AboutUsVC.swift in Sources */,
 				AB27D354231172ED0005C1BE /* Temp2.swift in Sources */,
 				ABF487F323163DA7005701C8 /* MakeRequest.swift in Sources */,
+				AB23997D2318E801002A79D9 /* AboutUsDescriptionCVCell.swift in Sources */,
 				AB84FE2E2315082C001908EB /* NewsViewModel.swift in Sources */,
 				ABF487C923152505005701C8 /* ContactUsViewModel.swift in Sources */,
 				ABF488052317DCF0005701C8 /* AboutUsCVCell.swift in Sources */,

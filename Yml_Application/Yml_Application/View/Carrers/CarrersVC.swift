@@ -26,7 +26,10 @@ class CarrersVC: BaseVC {
         tableView?.delegate = self
         tableView?.dataSource = self
         tableView.tableFooterView = UIView()
+        playView(videoURL: "https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4", view: videoPlayerView)
     }
+    
+
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -37,13 +40,16 @@ class CarrersVC: BaseVC {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        playView(videoURL: "https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4", view: videoPlayerView)
+        print("Carrers Appeared")
+        avPlayerView.play()
+//        playView(videoURL: "https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4", view: videoPlayerView)
         
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         avPlayerView.pause()
+        print("Carrers Disappeard")
     }
     
     @objc func mouseDidTapView(_ sender: UITapGestureRecognizer){

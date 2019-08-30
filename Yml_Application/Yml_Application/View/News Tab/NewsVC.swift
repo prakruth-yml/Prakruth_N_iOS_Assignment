@@ -18,7 +18,19 @@ class NewsVC: BaseVC {
         viewModel.setNewsTypes()
         pickerView?.delegate = self
         pickerView?.dataSource = self
+        print("News Loaded")
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("News Appeared")
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("News Disappeared")
+    }
+
 }
 
 extension NewsVC: UIPickerViewDataSource, UIPickerViewDelegate {

@@ -50,7 +50,6 @@ extension NewsDisplayVC: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        tableView.backgroundColor = .green
         print(viewModel.dataToDisplay[indexPath.row].titleText)
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NewsDisplayTableViewCell.self), for: indexPath) as? NewsDisplayTableViewCell
         guard let urlTemp = URL(string: viewModel.dataToDisplay[indexPath.row].imageName) else { fatalError() }
