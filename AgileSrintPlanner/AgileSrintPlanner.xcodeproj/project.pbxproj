@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		AB2B3E73231E28AD00B22599 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB2B3E72231E28AD00B22599 /* GoogleService-Info.plist */; };
 		AB6710EC231E4DE300E2897E /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = AB6710EB231E4DE300E2897E /* .swiftlint.yml */; };
+		AB6710F5231E821C00E2897E /* EmailSignInPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6710F4231E821C00E2897E /* EmailSignInPopUpVC.swift */; };
+		AB6710F7231E9F6B00E2897E /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6710F6231E9F6B00E2897E /* FirebaseManager.swift */; };
 		ABB7B3522319405B0084B44D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB7B3512319405B0084B44D /* AppDelegate.swift */; };
 		ABB7B3542319405B0084B44D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB7B3532319405B0084B44D /* ViewController.swift */; };
 		ABB7B3572319405B0084B44D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABB7B3552319405B0084B44D /* Main.storyboard */; };
@@ -23,6 +25,8 @@
 		60E798C9683F6D1E72EFC22D /* Pods_AgileSrintPlanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AgileSrintPlanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB2B3E72231E28AD00B22599 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AB6710EB231E4DE300E2897E /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
+		AB6710F4231E821C00E2897E /* EmailSignInPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignInPopUpVC.swift; sourceTree = "<group>"; };
+		AB6710F6231E9F6B00E2897E /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		ABB7B34E2319405A0084B44D /* AgileSrintPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AgileSrintPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABB7B3512319405B0084B44D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ABB7B3532319405B0084B44D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -61,6 +65,31 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		AB6710EF231E802800E2897E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		AB6710F0231E803600E2897E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				ABB7B3532319405B0084B44D /* ViewController.swift */,
+				ABB7B3552319405B0084B44D /* Main.storyboard */,
+				AB6710F4231E821C00E2897E /* EmailSignInPopUpVC.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		AB6710F1231E803D00E2897E /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				AB6710F6231E9F6B00E2897E /* FirebaseManager.swift */,
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
 		ABB7B3452319405A0084B44D = {
 			isa = PBXGroup;
 			children = (
@@ -82,10 +111,11 @@
 		ABB7B3502319405A0084B44D /* AgileSrintPlanner */ = {
 			isa = PBXGroup;
 			children = (
+				AB6710F1231E803D00E2897E /* View Model */,
+				AB6710F0231E803600E2897E /* View */,
+				AB6710EF231E802800E2897E /* Model */,
 				AB2B3E72231E28AD00B22599 /* GoogleService-Info.plist */,
 				ABB7B3512319405B0084B44D /* AppDelegate.swift */,
-				ABB7B3532319405B0084B44D /* ViewController.swift */,
-				ABB7B3552319405B0084B44D /* Main.storyboard */,
 				ABB7B358231940670084B44D /* Assets.xcassets */,
 				ABB7B35A231940670084B44D /* LaunchScreen.storyboard */,
 				ABB7B35D231940670084B44D /* Info.plist */,
@@ -267,7 +297,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB6710F7231E9F6B00E2897E /* FirebaseManager.swift in Sources */,
 				ABB7B3542319405B0084B44D /* ViewController.swift in Sources */,
+				AB6710F5231E821C00E2897E /* EmailSignInPopUpVC.swift in Sources */,
 				ABB7B3522319405B0084B44D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
