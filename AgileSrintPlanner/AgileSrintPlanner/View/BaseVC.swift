@@ -1,4 +1,6 @@
 import UIKit
+import Firebase
+import Crashlytics
 
 class BaseVC: UIViewController {
 

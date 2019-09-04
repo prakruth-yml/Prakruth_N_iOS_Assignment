@@ -37,16 +37,9 @@
                                         <integer key="value" value="7"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
-                            </button>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PeG-G4-o5o" userLabel="Button: G sign In">
-                                <rect key="frame" x="44.5" y="715.5" width="325" height="36.5"/>
-                                <color key="backgroundColor" red="0.99990254640579224" green="1" blue="0.99988251924514771" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Button" image="gSignIn"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="7"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="emailLoginButtonDidPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xNf-tf-zFt"/>
+                                </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JMe-jI-DTn">
                                 <rect key="frame" x="44.5" y="774" width="325" height="36.5"/>
@@ -70,37 +63,40 @@
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Ao-PE-yhA" userLabel="GSignView" customClass="GIDSignInButton">
+                                <rect key="frame" x="44.5" y="715.5" width="325" height="36.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="25L-Ie-VN5" firstAttribute="width" secondItem="13E-cD-Krn" secondAttribute="width" id="2ju-3P-n1A"/>
+                            <constraint firstItem="4Ao-PE-yhA" firstAttribute="width" secondItem="JMe-jI-DTn" secondAttribute="width" id="4r5-Gc-VVO"/>
                             <constraint firstItem="JMe-jI-DTn" firstAttribute="height" secondItem="kmt-PK-Xry" secondAttribute="height" multiplier="33:812" id="6ab-FZ-d90"/>
+                            <constraint firstItem="6cJ-Mb-1LC" firstAttribute="bottom" secondItem="4Ao-PE-yhA" secondAttribute="top" multiplier="0.7783" id="F6M-ar-sHm"/>
                             <constraint firstItem="kmt-PK-Xry" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="FDx-sT-nAt"/>
                             <constraint firstAttribute="trailing" secondItem="kmt-PK-Xry" secondAttribute="trailing" id="FeB-cD-0BW"/>
                             <constraint firstItem="JMe-jI-DTn" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" multiplier="0.94" id="JCN-nA-DWG"/>
-                            <constraint firstItem="PeG-G4-o5o" firstAttribute="height" secondItem="JMe-jI-DTn" secondAttribute="height" id="JDx-Uj-6BV"/>
                             <constraint firstItem="25L-Ie-VN5" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="JoT-BO-2WB"/>
                             <constraint firstItem="13E-cD-Krn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="NyT-mG-W1o"/>
                             <constraint firstItem="kmt-PK-Xry" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Qdy-o2-RYp"/>
                             <constraint firstItem="13E-cD-Krn" firstAttribute="bottom" secondItem="6cJ-Mb-1LC" secondAttribute="top" multiplier="0.9372" id="S2S-yq-dUt"/>
-                            <constraint firstItem="PeG-G4-o5o" firstAttribute="width" secondItem="JMe-jI-DTn" secondAttribute="width" id="Sig-zM-YoK"/>
+                            <constraint firstItem="4Ao-PE-yhA" firstAttribute="height" secondItem="JMe-jI-DTn" secondAttribute="height" id="VAX-B1-DG8"/>
+                            <constraint firstItem="6cJ-Mb-1LC" firstAttribute="height" secondItem="4Ao-PE-yhA" secondAttribute="height" id="VCl-dK-ag2"/>
                             <constraint firstAttribute="bottom" secondItem="kmt-PK-Xry" secondAttribute="bottom" id="Ypo-DJ-jHB"/>
-                            <constraint firstItem="PeG-G4-o5o" firstAttribute="bottom" secondItem="JMe-jI-DTn" secondAttribute="top" multiplier="0.9717" id="cku-G3-hGN"/>
+                            <constraint firstItem="6cJ-Mb-1LC" firstAttribute="width" secondItem="4Ao-PE-yhA" secondAttribute="width" id="eRO-Rb-xvg"/>
+                            <constraint firstItem="4Ao-PE-yhA" firstAttribute="bottom" secondItem="JMe-jI-DTn" secondAttribute="top" multiplier="0.9717" id="f40-ma-UPR"/>
                             <constraint firstItem="JMe-jI-DTn" firstAttribute="width" secondItem="kmt-PK-Xry" secondAttribute="width" multiplier="294:375" id="j80-QK-lUE"/>
                             <constraint firstItem="JMe-jI-DTn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="jlI-MI-Z6V"/>
-                            <constraint firstItem="6cJ-Mb-1LC" firstAttribute="width" secondItem="PeG-G4-o5o" secondAttribute="width" id="pB0-qS-vvZ"/>
                             <constraint firstItem="13E-cD-Krn" firstAttribute="width" secondItem="6cJ-Mb-1LC" secondAttribute="width" id="rL1-tm-Ynf"/>
-                            <constraint firstItem="6cJ-Mb-1LC" firstAttribute="height" secondItem="PeG-G4-o5o" secondAttribute="height" id="rkm-8B-fg9"/>
-                            <constraint firstItem="6cJ-Mb-1LC" firstAttribute="bottom" secondItem="PeG-G4-o5o" secondAttribute="top" multiplier="0.7783" id="ubL-T1-n0R"/>
-                            <constraint firstItem="PeG-G4-o5o" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="utC-9K-dD5"/>
                             <constraint firstItem="25L-Ie-VN5" firstAttribute="bottom" secondItem="13E-cD-Krn" secondAttribute="top" multiplier="0.9372" id="wRx-zd-EvT"/>
                             <constraint firstItem="6cJ-Mb-1LC" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="xSN-MG-8PZ"/>
+                            <constraint firstItem="4Ao-PE-yhA" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="yzE-c4-WX7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="emailSignInButton" destination="6cJ-Mb-1LC" id="zYD-0S-mWM"/>
-                        <outlet property="gSignInButton" destination="PeG-G4-o5o" id="wOD-WW-HXu"/>
+                        <outlet property="emailSignInButton" destination="6cJ-Mb-1LC" id="x65-tZ-ybJ"/>
                         <outlet property="nameTextField" destination="25L-Ie-VN5" id="QZN-Py-gaB"/>
                         <outlet property="passwordextField" destination="13E-cD-Krn" id="gqK-vX-2rg"/>
                         <outlet property="signUpButton" destination="JMe-jI-DTn" id="AAp-ww-YYc"/>
@@ -113,6 +109,7 @@
         <!--Email Sign In Pop UpVC-->
         <scene sceneID="SAK-J7-SGM">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VmM-Je-2r8" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="EmailSignInPopUpVC" id="qvq-F9-ndB" customClass="EmailSignInPopUpVC" customModule="AgileSrintPlanner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ad9-b7-lYp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -191,30 +188,54 @@
                         <outlet property="signUpButton" destination="SNS-Qw-UkW" id="FKq-jz-8Yz"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="VmM-Je-2r8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="782.60869565217399" y="19.419642857142858"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="3Jf-5y-90c">
+        <!--Navigation Controller-->
+        <scene sceneID="nvL-fd-wSu">
             <objects>
-                <viewController id="78a-d4-Ten" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="qJs-eK-2jD">
+                <navigationController id="Ow9-Wh-l97" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="lp4-S8-pDn">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="ZV0-w6-5QA" kind="relationship" relationship="rootViewController" id="4Hu-Ke-VPC"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Teb-mA-s8T" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1481" y="20"/>
+        </scene>
+        <!--Product Owner MainVC-->
+        <scene sceneID="N3J-0T-0k5">
+            <objects>
+                <viewController storyboardIdentifier="ProductOwnerMainVC" id="ZV0-w6-5QA" customClass="ProductOwnerMainVC" customModule="AgileSrintPlanner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IWY-nd-QUB">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DOA-rY-jKM">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Title" id="DYh-2C-4xD"/>
+                                </items>
+                            </navigationBar>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="gLp-cz-3vH"/>
+                        <viewLayoutGuide key="safeArea" id="Kf4-pk-zKT"/>
                     </view>
+                    <navigationItem key="navigationItem" id="dRQ-mO-cRq"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="GEk-VZ-qFP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CEM-Mw-sac" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1597" y="20"/>
+            <point key="canvasLocation" x="2194" y="19"/>
         </scene>
     </scenes>
     <resources>
         <image name="Teamwork-Theme" width="1500" height="1500"/>
         <image name="emailSignIn" width="661" height="121"/>
-        <image name="gSignIn" width="660" height="123"/>
         <image name="icon-close" width="50" height="50"/>
     </resources>
 </document>

@@ -17,6 +17,9 @@
 		ABB7B3572319405B0084B44D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABB7B3552319405B0084B44D /* Main.storyboard */; };
 		ABB7B359231940670084B44D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABB7B358231940670084B44D /* Assets.xcassets */; };
 		ABB7B35C231940670084B44D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABB7B35A231940670084B44D /* LaunchScreen.storyboard */; };
+		ABD335DE231FBFB50023AC98 /* ProductOwnerMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD335DD231FBFB50023AC98 /* ProductOwnerMainVC.swift */; };
+		ABD335E0231FC87A0023AC98 /* ProductOwner.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD335DF231FC87A0023AC98 /* ProductOwner.swift */; };
+		ABD335E2231FC8940023AC98 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD335E1231FC8940023AC98 /* Constants.swift */; };
 		D05D77D163CBC0741EF458C5 /* Pods_AgileSrintPlanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60E798C9683F6D1E72EFC22D /* Pods_AgileSrintPlanner.framework */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +39,9 @@
 		ABB7B358231940670084B44D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ABB7B35B231940670084B44D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ABB7B35D231940670084B44D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ABD335DD231FBFB50023AC98 /* ProductOwnerMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductOwnerMainVC.swift; sourceTree = "<group>"; };
+		ABD335DF231FC87A0023AC98 /* ProductOwner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductOwner.swift; sourceTree = "<group>"; };
+		ABD335E1231FC8940023AC98 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +76,8 @@
 		AB6710EF231E802800E2897E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				ABD335DF231FC87A0023AC98 /* ProductOwner.swift */,
+				ABD335E1231FC8940023AC98 /* Constants.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -81,6 +89,7 @@
 				ABB7B3552319405B0084B44D /* Main.storyboard */,
 				AB6710F4231E821C00E2897E /* EmailSignInPopUpVC.swift */,
 				AB6710F8231F83FD00E2897E /* BaseVC.swift */,
+				ABD335DD231FBFB50023AC98 /* ProductOwnerMainVC.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -303,8 +312,11 @@
 				AB6710F7231E9F6B00E2897E /* FirebaseManager.swift in Sources */,
 				ABB7B3542319405B0084B44D /* ViewController.swift in Sources */,
 				AB6710F5231E821C00E2897E /* EmailSignInPopUpVC.swift in Sources */,
+				ABD335E0231FC87A0023AC98 /* ProductOwner.swift in Sources */,
+				ABD335DE231FBFB50023AC98 /* ProductOwnerMainVC.swift in Sources */,
 				ABB7B3522319405B0084B44D /* AppDelegate.swift in Sources */,
 				AB6710F9231F83FD00E2897E /* BaseVC.swift in Sources */,
+				ABD335E2231FC8940023AC98 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

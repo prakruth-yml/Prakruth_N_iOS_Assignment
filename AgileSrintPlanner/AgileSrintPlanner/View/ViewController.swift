@@ -1,49 +1,23 @@
-//
-//  ViewController.swift
-//  AgileSrintPlanner
-//
-//  Created by Prakruth Nagaraj on 30/08/19.
-//  Copyright © 2019 Prakruth Nagaraj. All rights reserved.
-//
-
 import UIKit
 import Firebase
 import Crashlytics
+import GoogleSignIn
+import FirebaseUI
 
-class ViewController: UIViewController {
+class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
     
-    @IBOutlet weak var gSignInButton: UIButton!
     @IBOutlet weak var emailSignInButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var passwordextField: UITextField!
-//    let temp = FirebaseApp.configure()
-//    var db = Firestore.firestore()
-//    var ref: DatabaseReference!
-//
+    
+    var fireBaseManager = FirebaseManager()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        gSignInButton.imageView?.contentMode = .scaleAspectFit
+        GIDSignIn.sharedInstance()?.uiDelegate = self
+        GIDSignIn.sharedInstance()?.delegate = self
         emailSignInButton.imageView?.contentMode = .scaleAspectFit
-        
-        
-        
-//        let db = Firestore.firestore()
-//        db.collection("Test").getDocuments(completion: {(querySnaps, error) in
-//            if let err = error{
-//                print(err)
-//            }
-//            else{
-//                for document in querySnaps!.documents {
-//                    print("\(document.documentID) \(document.data())")
-//                }
-//            }
-//            })
-        
-//        ref = Database.database().reference()
-//        self.ref.child("users").child(user.uid).setValue(["username": "username"])
-//        ref.child("Test").child("Test").setValue("Prakruth N", forKey: "Name")
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     @IBAction func newUserButtonDidPress(_ button: UIButton) {
@@ -53,29 +27,41 @@ class ViewController: UIViewController {
         view.addSubview(popVC.view)
         popVC.didMove(toParent: self)
     }
+
+    @IBAction func emailLoginButtonDidPress(_ button: UIButton) {
+        fireBaseManager.emailUserLogin(email: nameTextField?.text, password: passwordextField?.text) { (user, error) in
+            if error != "nil" {
+                self.showAlert(title: "Login Failed", msg: error, actionTitle: "Try Again")
+            } else {
+                self.fireBaseManager.decideUserRole(user: Auth.auth().currentUser) { (viewController) in
+                    guard let viewController = viewController else { return }
+                    self.present(viewController, animated: true, completion: nil)
+                }
+            }
+        }
+    }
     
-    @IBAction func duttonDidPress(_ button: UIButton) {
-//        var ref: DocumentReference = db.collection("Test").addDocument(data: ["name": "Bought Something", "fullName": "Bought something else"]) { err in
-//            if let err = err{
-//                print("Error")
-//            }
-//            else{
-//                print("Added")
-//            }
-//        }
-//        let db2 = Database.database().reference().child("Testing")
-//        let mesg = ["Sender": "Names", "msgBody": "Hello"]
-//        db2.childByAutoId().setValue(mesg) { (error, ref) in
-//            if error != nil{
-//                print(error)
-//            }
-//            else{
-//                print("YES")
-//            }
-//        }
-        Crashlytics.sharedInstance().crash()
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if let error = error {
+            print(error)
+            return
+        }
+        guard let authentication = user.authentication else { return }
+        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                       accessToken: authentication.accessToken)
+        Auth.auth().signIn(with: credential) { (authResult, error) in
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            let firebaseAuth = Auth.auth()
+            do {
+                try firebaseAuth.signOut()
+            } catch let signOutError as NSError {
+                print ("Error signing out: %@", signOutError)
+            }
+        }
     }
 
-
 }
-
