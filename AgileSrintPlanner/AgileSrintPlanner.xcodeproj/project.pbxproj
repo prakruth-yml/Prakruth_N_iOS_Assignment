@@ -11,6 +11,7 @@
 		AB6710EC231E4DE300E2897E /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = AB6710EB231E4DE300E2897E /* .swiftlint.yml */; };
 		AB6710F5231E821C00E2897E /* EmailSignInPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6710F4231E821C00E2897E /* EmailSignInPopUpVC.swift */; };
 		AB6710F7231E9F6B00E2897E /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6710F6231E9F6B00E2897E /* FirebaseManager.swift */; };
+		AB6710F9231F83FD00E2897E /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6710F8231F83FD00E2897E /* BaseVC.swift */; };
 		ABB7B3522319405B0084B44D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB7B3512319405B0084B44D /* AppDelegate.swift */; };
 		ABB7B3542319405B0084B44D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB7B3532319405B0084B44D /* ViewController.swift */; };
 		ABB7B3572319405B0084B44D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABB7B3552319405B0084B44D /* Main.storyboard */; };
@@ -27,6 +28,7 @@
 		AB6710EB231E4DE300E2897E /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		AB6710F4231E821C00E2897E /* EmailSignInPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignInPopUpVC.swift; sourceTree = "<group>"; };
 		AB6710F6231E9F6B00E2897E /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		AB6710F8231F83FD00E2897E /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		ABB7B34E2319405A0084B44D /* AgileSrintPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AgileSrintPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABB7B3512319405B0084B44D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ABB7B3532319405B0084B44D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 				ABB7B3532319405B0084B44D /* ViewController.swift */,
 				ABB7B3552319405B0084B44D /* Main.storyboard */,
 				AB6710F4231E821C00E2897E /* EmailSignInPopUpVC.swift */,
+				AB6710F8231F83FD00E2897E /* BaseVC.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -301,6 +304,7 @@
 				ABB7B3542319405B0084B44D /* ViewController.swift in Sources */,
 				AB6710F5231E821C00E2897E /* EmailSignInPopUpVC.swift in Sources */,
 				ABB7B3522319405B0084B44D /* AppDelegate.swift in Sources */,
+				AB6710F9231F83FD00E2897E /* BaseVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseUI
+import GoogleSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
+        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
 //        let authUI = FUIAuth.defaultAuthUI()
 //        let providers: [FUIAuthProvider] = [FUIGoogleAuth()]
 //        authUI?.providers = providers

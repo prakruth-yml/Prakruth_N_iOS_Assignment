@@ -10,12 +10,11 @@ import UIKit
 import Firebase
 import FirebaseUI
 
-class EmailSignInPopUpVC: UIViewController {
+class EmailSignInPopUpVC: BaseVC {
 
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var emailIdTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var errorLabel: UILabel!
     var firebaseManager = FirebaseManager()
     
     override func viewDidLoad() {
@@ -39,19 +38,19 @@ class EmailSignInPopUpVC: UIViewController {
     }
     @IBAction func signInButtonDidPress(_ button: UIButton) {
         
-        firebaseManager.emailLoginUserCreate(email: emailIdTextField.text ?? "name", password: passwordTextField.text ?? "password") { (error) in
-            if error != nil{
-                self.errorLabel.isHidden = false
-                self.errorLabel.text = error.localizedDescription
+        firebaseManager.emailLoginUserCreate(email: emailIdTextField.text ?? "name", password: passwordTextField.text ?? "password") { (msg) in
+            if msg != "nil"{
+                super.showAlert(title: "Failed", msg: msg, actionTitle: "Close")
+                
             } else {
-                self.errorLabel.isHidden = true
                 self.view.removeFromSuperview()
+                super.showAlert(title: "Success", msg: "Account has been created successfully", actionTitle: "Close")
             }
         }
-        view.removeFromSuperview()
+        //view.removeFromSuperview()
     }
     
-    @IBAction func gSignInButtonDidPress(_ button: UIButton){
+    @IBAction func gSignInButtonDidPress(_ button: UIButton) {
 //        firebaseManager.
     }
 }
