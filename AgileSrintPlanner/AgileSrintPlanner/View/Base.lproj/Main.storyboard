@@ -28,10 +28,13 @@
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6cJ-Mb-1LC" userLabel="Button: email Sign in">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6cJ-Mb-1LC" userLabel="Button: email Sign in">
                                 <rect key="frame" x="44.5" y="520.5" width="325" height="36.5"/>
                                 <color key="backgroundColor" red="0.81734549999237061" green="0.006628719624131918" blue="0.10932690650224686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" image="emailSignIn"/>
+                                <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="19"/>
+                                <inset key="titleEdgeInsets" minX="32" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="7" maxX="5" maxY="6"/>
+                                <state key="normal" title="Sign In" image="message-48"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="7"/>
@@ -67,6 +70,9 @@
                                 <rect key="frame" x="44.5" y="715.5" width="325" height="36.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-show-password" translatesAutoresizingMaskIntoConstraints="NO" id="oQ5-JC-aBW">
+                                <rect key="frame" x="327" y="457" width="42" height="30"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -76,14 +82,18 @@
                             <constraint firstItem="6cJ-Mb-1LC" firstAttribute="bottom" secondItem="4Ao-PE-yhA" secondAttribute="top" multiplier="0.7783" id="F6M-ar-sHm"/>
                             <constraint firstItem="kmt-PK-Xry" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="FDx-sT-nAt"/>
                             <constraint firstAttribute="trailing" secondItem="kmt-PK-Xry" secondAttribute="trailing" id="FeB-cD-0BW"/>
+                            <constraint firstItem="oQ5-JC-aBW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="327" id="FpD-1J-V9f"/>
+                            <constraint firstItem="oQ5-JC-aBW" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" multiplier="0.8913" id="IwA-oo-Bx3"/>
                             <constraint firstItem="JMe-jI-DTn" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" multiplier="0.94" id="JCN-nA-DWG"/>
                             <constraint firstItem="25L-Ie-VN5" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="JoT-BO-2WB"/>
+                            <constraint firstItem="oQ5-JC-aBW" firstAttribute="height" secondItem="kmt-PK-Xry" secondAttribute="height" multiplier="30:896" id="LYf-Eo-Nfm"/>
                             <constraint firstItem="13E-cD-Krn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="NyT-mG-W1o"/>
                             <constraint firstItem="kmt-PK-Xry" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Qdy-o2-RYp"/>
                             <constraint firstItem="13E-cD-Krn" firstAttribute="bottom" secondItem="6cJ-Mb-1LC" secondAttribute="top" multiplier="0.9372" id="S2S-yq-dUt"/>
                             <constraint firstItem="4Ao-PE-yhA" firstAttribute="height" secondItem="JMe-jI-DTn" secondAttribute="height" id="VAX-B1-DG8"/>
                             <constraint firstItem="6cJ-Mb-1LC" firstAttribute="height" secondItem="4Ao-PE-yhA" secondAttribute="height" id="VCl-dK-ag2"/>
                             <constraint firstAttribute="bottom" secondItem="kmt-PK-Xry" secondAttribute="bottom" id="Ypo-DJ-jHB"/>
+                            <constraint firstItem="oQ5-JC-aBW" firstAttribute="bottom" secondItem="6cJ-Mb-1LC" secondAttribute="top" multiplier="0.936" id="duo-Qe-gYp"/>
                             <constraint firstItem="6cJ-Mb-1LC" firstAttribute="width" secondItem="4Ao-PE-yhA" secondAttribute="width" id="eRO-Rb-xvg"/>
                             <constraint firstItem="4Ao-PE-yhA" firstAttribute="bottom" secondItem="JMe-jI-DTn" secondAttribute="top" multiplier="0.9717" id="f40-ma-UPR"/>
                             <constraint firstItem="JMe-jI-DTn" firstAttribute="width" secondItem="kmt-PK-Xry" secondAttribute="width" multiplier="294:375" id="j80-QK-lUE"/>
@@ -104,7 +114,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="40.799999999999997" y="20.689655172413794"/>
+            <point key="canvasLocation" x="40.579710144927539" y="20.089285714285712"/>
         </scene>
         <!--Email Sign In Pop UpVC-->
         <scene sceneID="SAK-J7-SGM">
@@ -115,12 +125,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bhy-uz-1OR">
-                                <rect key="frame" x="0.0" y="273" width="414" height="350"/>
+                                <rect key="frame" x="8" y="273" width="414" height="350"/>
                                 <subviews>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SNS-Qw-UkW" userLabel="Button: email Sign in">
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SNS-Qw-UkW" userLabel="Button: email Sign in">
                                         <rect key="frame" x="27.5" y="248.5" width="359" height="30"/>
                                         <color key="backgroundColor" red="0.81734549999999995" green="0.006628719624" blue="0.1093269065" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" image="emailSignIn"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="19"/>
+                                        <inset key="titleEdgeInsets" minX="33" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="1" minY="4" maxX="0.0" maxY="4"/>
+                                        <state key="normal" title="Register" image="plus-5-48"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="7"/>
@@ -170,14 +183,18 @@
                                     <constraint firstItem="27b-X3-3kY" firstAttribute="bottom" secondItem="SNS-Qw-UkW" secondAttribute="top" multiplier="0.87" id="q6q-qf-Bnh"/>
                                     <constraint firstItem="6CG-lL-A5S" firstAttribute="top" secondItem="bhy-uz-1OR" secondAttribute="top" id="vdm-x2-rV2"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="9"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="bhy-uz-1OR" firstAttribute="leading" secondItem="UhK-rK-1zg" secondAttribute="leading" constant="8" id="0F9-sx-EoM"/>
                             <constraint firstItem="bhy-uz-1OR" firstAttribute="centerY" secondItem="ad9-b7-lYp" secondAttribute="centerY" id="5YK-Um-Jn2"/>
-                            <constraint firstItem="bhy-uz-1OR" firstAttribute="leading" secondItem="UhK-rK-1zg" secondAttribute="leading" id="d37-Sm-BaF"/>
-                            <constraint firstItem="UhK-rK-1zg" firstAttribute="trailing" secondItem="bhy-uz-1OR" secondAttribute="trailing" id="fyC-xO-gY5"/>
-                            <constraint firstItem="bhy-uz-1OR" firstAttribute="centerX" secondItem="ad9-b7-lYp" secondAttribute="centerX" id="ygB-W7-p5m"/>
+                            <constraint firstItem="bhy-uz-1OR" firstAttribute="trailing" secondItem="UhK-rK-1zg" secondAttribute="trailing" constant="8" id="XhZ-yK-Yer"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UhK-rK-1zg"/>
                     </view>
@@ -547,10 +564,12 @@
     </scenes>
     <resources>
         <image name="Teamwork-Theme" width="1500" height="1500"/>
-        <image name="emailSignIn" width="661" height="121"/>
         <image name="icon-close" width="50" height="50"/>
+        <image name="icon-show-password" width="50" height="50"/>
         <image name="icon-user-acc" width="50" height="50"/>
         <image name="icons8-add-50" width="50" height="50"/>
         <image name="icons8-menu-50" width="50" height="50"/>
+        <image name="message-48" width="36" height="36"/>
+        <image name="plus-5-48" width="36" height="36"/>
     </resources>
 </document>

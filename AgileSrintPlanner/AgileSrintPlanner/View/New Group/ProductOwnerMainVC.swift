@@ -15,6 +15,7 @@ class ProductOwnerMainVC: BaseVC {
     
     let firebaseManager = FirebaseManager()
     var viewModel = POViewModel()
+    var projectDetails: [ProjectDetails] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +24,13 @@ class ProductOwnerMainVC: BaseVC {
         accDetails.addGestureRecognizer(userTapGesture)
         listGridButton.addGestureRecognizer(listTapGesture)
         setupDetailsView()
-        firebaseManager.getProjectDetails()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.getProjectDetailsFromFM { (detailArr) in
+            self.projectDetails = detailArr
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -35,7 +42,7 @@ class ProductOwnerMainVC: BaseVC {
     }
     
     @IBAction private func signOutButtonDidPress(_ button: UIButton) {
-        viewModel.firebase.emailUserSignOut() {
+        viewModel.firebase.emailUserSignOut {
             guard let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: ViewController.self)) as? ViewController else { fatalError() }
             self.present(vc, animated: true, completion: nil)
         }
@@ -60,7 +67,7 @@ class ProductOwnerMainVC: BaseVC {
     
     func setupDetailsView() {
         
-        firebaseManager.getUserDetails() { (email, role) in
+        firebaseManager.getUserDetails { (email, role) in
             DispatchQueue.main.async {
                 self.emailLabel.text = email
                 self.roleLabel.text = role
@@ -71,7 +78,7 @@ class ProductOwnerMainVC: BaseVC {
 
 extension ProductOwnerMainVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return projectDetails.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

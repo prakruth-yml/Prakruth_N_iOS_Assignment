@@ -14,4 +14,10 @@ class BaseVC: UIViewController {
         alert.addAction(alertAction)
         present(alert, animated: true, completion: nil)
     }
+    
+    func isValidEmail(email: String) -> Bool {
+        let pattern = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let regex = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive)
+        return regex?.firstMatch(in: email, options: [], range: NSRange(location: 0, length: email.count)) != nil
+    }
 }

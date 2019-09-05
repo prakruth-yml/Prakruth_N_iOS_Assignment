@@ -83,15 +83,11 @@ class FirebaseManager {
         completion()
     }
     
-    func getProjectDetails() {
+    func getProjectDetails(completion: @escaping ((DataSnapshot) -> Void)) {
         var detailsArr: [ProjectDetails] = []
         ref.child("Projects").observeSingleEvent(of: .value) { (snapshot) in
             print(snapshot.childrenCount)
-            //FORCED UNWRAP HERE
-            for child in snapshot.children.allObjects as! [DataSnapshot] {
-                
-                print(child.childSnapshot(forPath: "Data").childSnapshot(forPath: "Title").value)
-            }
+            completion(snapshot)
         }
     }
 }

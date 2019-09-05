@@ -6,10 +6,10 @@ import FirebaseUI
 
 class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
     
-    @IBOutlet weak var emailSignInButton: UIButton!
-    @IBOutlet weak var signUpButton: UIButton!
-    @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var passwordextField: UITextField!
+    @IBOutlet private weak var emailSignInButton: UIButton!
+    @IBOutlet private weak var signUpButton: UIButton!
+    @IBOutlet private weak var nameTextField: UITextField!
+    @IBOutlet private weak var passwordextField: UITextField!
     
     var fireBaseManager = FirebaseManager()
 
@@ -20,24 +20,40 @@ class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
         emailSignInButton.imageView?.contentMode = .scaleAspectFit
     }
     
-    @IBAction func newUserButtonDidPress(_ button: UIButton) {
+    @IBAction private func newUserButtonDidPress(_ button: UIButton) {
         guard let popVC = self.storyboard?.instantiateViewController(withIdentifier: String(describing: EmailSignInPopUpVC.self)) as? EmailSignInPopUpVC else { fatalError() }
+        
         self.addChild(popVC)
         popVC.view.frame = view.frame
         view.addSubview(popVC.view)
         popVC.didMove(toParent: self)
     }
 
-    @IBAction func emailLoginButtonDidPress(_ button: UIButton) {
-        fireBaseManager.emailUserLogin(email: nameTextField?.text, password: passwordextField?.text) { (user, error) in
-            if error != "nil" {
-                self.showAlert(title: "Login Failed", msg: error, actionTitle: "Try Again")
-            } else {
-                self.fireBaseManager.decideUserRole(user: Auth.auth().currentUser) { (viewController) in
-                    guard let viewController = viewController else { return }
-                    self.present(viewController, animated: true, completion: nil)
+    @IBAction private func emailLoginButtonDidPress(_ button: UIButton) {
+        if nameTextField?.text?.isEmpty ?? true || passwordextField?.text?.isEmpty ?? true {
+            showAlert(title: "Login Failed", msg: "Email or Password Missing", actionTitle: "Close")
+        } else if !isValidEmail(email: nameTextField.text ?? "") {
+            showAlert(title: "Login Failed", msg: "Email Id Wrongly Formated", actionTitle: "Close")
+        } else {
+            fireBaseManager.emailUserLogin(email: nameTextField?.text, password: passwordextField?.text) { (user, error) in
+                if error != "nil" {
+                    self.showAlert(title: "Login Failed", msg: error, actionTitle: "Try Again")
+                } else {
+                    self.fireBaseManager.decideUserRole(user: Auth.auth().currentUser) { (viewController) in
+                        guard let viewController = viewController else { return }
+                        self.present(viewController, animated: true, completion: nil)
+                    }
                 }
             }
+        }
+    }
+    
+    @IBAction private func passwordHideShowButtonDidPress(_ button: UIButton) {
+        if passwordextField.isHidden {
+            passwordextField.isHidden = false
+        }
+        else{
+            passwordextField.isHidden = true
         }
     }
     
@@ -63,5 +79,4 @@ class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
             }
         }
     }
-
 }
