@@ -47,7 +47,6 @@ class EmailSignInPopUpVC: BaseVC {
                 super.showAlert(title: "Success", msg: "Account has been created successfully", actionTitle: "Close")
             }
         }
-        //view.removeFromSuperview()
     }
     
     @IBAction func gSignInButtonDidPress(_ button: UIButton) {

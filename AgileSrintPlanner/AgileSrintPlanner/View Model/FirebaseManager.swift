@@ -24,8 +24,8 @@ class FirebaseManager {
     }
     
     func emailUserLogin(email: String?, password: String?, completion: @escaping ((Any, String) -> Void)) {
-        guard let email = email else { fatalError() }
-        guard let password = password else { fatalError() }
+        guard let email = email,
+              let password = password else { fatalError() }
         var msg = "nil"
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] user, error in
             guard let strongSelf = self else { return }
@@ -36,24 +36,62 @@ class FirebaseManager {
         }
     }
     
+    func emailUserSignOut(completion: @escaping (() -> Void)) {
+        
+        try? Auth.auth().signOut()
+        completion()
+    }
+    
     func decideUserRole(user: User?, completion: @escaping (UIViewController?) -> Void) {
         
         ref.child("Employee").observeSingleEvent(of: .value) { (snapshot) in
             guard let user = Auth.auth().currentUser else { fatalError() }
             let role = snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: "role").value as? String
             switch role {
-            case Roles.developer.rawValue: print("Dev")
-            case Roles.projectManager.rawValue: print("PM")
+            case Roles.developer.rawValue:
+                print("Dev")
+            case Roles.projectManager.rawValue:
+                print("PM")
             case Roles.productOwner.rawValue:
                 let vc = UIStoryboard(name: "Main", bundle: nil)
                     .instantiateViewController(withIdentifier: String(describing: ProductOwnerMainVC.self))
                     as? ProductOwnerMainVC
                 completion(vc)
-            default: print("NO ROle")
+            default:
+                print("NO ROle")
             }
         }
     }
     
+    func getUserDetails(completion: @escaping ((String, String) -> Void)) {
+        ref.child("Employee").observeSingleEvent(of: .value) { (snapshot) in
+            guard let user = Auth.auth().currentUser else { fatalError() }
+            completion(snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: "emailId").value as? String ?? "",
+                       snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: "role").value as? String ?? "")
+        }
+    }
+    
     func gmailLogin() {
+    }
+    
+    func addNewProjectByPO(title: String, domain: String, descp: String, completion: @escaping (() -> Void)) {
+        guard let key = ref.child("Projects").childByAutoId().key else { fatalError() }
+        let data = ["Title": title, "Domain": domain, "Descp": descp]
+        let members: [String:String] = [:]
+        let childUpdates = ["/Projects/\(key)/Data":data, "/Projects/\(key)/Members": members]
+        ref.updateChildValues(childUpdates)
+        completion()
+    }
+    
+    func getProjectDetails() {
+        var detailsArr: [ProjectDetails] = []
+        ref.child("Projects").observeSingleEvent(of: .value) { (snapshot) in
+            print(snapshot.childrenCount)
+            //FORCED UNWRAP HERE
+            for child in snapshot.children.allObjects as! [DataSnapshot] {
+                
+                print(child.childSnapshot(forPath: "Data").childSnapshot(forPath: "Title").value)
+            }
+        }
     }
 }

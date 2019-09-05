@@ -1,5 +1,5 @@
 //
-//  ProductOwnerMainVC.swift
+//  AccDetailsVC.swift
 //  AgileSrintPlanner
 //
 //  Created by Prakruth Nagaraj on 04/09/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProductOwnerMainVC: BaseVC {
+class AccDetailsVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
