@@ -27,8 +27,7 @@ class FirebaseManager {
         guard let email = email,
               let password = password else { fatalError() }
         var msg = "nil"
-        Auth.auth().signIn(withEmail: email, password: password) { [weak self] user, error in
-            guard let strongSelf = self else { return }
+        Auth.auth().signIn(withEmail: email, password: password) { user, error in
             if let error = error {
                 msg = error.localizedDescription
             }
@@ -42,11 +41,12 @@ class FirebaseManager {
         completion()
     }
     
-    func decideUserRole(user: User?, completion: @escaping (UIViewController?) -> Void) {
+    func decideUserRole(user: User?, completion: @escaping (UIViewController?, String) -> Void) {
         
         ref.child("Employee").observeSingleEvent(of: .value) { (snapshot) in
             guard let user = Auth.auth().currentUser else { fatalError() }
             let role = snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: "role").value as? String
+            var roleStr: String
             switch role {
             case Roles.developer.rawValue:
                 print("Dev")
@@ -56,7 +56,7 @@ class FirebaseManager {
                 let vc = UIStoryboard(name: "Main", bundle: nil)
                     .instantiateViewController(withIdentifier: String(describing: ProductOwnerMainVC.self))
                     as? ProductOwnerMainVC
-                completion(vc)
+                completion(vc, "PO")
             default:
                 print("NO ROle")
             }

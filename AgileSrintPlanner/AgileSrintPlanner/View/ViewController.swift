@@ -11,7 +11,7 @@ class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
     @IBOutlet private weak var nameTextField: UITextField!
     @IBOutlet private weak var passwordextField: UITextField!
     
-    var private fireBaseManager = FirebaseManager()
+    var fireBaseManager = FirebaseManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +26,7 @@ class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
     @IBAction private func newUserButtonDidPress(_ button: UIButton) {
         guard let popVC = self.storyboard?.instantiateViewController(withIdentifier: String(describing: EmailSignInPopUpVC.self)) as? EmailSignInPopUpVC else { fatalError() }
         
-        self.addChild(popVC)
+        addChild(popVC)
         popVC.view.frame = view.frame
         view.addSubview(popVC.view)
         popVC.didMove(toParent: self)
@@ -43,12 +43,17 @@ class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
                 if error != "nil" {
                     self.showAlert(title: "Login Failed", msg: error, actionTitle: "Try Again")
                 } else {
-                    self.fireBaseManager.decideUserRole(user: Auth.auth().currentUser) { (viewController) in
+                    self.fireBaseManager.decideUserRole(user: Auth.auth().currentUser) { (viewController, role) in
+                        UserDefaults.standard.set(role, forKey: Constants.UserDefaults.role)
                         guard let viewController = viewController else { return }
-                        
+                        let currentUser = Auth.auth().currentUser
+                        currentUser?.getIDTokenResult(forcingRefresh: true, completion: { (token, error) in
+                                UserDefaults.standard.set(token?.claims, forKey: Constants.UserDefaults.currentUser)
+                        })
                         self.present(viewController, animated: true, completion: nil)
                     }
                 }
+                //CANNOT CALL SUPER WITH WEAK SELF
                 super.stopLoading()
             }
         }

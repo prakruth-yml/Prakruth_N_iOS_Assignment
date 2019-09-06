@@ -44,6 +44,8 @@ class ProductOwnerMainVC: BaseVC {
     @IBAction private func signOutButtonDidPress(_ button: UIButton) {
         viewModel.firebase.emailUserSignOut {
             guard let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: ViewController.self)) as? ViewController else { fatalError() }
+            UserDefaults.standard.removeObject(forKey: Constants.UserDefaults.currentUser)
+            UserDefaults.standard.removeObject(forKey: Constants.UserDefaults.role)
             self.present(vc, animated: true, completion: nil)
         }
     }
