@@ -15,10 +15,12 @@ class EmailSignInPopUpVC: BaseVC {
     @IBOutlet private weak var signUpButton: UIButton!
     @IBOutlet private weak var emailIdTextField: UITextField!
     @IBOutlet private weak var passwordTextField: UITextField!
+    @IBOutlet private weak var confirmPasswordTF: UITextField!
     var firebaseManager = FirebaseManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupTextFieldDelegates()
         view.backgroundColor = UIColor.black.withAlphaComponent(0.8)
         signUpButton.imageView?.contentMode = .scaleAspectFit
         popOver()
@@ -41,6 +43,8 @@ class EmailSignInPopUpVC: BaseVC {
             showAlert(title: "Error", msg: "Email Id or Password Missing", actionTitle: "Close")
         } else if !isValidEmail(email: emailIdTextField.text ?? "") {
             showAlert(title: "Error", msg: "Wrongly formated Email Id", actionTitle: "Close")
+        } else if passwordTextField.text != confirmPasswordTF.text {
+            showAlert(title: "Login Failed", msg: "Passwords does not match", actionTitle: "Close")
         } else {
             firebaseManager.emailLoginUserCreate(email: emailIdTextField.text ?? "name", password: passwordTextField.text ?? "password") { (msg) in
                 if msg != "nil"{
@@ -56,5 +60,22 @@ class EmailSignInPopUpVC: BaseVC {
     
     @IBAction private func gSignInButtonDidPress(_ button: UIButton) {
 //        firebaseManager.
+    }
+}
+
+extension EmailSignInPopUpVC: UITextFieldDelegate {
+    
+    func setupTextFieldDelegates() {
+        emailIdTextField.delegate = self
+        passwordTextField.delegate = self
+        confirmPasswordTF.delegate = self
+        emailIdTextField.returnKeyType = .next
+        passwordTextField.returnKeyType = .next
+        confirmPasswordTF.returnKeyType = .done
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

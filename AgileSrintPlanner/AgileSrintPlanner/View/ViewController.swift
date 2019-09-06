@@ -11,13 +11,16 @@ class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
     @IBOutlet private weak var nameTextField: UITextField!
     @IBOutlet private weak var passwordextField: UITextField!
     
-    var fireBaseManager = FirebaseManager()
+    var private fireBaseManager = FirebaseManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         GIDSignIn.sharedInstance()?.uiDelegate = self
         GIDSignIn.sharedInstance()?.delegate = self
+        setupTextFieldDelegates()
         emailSignInButton.imageView?.contentMode = .scaleAspectFit
+        NotificationCenter.default.addObserver(self, selector: #selector(moveViewWhenKeyboardAppears), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(moveViewWhenKeyboardAppears), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
     @IBAction private func newUserButtonDidPress(_ button: UIButton) {
@@ -35,26 +38,34 @@ class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
         } else if !isValidEmail(email: nameTextField.text ?? "") {
             showAlert(title: "Login Failed", msg: "Email Id Wrongly Formated", actionTitle: "Close")
         } else {
+            startLoading()
             fireBaseManager.emailUserLogin(email: nameTextField?.text, password: passwordextField?.text) { (user, error) in
                 if error != "nil" {
                     self.showAlert(title: "Login Failed", msg: error, actionTitle: "Try Again")
                 } else {
                     self.fireBaseManager.decideUserRole(user: Auth.auth().currentUser) { (viewController) in
                         guard let viewController = viewController else { return }
+                        
                         self.present(viewController, animated: true, completion: nil)
                     }
                 }
+                super.stopLoading()
             }
         }
     }
     
     @IBAction private func passwordHideShowButtonDidPress(_ button: UIButton) {
-        if passwordextField.isHidden {
-            passwordextField.isHidden = false
+        if passwordextField.isSecureTextEntry {
+            passwordextField.isSecureTextEntry = false
+        } else {
+            passwordextField.isSecureTextEntry = true
         }
-        else{
-            passwordextField.isHidden = true
-        }
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        let touch: UITouch? = touches.first
+        view.endEditing(true)
     }
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
@@ -63,6 +74,7 @@ class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
             return
         }
         guard let authentication = user.authentication else { return }
+        
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
                                                        accessToken: authentication.accessToken)
         Auth.auth().signIn(with: credential) { (authResult, error) in
@@ -78,5 +90,39 @@ class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
                 print ("Error signing out: %@", signOutError)
             }
         }
+    }
+    
+    @objc func moveViewWhenKeyboardAppears(notification: Notification) {
+        let notificationInfoObj = notification.userInfo
+        guard let notificationInfo = notificationInfoObj else { return }
+        
+        if notification.name == UIResponder.keyboardWillShowNotification {
+            if let keyBoardFrame = (notificationInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+                if self.view.frame.origin.y == 0 {
+                    self.view.frame.origin.y -= keyBoardFrame.height
+                }
+            }else {
+                return
+            }
+        }else if notification.name == UIResponder.keyboardWillHideNotification {
+            if self.view.frame.origin.y != 0 {
+                self.view.frame.origin.y = 0
+            }
+        }
+    }
+}
+
+extension ViewController: UITextFieldDelegate {
+    
+    func setupTextFieldDelegates() {
+        passwordextField.delegate = self
+        passwordextField.returnKeyType = .done
+        nameTextField.delegate = self
+        nameTextField.returnKeyType = .next
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
