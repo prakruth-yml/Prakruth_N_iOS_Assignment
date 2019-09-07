@@ -44,4 +44,17 @@ class BaseVC: UIViewController {
         activityIndicator.stopAnimating()
         UIApplication.shared.endIgnoringInteractionEvents()
     }
+    
+    func decideRole(role: String) -> String {
+        switch(role) {
+        case "PO":
+            return "Product Owner"
+        case "PM":
+            return "Project Manager"
+        case "dev":
+            return "Developer"
+        default:
+            return ""
+        }
+    }
 }

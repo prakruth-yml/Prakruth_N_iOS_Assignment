@@ -38,7 +38,7 @@ class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
         } else if !isValidEmail(email: nameTextField.text ?? "") {
             showAlert(title: "Login Failed", msg: "Email Id Wrongly Formated", actionTitle: "Close")
         } else {
-            startLoading()
+            super.startLoading()
             fireBaseManager.emailUserLogin(email: nameTextField?.text, password: passwordextField?.text) { (user, error) in
                 if error != "nil" {
                     self.showAlert(title: "Login Failed", msg: error, actionTitle: "Try Again")
@@ -50,7 +50,9 @@ class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
                         currentUser?.getIDTokenResult(forcingRefresh: true, completion: { (token, error) in
                                 UserDefaults.standard.set(token?.claims, forKey: Constants.UserDefaults.currentUser)
                         })
-                        self.present(viewController, animated: true, completion: nil)
+                        let navigationController = UINavigationController(rootViewController: viewController)
+                        self.present(navigationController, animated: true, completion: nil)
+//                        self.navigationController?.pushViewController(viewController, animated: true)
                     }
                 }
                 //CANNOT CALL SUPER WITH WEAK SELF

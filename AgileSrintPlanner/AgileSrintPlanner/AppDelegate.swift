@@ -18,17 +18,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let temp = FirebaseApp.configure()
     var firebase = FirebaseManager()
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {        
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
-        
         if let role = UserDefaults.standard.object(forKey: Constants.UserDefaults.role) as? String {
             switch role {
             case Roles.developer.rawValue:
                 print("")
             case Roles.productOwner.rawValue:
                 guard let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: ProductOwnerMainVC.self)) as? ProductOwnerMainVC else { return true }
-                
-                window?.rootViewController = viewController
+                let navigationController = UINavigationController(rootViewController: viewController)
+                window?.rootViewController = navigationController
             case Roles.projectManager.rawValue:
                 print("")
             default:

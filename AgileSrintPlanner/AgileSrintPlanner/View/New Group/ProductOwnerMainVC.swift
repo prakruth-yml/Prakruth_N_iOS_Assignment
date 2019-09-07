@@ -9,36 +9,37 @@ class ProductOwnerMainVC: BaseVC {
     @IBOutlet weak var accDetails: UIImageView!
     @IBOutlet weak var listGridButton: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var detailsView: UIView!
-    @IBOutlet weak var emailLabel: UILabel!
-    @IBOutlet weak var roleLabel: UILabel!
+    @IBOutlet private weak var navBarItem: UINavigationItem!
     
     let firebaseManager = FirebaseManager()
     var viewModel = POViewModel()
     var projectDetails: [ProjectDetails] = []
+    let sectionInsets = UIEdgeInsets(top: 20.0, left: 20.0, bottom: 20.0, right: 20.0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let userTapGesture = UITapGestureRecognizer(target: self, action: #selector(userImageDidPress(_:)))
-        let listTapGesture = UITapGestureRecognizer(target: self, action: #selector(listImageDidPress(_:)))
-        accDetails.addGestureRecognizer(userTapGesture)
-        listGridButton.addGestureRecognizer(listTapGesture)
-        setupDetailsView()
+        navBarItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon-user-acc"), style: .plain, target: self, action: #selector(userDisplayButtonDidPress))
+        navBarItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icons8-menu-50"), style: .plain, target: self, action: nil)
+        firebaseManager.getUserDetails { (name, email, role) in
+            print(name)
+            print(email)
+            print(role)
+        }
+        startLoading()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.getProjectDetailsFromFM { (detailArr) in
-            self.projectDetails = detailArr
+        viewModel.getProjectDetailsFromFM { [weak self] (detailArr) in
+            self?.projectDetails = detailArr
+            self?.collectionView.reloadData()
+            self?.stopLoading()
         }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         let touch: UITouch? = touches.first
-        if touch?.view != detailsView {
-            detailsView.isHidden = true
-        }
     }
     
     @IBAction private func signOutButtonDidPress(_ button: UIButton) {
@@ -58,36 +59,43 @@ class ProductOwnerMainVC: BaseVC {
         vc.didMove(toParent: self)
     }
     
-    @objc func userImageDidPress(_ sender: UITapGestureRecognizer) {
+    @objc func userDisplayButtonDidPress(_ button: UIButton) {
+        guard let viewController = storyboard?.instantiateViewController(withIdentifier: String(describing: AccDetailsVC.self)) as? AccDetailsVC else { return }
         
-        detailsView.isHidden = false
+        navigationController?.pushViewController(viewController, animated: true)
     }
+    
     
     @objc func listImageDidPress(_ sender: UITapGestureRecognizer) {
         
     }
-    
-    func setupDetailsView() {
-        
-        firebaseManager.getUserDetails { (email, role) in
-            DispatchQueue.main.async {
-                self.emailLabel.text = email
-                self.roleLabel.text = role
-            }
-        }
-    }
 }
 
-extension ProductOwnerMainVC: UICollectionViewDelegate, UICollectionViewDataSource {
+extension ProductOwnerMainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return projectDetails.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: POProductBacklogCVCell.self), for: indexPath) as? POProductBacklogCVCell
-        cell?.titleOfProject.text = "hello"
-        cell?.domainOfProject.text = "IOS"
-        cell?.descriptionOfProject.text = "hbcdkbcsaksdb"
+        cell?.titleOfProject.text = projectDetails[indexPath.row].data.title
+        cell?.domainOfProject.text = projectDetails[indexPath.row].data.domain
+        cell?.descriptionOfProject.text = projectDetails[indexPath.row].data.descp
+        cell?.backgroundColor = UIColor.randomClr()
+        cell?.layer.cornerRadius = 7.0
         return cell ?? UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellsPerRow = CGFloat(1)
+        let availableWidth = collectionView.frame.size.width - sectionInsets.left
+        let widthPerItem = availableWidth / cellsPerRow
+        return CGSize(width: widthPerItem, height: widthPerItem)
+    }
+}
+
+extension UIColor {
+    static func randomClr() -> UIColor {
+        return UIColor(red: CGFloat.random(in: 0...1), green: CGFloat.random(in: 0...1), blue: CGFloat.random(in: 0...1), alpha: 1.0)
     }
 }

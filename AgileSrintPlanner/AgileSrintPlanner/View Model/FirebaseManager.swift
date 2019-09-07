@@ -9,7 +9,7 @@ class FirebaseManager {
     var authResult: NSError!
     typealias  SuccessHandler = ((String) -> Void)
     
-    func emailLoginUserCreate(email: String, password: String, completion: @escaping SuccessHandler) {
+    func emailLoginUserCreate(name: String, email: String, password: String, completion: @escaping SuccessHandler) {
         Auth.auth().createUser(withEmail: email, password: password) { (authRes, error) in
             var successMsg: String = "nil"
             if let err = error {
@@ -17,7 +17,7 @@ class FirebaseManager {
             }
             if let authRes = authRes {
                 guard let user = Auth.auth().currentUser else { fatalError() }
-                self.ref.child("Employee").child("\(user.uid)").setValue(["emailId": email, "role": "PM"])
+                self.ref.child("Employee").child("\(user.uid)").setValue(["name": name, "emailId": email, "role": "PM"])
             }
             completion(successMsg)
         }
@@ -55,7 +55,6 @@ class FirebaseManager {
             case Roles.productOwner.rawValue:
                 let vc = UIStoryboard(name: "Main", bundle: nil)
                     .instantiateViewController(withIdentifier: String(describing: ProductOwnerMainVC.self))
-                    as? ProductOwnerMainVC
                 completion(vc, "PO")
             default:
                 print("NO ROle")
@@ -63,10 +62,11 @@ class FirebaseManager {
         }
     }
     
-    func getUserDetails(completion: @escaping ((String, String) -> Void)) {
+    func getUserDetails(completion: @escaping ((String, String, String) -> Void)) {
         ref.child("Employee").observeSingleEvent(of: .value) { (snapshot) in
             guard let user = Auth.auth().currentUser else { fatalError() }
-            completion(snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: "emailId").value as? String ?? "",
+            completion(snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: "name").value as? String ?? "",
+                       snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: "emailId").value as? String ?? "",
                        snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: "role").value as? String ?? "")
         }
     }

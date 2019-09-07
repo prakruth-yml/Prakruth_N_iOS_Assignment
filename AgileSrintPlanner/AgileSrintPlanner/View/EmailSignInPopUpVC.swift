@@ -13,9 +13,11 @@ import FirebaseUI
 class EmailSignInPopUpVC: BaseVC {
 
     @IBOutlet private weak var signUpButton: UIButton!
+    @IBOutlet private weak var nameTextField: UITextField!
     @IBOutlet private weak var emailIdTextField: UITextField!
     @IBOutlet private weak var passwordTextField: UITextField!
     @IBOutlet private weak var confirmPasswordTF: UITextField!
+    
     var firebaseManager = FirebaseManager()
     
     override func viewDidLoad() {
@@ -38,20 +40,24 @@ class EmailSignInPopUpVC: BaseVC {
     @IBAction private func closeButtonDidPress(_ button: UIButton) {
         view.removeFromSuperview()
     }
+    
     @IBAction private func signInButtonDidPress(_ button: UIButton) {
-        if emailIdTextField.text?.isEmpty ?? true || passwordTextField.text?.isEmpty ?? true {
-            showAlert(title: "Error", msg: "Email Id or Password Missing", actionTitle: "Close")
+        if emailIdTextField.text?.isEmpty ?? true || passwordTextField.text?.isEmpty ?? true || nameTextField.text?.isEmpty ?? true {
+            showAlert(title: "Error", msg: "Name or Email Id or Password Missing", actionTitle: "Close")
         } else if !isValidEmail(email: emailIdTextField.text ?? "") {
             showAlert(title: "Error", msg: "Wrongly formated Email Id", actionTitle: "Close")
         } else if passwordTextField.text != confirmPasswordTF.text {
             showAlert(title: "Login Failed", msg: "Passwords does not match", actionTitle: "Close")
         } else {
-            firebaseManager.emailLoginUserCreate(email: emailIdTextField.text ?? "name", password: passwordTextField.text ?? "password") { (msg) in
+            super.startLoading()
+            firebaseManager.emailLoginUserCreate(name: nameTextField.text ?? "name", email: emailIdTextField.text ?? "email", password: passwordTextField.text ?? "password") { (msg) in
                 if msg != "nil"{
                     super.showAlert(title: "Failed", msg: msg, actionTitle: "Close")
+                    super.stopLoading()
                     
                 } else {
                     self.view.removeFromSuperview()
+                    super.stopLoading()
                     super.showAlert(title: "Success", msg: "Account has been created successfully", actionTitle: "Close")
                 }
             }
