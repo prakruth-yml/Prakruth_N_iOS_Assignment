@@ -19,22 +19,16 @@ class ProductOwnerMainVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         navBarItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon-user-acc"), style: .plain, target: self, action: #selector(userDisplayButtonDidPress))
-        navBarItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icons8-menu-50"), style: .plain, target: self, action: nil)
-        firebaseManager.getUserDetails { (name, email, role) in
-            print(name)
-            print(email)
-            print(role)
-        }
+        navBarItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icons8-menu-50"), style: .plain, target: self, action: #selector(listImageDidPress))
         startLoading()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         viewModel.getProjectDetailsFromFM { [weak self] (detailArr) in
             self?.projectDetails = detailArr
             self?.collectionView.reloadData()
             self?.stopLoading()
         }
+    }    
+    func test() {
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -90,7 +84,14 @@ extension ProductOwnerMainVC: UICollectionViewDelegate, UICollectionViewDataSour
         let cellsPerRow = CGFloat(1)
         let availableWidth = collectionView.frame.size.width - sectionInsets.left
         let widthPerItem = availableWidth / cellsPerRow
-        return CGSize(width: widthPerItem, height: widthPerItem)
+        return CGSize(width: widthPerItem, height: widthPerItem/2)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let viewController = storyboard?.instantiateViewController(withIdentifier: String(describing: ProjectDescriptionVC.self)) as? ProjectDescriptionVC else { fatalError() }
+        
+        viewController.projectDetails = projectDetails[indexPath.row]
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 

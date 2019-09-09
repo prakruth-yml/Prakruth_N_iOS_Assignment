@@ -32,9 +32,7 @@ class BaseVC: UIViewController {
         activityIndicator.center = self.view.center
         activityIndicator.hidesWhenStopped = true
         activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
-//        activityIndicator.backgroundColor = UIColor.black
         activityIndicator.color = UIColor.blue
-//        activityIndicator.isOpaque = true
         view.addSubview(activityIndicator)
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()

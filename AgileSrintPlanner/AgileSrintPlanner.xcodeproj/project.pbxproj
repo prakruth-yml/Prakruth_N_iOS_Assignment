@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		AB2B3E73231E28AD00B22599 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB2B3E72231E28AD00B22599 /* GoogleService-Info.plist */; };
+		AB2E20CC2326352E008AAB12 /* ProjectDescriptionTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E20CB2326352E008AAB12 /* ProjectDescriptionTVCell.swift */; };
+		AB2E20CE23263589008AAB12 /* BaseTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E20CD23263589008AAB12 /* BaseTVCell.swift */; };
+		AB2E20D02326365F008AAB12 /* ProjectDescriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E20CF2326365F008AAB12 /* ProjectDescriptionVC.swift */; };
+		AB2E20D423264F54008AAB12 /* ProductBacklogTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E20D323264F54008AAB12 /* ProductBacklogTVCell.swift */; };
 		AB6710EC231E4DE300E2897E /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = AB6710EB231E4DE300E2897E /* .swiftlint.yml */; };
 		AB6710F5231E821C00E2897E /* EmailSignInPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6710F4231E821C00E2897E /* EmailSignInPopUpVC.swift */; };
 		AB6710F7231E9F6B00E2897E /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6710F6231E9F6B00E2897E /* FirebaseManager.swift */; };
@@ -33,6 +37,10 @@
 		49ADB83A3E89659CDA3CF487 /* Pods-AgileSrintPlanner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgileSrintPlanner.release.xcconfig"; path = "Target Support Files/Pods-AgileSrintPlanner/Pods-AgileSrintPlanner.release.xcconfig"; sourceTree = "<group>"; };
 		60E798C9683F6D1E72EFC22D /* Pods_AgileSrintPlanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AgileSrintPlanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB2B3E72231E28AD00B22599 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		AB2E20CB2326352E008AAB12 /* ProjectDescriptionTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDescriptionTVCell.swift; sourceTree = "<group>"; };
+		AB2E20CD23263589008AAB12 /* BaseTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTVCell.swift; sourceTree = "<group>"; };
+		AB2E20CF2326365F008AAB12 /* ProjectDescriptionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDescriptionVC.swift; sourceTree = "<group>"; };
+		AB2E20D323264F54008AAB12 /* ProductBacklogTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductBacklogTVCell.swift; sourceTree = "<group>"; };
 		AB6710EB231E4DE300E2897E /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; name = .swiftlint.yml; path = AgileSrintPlanner/.swiftlint.yml; sourceTree = "<group>"; };
 		AB6710F4231E821C00E2897E /* EmailSignInPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignInPopUpVC.swift; sourceTree = "<group>"; };
 		AB6710F6231E9F6B00E2897E /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
@@ -101,6 +109,7 @@
 				AB6710F4231E821C00E2897E /* EmailSignInPopUpVC.swift */,
 				AB6710F8231F83FD00E2897E /* BaseVC.swift */,
 				ABD335E6231FFED30023AC98 /* BaseCVCell.swift */,
+				AB2E20CD23263589008AAB12 /* BaseTVCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -155,6 +164,9 @@
 				ABD335E4231FFEC30023AC98 /* POProductBacklogCVCell.swift */,
 				ABD335E823200A150023AC98 /* AccDetailsVC.swift */,
 				ABFF65E02321052100AD13D3 /* NewProjectPopOverVC.swift */,
+				AB2E20CB2326352E008AAB12 /* ProjectDescriptionTVCell.swift */,
+				AB2E20D323264F54008AAB12 /* ProductBacklogTVCell.swift */,
+				AB2E20CF2326365F008AAB12 /* ProjectDescriptionVC.swift */,
 			);
 			path = POView;
 			sourceTree = "<group>";
@@ -332,13 +344,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB2E20CE23263589008AAB12 /* BaseTVCell.swift in Sources */,
 				AB6710F7231E9F6B00E2897E /* FirebaseManager.swift in Sources */,
+				AB2E20CC2326352E008AAB12 /* ProjectDescriptionTVCell.swift in Sources */,
 				ABFF65E32321179300AD13D3 /* POViewModel.swift in Sources */,
 				ABD335E7231FFED30023AC98 /* BaseCVCell.swift in Sources */,
 				ABB7B3542319405B0084B44D /* ViewController.swift in Sources */,
+				AB2E20D423264F54008AAB12 /* ProductBacklogTVCell.swift in Sources */,
 				AB6710F5231E821C00E2897E /* EmailSignInPopUpVC.swift in Sources */,
 				ABD335E0231FC87A0023AC98 /* ProductOwner.swift in Sources */,
 				ABD335E923200A150023AC98 /* AccDetailsVC.swift in Sources */,
+				AB2E20D02326365F008AAB12 /* ProjectDescriptionVC.swift in Sources */,
 				ABD335DE231FBFB50023AC98 /* ProductOwnerMainVC.swift in Sources */,
 				ABB7B3522319405B0084B44D /* AppDelegate.swift in Sources */,
 				AB6710F9231F83FD00E2897E /* BaseVC.swift in Sources */,
