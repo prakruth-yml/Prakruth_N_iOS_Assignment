@@ -48,6 +48,7 @@ class BaseVC: UIViewController {
     
     func stopLoading() {
         activityIndicator.stopAnimating()
+        activityIndicator.removeFromSuperview()
         UIApplication.shared.endIgnoringInteractionEvents()
     }
     

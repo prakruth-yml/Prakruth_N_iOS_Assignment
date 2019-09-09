@@ -47,19 +47,17 @@ class EmailSignInPopUpVC: BaseVC {
                 guard let weakSelf = self else { return }
                 
                 if let error = error {
-                    let alertAction = UIAlertAction(title: Constants.AlertMessages.closeAction, style: .cancel, handler: nil)
-                    weakSelf.showAlert(title: Constants.AlertMessages.userCreationFailedAlert, msg: error.localizedDescription, alertStyle: .alert, actions: [alertAction])
-                    weakSelf.stopLoading()
-                }
-                
-//                if msg != "nil"{
-//                    super.showAlert(title: Constants.AlertMessages.userCreationFailedAlert, msg: msg, actionTitle: Constants.AlertMessages.closeAction)
-//                    super.stopLoading()
-                
-                else {
-                    weakSelf.view.removeFromSuperview()
-                    weakSelf.stopLoading()
-                    weakSelf.showAlert(title: Constants.AlertMessages.closeAction, msg: "Account has been created successfully", actionTitle: Constants.AlertMessages.closeAction)
+                    DispatchQueue.main.async {
+                        let alertAction = UIAlertAction(title: Constants.AlertMessages.closeAction, style: .cancel, handler: nil)
+                        weakSelf.showAlert(title: Constants.AlertMessages.userCreationFailedAlert, msg: error.localizedDescription, alertStyle: .alert, actions: [alertAction])
+                        weakSelf.stopLoading()
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        weakSelf.view.removeFromSuperview()
+                        weakSelf.stopLoading()
+                        weakSelf.showAlert(title: Constants.AlertMessages.closeAction, msg: "Account has been created successfully", actionTitle: Constants.AlertMessages.closeAction)
+                    }
                 }
             }
         }

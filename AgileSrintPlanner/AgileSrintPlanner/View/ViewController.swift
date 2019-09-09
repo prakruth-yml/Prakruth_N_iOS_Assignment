@@ -38,20 +38,26 @@ class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
         } else if !isValidEmail(email: nameTextField.text ?? "") {
             showAlert(title: Constants.AlertMessages.failedLoginAlert, msg: "Email Id Wrongly Formated", actionTitle: Constants.AlertMessages.closeAction)
         } else {
-            super.startLoading()
+            startLoading()
             fireBaseManager.emailUserLogin(email: nameTextField?.text, password: passwordextField?.text) { [weak self] (user, error) in
-                if error != "nil" {
-                    self?.showAlert(title: Constants.AlertMessages.failedLoginAlert, msg: error, actionTitle: Constants.AlertMessages.closeAction)
+                
+                guard let weakSelf = self else { return }
+                
+                if let error = error {
+                    let alertAction = UIAlertAction(title: Constants.AlertMessages.closeAction, style: .cancel, handler: nil)
+                    DispatchQueue.main.async {
+                        weakSelf.showAlert(title: Constants.AlertMessages.failedLoginAlert, msg: error.localizedDescription, alertStyle: .alert, actions: [alertAction])
+                    }
                 } else {
-                    self?.fireBaseManager.decideUserRole(user: Auth.auth().currentUser) { (viewController, role) in
+                    weakSelf.fireBaseManager.decideUserRole(user: Auth.auth().currentUser) { (viewController, role) in
                         UserDefaults.standard.set(role, forKey: Constants.UserDefaults.role)
                         guard let viewController = viewController else { return }
                         let currentUser = Auth.auth().currentUser
                         currentUser?.getIDTokenResult(forcingRefresh: true, completion: { (token, error) in
-                                UserDefaults.standard.set(token?.claims, forKey: Constants.UserDefaults.currentUser)
+                            UserDefaults.standard.set(token?.claims, forKey: Constants.UserDefaults.currentUser)
                         })
                         let navigationController = UINavigationController(rootViewController: viewController)
-                        self?.present(navigationController, animated: true, completion: nil)
+                        weakSelf.present(navigationController, animated: true)
                     }
                 }
                 self?.stopLoading()

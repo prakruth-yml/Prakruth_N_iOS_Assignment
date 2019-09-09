@@ -18,6 +18,7 @@ class FirebaseManager {
                 guard let user = Auth.auth().currentUser else { fatalError() }
                 
                 self.ref.child(Constants.FirebaseConstants.employeeTable).child("\(user.uid)").setValue([Constants.FirebaseConstants.empName: name, Constants.FirebaseConstants.empEmail: email, Constants.FirebaseConstants.empRole: "PO"])
+                self.ref.child(Constants.FirebaseConstants.employeeTable).child("\(user.uid)").child(Constants.FirebaseConstants.empEmail)
             }
             completion(nil)
         }
@@ -27,12 +28,12 @@ class FirebaseManager {
         guard let email = email,
               let password = password else { fatalError() }
         
-        var msg = "nil"
         Auth.auth().signIn(withEmail: email, password: password) { user, error in
             if let error = error {
                 completion(nil, error)
+            } else {
+                completion(Auth.auth().currentUser as? User, nil)
             }
-            completion(Auth.auth().currentUser as? User, nil)
         }
     }
     
@@ -47,7 +48,6 @@ class FirebaseManager {
         ref.child(Constants.FirebaseConstants.employeeTable).observeSingleEvent(of: .value) { (snapshot) in
             guard let user = Auth.auth().currentUser else { fatalError() }
             let role = snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: Constants.FirebaseConstants.empRole).value as? String
-            var roleStr: String
             switch role {
             case Roles.developer.rawValue:
                 print("Dev")

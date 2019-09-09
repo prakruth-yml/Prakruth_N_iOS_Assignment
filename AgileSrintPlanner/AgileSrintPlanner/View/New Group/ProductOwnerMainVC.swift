@@ -13,7 +13,6 @@ class ProductOwnerMainVC: BaseVC {
     
     let firebaseManager = FirebaseManager()
     var viewModel = POViewModel()
-    var projectDetails: [ProjectDetails] = []
     let sectionInsets = UIEdgeInsets(top: 20.0, left: 20.0, bottom: 20.0, right: 20.0)
     
     override func viewDidLoad() {
@@ -21,10 +20,11 @@ class ProductOwnerMainVC: BaseVC {
         navBarItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon-user-acc"), style: .plain, target: self, action: #selector(userDisplayButtonDidPress))
         navBarItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icons8-menu-50"), style: .plain, target: self, action: #selector(listImageDidPress))
         startLoading()
-        viewModel.getProjectDetailsFromFM { [weak self] (detailArr) in
-            self?.projectDetails = detailArr
-            self?.collectionView.reloadData()
-            self?.stopLoading()
+        viewModel.getProjectDetailsFromFM { [weak self] in
+            guard let weakSelf = self else { return }
+            
+            weakSelf.collectionView.reloadData()
+            weakSelf.stopLoading()
         }
     }    
     func test() {
@@ -49,8 +49,7 @@ class ProductOwnerMainVC: BaseVC {
         
         navigationController?.pushViewController(viewController, animated: true)
     }
-    
-    
+
     @objc func listImageDidPress(_ sender: UITapGestureRecognizer) {
         
     }
@@ -58,14 +57,14 @@ class ProductOwnerMainVC: BaseVC {
 
 extension ProductOwnerMainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return projectDetails.count
+        return viewModel.projectDetails?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: POProductBacklogCVCell.self), for: indexPath) as? POProductBacklogCVCell
-        cell?.titleOfProject.text = projectDetails[indexPath.row].data.title
-        cell?.domainOfProject.text = projectDetails[indexPath.row].data.domain
-        cell?.descriptionOfProject.text = projectDetails[indexPath.row].data.descp
+        cell?.titleOfProject.text = viewModel.projectDetails?[indexPath.row].data.title
+        cell?.domainOfProject.text = viewModel.projectDetails?[indexPath.row].data.domain
+        cell?.descriptionOfProject.text = viewModel.projectDetails?[indexPath.row].data.descp
         cell?.backgroundColor = UIColor.randomClr()
         cell?.layer.cornerRadius = 7.0
         return cell ?? UICollectionViewCell()
@@ -75,13 +74,13 @@ extension ProductOwnerMainVC: UICollectionViewDelegate, UICollectionViewDataSour
         let cellsPerRow = CGFloat(1)
         let availableWidth = collectionView.frame.size.width - sectionInsets.left
         let widthPerItem = availableWidth / cellsPerRow
-        return CGSize(width: widthPerItem, height: widthPerItem/2)
+        return CGSize(width: widthPerItem, height: widthPerItem / 2)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let viewController = storyboard?.instantiateViewController(withIdentifier: String(describing: ProjectDescriptionVC.self)) as? ProjectDescriptionVC else { fatalError() }
         
-        viewController.projectDetails = projectDetails[indexPath.row]
+        viewController.projectDetails = viewModel.projectDetails?[indexPath.row]
         navigationController?.pushViewController(viewController, animated: true)
     }
 }

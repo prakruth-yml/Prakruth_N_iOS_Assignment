@@ -25,8 +25,10 @@ class NewProjectPopOverVC: BaseVC {
         } else {
             super.stopLoading()
             viewModel.addNewProject(title: titleTextField?.text ?? "", domain: domainTextField?.text ?? "", descp: descpTextField?.text ?? "") { [weak self] in
-                self?.stopLoading()
-                self?.showAlert(title: Constants.AlertMessages.successAlert, msg: "Project Created Successfully", actionTitle: Constants.AlertMessages.closeAction)
+                DispatchQueue.main.async{
+                    self?.stopLoading()
+                    self?.showAlert(title: Constants.AlertMessages.successAlert, msg: "Project Created Successfully", actionTitle: Constants.AlertMessages.closeAction)
+                }
             }
             view.removeFromSuperview()
         }

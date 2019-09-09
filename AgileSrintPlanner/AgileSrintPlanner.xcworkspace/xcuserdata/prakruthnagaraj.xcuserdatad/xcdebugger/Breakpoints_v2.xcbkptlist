@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AgileSrintPlanner/View/EmailSignInPopUpVC.swift"
-            timestampString = "589732310.293664"
+            filePath = "AgileSrintPlanner/View Model/POViewModel.swift"
+            timestampString = "589736587.964347"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "signInButtonDidPress(_:)"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "getProjectDetailsFromFM(completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
