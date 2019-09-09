@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AgileSrintPlanner/View/BaseVC.swift"
-            timestampString = "589719602.909012"
+            filePath = "AgileSrintPlanner/View/EmailSignInPopUpVC.swift"
+            timestampString = "589732310.293664"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
-            landmarkName = "decideRole(role:)"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "signInButtonDidPress(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

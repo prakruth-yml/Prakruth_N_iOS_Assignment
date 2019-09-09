@@ -7,31 +7,32 @@ class FirebaseManager {
 
     var ref = Database.database().reference()
     var authResult: NSError!
-    typealias  SuccessHandler = ((String) -> Void)
+    typealias SuccessHandler = ((Error?) -> Void)
     
     func emailLoginUserCreate(name: String, email: String, password: String, completion: @escaping SuccessHandler) {
         Auth.auth().createUser(withEmail: email, password: password) { (authRes, error) in
-            var successMsg: String = "nil"
             if let err = error {
-                successMsg = err.localizedDescription
+                completion(err)
             }
-            if let authRes = authRes {
+            if authRes != nil {
                 guard let user = Auth.auth().currentUser else { fatalError() }
+                
                 self.ref.child(Constants.FirebaseConstants.employeeTable).child("\(user.uid)").setValue([Constants.FirebaseConstants.empName: name, Constants.FirebaseConstants.empEmail: email, Constants.FirebaseConstants.empRole: "PO"])
             }
-            completion(successMsg)
+            completion(nil)
         }
     }
     
-    func emailUserLogin(email: String?, password: String?, completion: @escaping ((Any, String) -> Void)) {
+    func emailUserLogin(email: String?, password: String?, completion: @escaping ((Any?, Error?) -> Void)) {
         guard let email = email,
               let password = password else { fatalError() }
+        
         var msg = "nil"
         Auth.auth().signIn(withEmail: email, password: password) { user, error in
             if let error = error {
-                msg = error.localizedDescription
+                completion(nil, error)
             }
-            completion(Auth.auth().currentUser as? User, msg)
+            completion(Auth.auth().currentUser as? User, nil)
         }
     }
     

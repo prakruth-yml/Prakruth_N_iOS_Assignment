@@ -17,6 +17,14 @@ class BaseVC: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    func showAlert(title: String, msg: String, alertStyle: UIAlertController.Style, actions: [UIAlertAction]) {
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        for action in actions {
+            alert.addAction(action)
+        }
+        present(alert, animated: true, completion: nil)
+    }
+    
     func isValidEmail(email: String) -> Bool {
         let pattern = Constants.EmailValidation.emailRegex
         let regex = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive)

@@ -42,15 +42,24 @@ class EmailSignInPopUpVC: BaseVC {
             showAlert(title: Constants.AlertMessages.failedLoginAlert, msg: "Passwords does not match", actionTitle: Constants.AlertMessages.closeAction)
         } else {
             super.startLoading()
-            firebaseManager.emailLoginUserCreate(name: nameTextField.text ?? "name", email: emailIdTextField.text ?? "email", password: passwordTextField.text ?? "password") { (msg) in
-                if msg != "nil"{
-                    super.showAlert(title: Constants.AlertMessages.userCreationFailedAlert, msg: msg, actionTitle: Constants.AlertMessages.closeAction)
-                    super.stopLoading()
-                    
-                } else {
-                    self.view.removeFromSuperview()
-                    super.stopLoading()
-                    super.showAlert(title: Constants.AlertMessages.closeAction, msg: "Account has been created successfully", actionTitle: Constants.AlertMessages.closeAction)
+            firebaseManager.emailLoginUserCreate(name: nameTextField.text ?? "name", email: emailIdTextField.text ?? "email", password: passwordTextField.text ?? "password") { [weak self] (error) in
+                
+                guard let weakSelf = self else { return }
+                
+                if let error = error {
+                    let alertAction = UIAlertAction(title: Constants.AlertMessages.closeAction, style: .cancel, handler: nil)
+                    weakSelf.showAlert(title: Constants.AlertMessages.userCreationFailedAlert, msg: error.localizedDescription, alertStyle: .alert, actions: [alertAction])
+                    weakSelf.stopLoading()
+                }
+                
+//                if msg != "nil"{
+//                    super.showAlert(title: Constants.AlertMessages.userCreationFailedAlert, msg: msg, actionTitle: Constants.AlertMessages.closeAction)
+//                    super.stopLoading()
+                
+                else {
+                    weakSelf.view.removeFromSuperview()
+                    weakSelf.stopLoading()
+                    weakSelf.showAlert(title: Constants.AlertMessages.closeAction, msg: "Account has been created successfully", actionTitle: Constants.AlertMessages.closeAction)
                 }
             }
         }
@@ -58,6 +67,7 @@ class EmailSignInPopUpVC: BaseVC {
     
     @IBAction private func gSignInButtonDidPress(_ button: UIButton) {
     }
+    
 }
 
 extension EmailSignInPopUpVC: UITextFieldDelegate {
