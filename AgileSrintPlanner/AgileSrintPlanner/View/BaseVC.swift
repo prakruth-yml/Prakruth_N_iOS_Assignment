@@ -45,11 +45,11 @@ class BaseVC: UIViewController {
     
     func decideRole(role: String) -> String {
         switch(role) {
-        case "PO":
+        case Roles.productOwner.rawValue:
             return "Product Owner"
-        case "PM":
+        case Roles.projectManager.rawValue:
             return "Project Manager"
-        case "dev":
+        case Roles.developer.rawValue:
             return "Developer"
         default:
             return ""

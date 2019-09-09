@@ -24,9 +24,9 @@ class NewProjectPopOverVC: BaseVC {
             showAlert(title: "Missing Data", msg: "Project Description is Mandatory", actionTitle: "Try Again")
         } else {
             super.stopLoading()
-            viewModel.addNewProject(title: titleTextField?.text ?? "", domain: domainTextField?.text ?? "", descp: descpTextField?.text ?? "") {
-                super.stopLoading()
-                super.showAlert(title: "Success", msg: "Project Created Successfully", actionTitle: "Close")
+            viewModel.addNewProject(title: titleTextField?.text ?? "", domain: domainTextField?.text ?? "", descp: descpTextField?.text ?? "") { [weak self] in
+                self?.stopLoading()
+                self?.showAlert(title: "Success", msg: "Project Created Successfully", actionTitle: "Close")
             }
             view.removeFromSuperview()
         }
@@ -43,9 +43,17 @@ class NewProjectPopOverVC: BaseVC {
     func popOver() {
         view.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
         view.alpha = 0.0
-        UIView.animate(withDuration: 0.5, animations: {
-            self.view.alpha = 1.0
-            self.view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+        UIView.animate(withDuration: 0.5, animations: { [weak self] in
+            self?.view.alpha = 1.0
+            self?.view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
         })
+    }
+    
+    override func startLoading() {
+        super.startLoading()
+    }
+    
+    override func stopLoading() {
+        super.stopLoading()
     }
 }

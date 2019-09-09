@@ -453,7 +453,7 @@
                                                     <rect key="frame" x="20" y="13" width="374" height="64"/>
                                                     <color key="backgroundColor" red="0.4756349325" green="0.47564673419999998" blue="0.47564041610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <inset key="titleEdgeInsets" minX="-45" minY="0.0" maxX="60" maxY="0.0"/>
-                                                    <inset key="imageEdgeInsets" minX="305" minY="10" maxX="20" maxY="10"/>
+                                                    <inset key="imageEdgeInsets" minX="317" minY="10" maxX="20" maxY="10"/>
                                                     <state key="normal" title="Product Backlog" image="icons8-wide-long-right-arrow-64">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>

@@ -39,11 +39,11 @@ class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
             showAlert(title: "Login Failed", msg: "Email Id Wrongly Formated", actionTitle: "Close")
         } else {
             super.startLoading()
-            fireBaseManager.emailUserLogin(email: nameTextField?.text, password: passwordextField?.text) { (user, error) in
+            fireBaseManager.emailUserLogin(email: nameTextField?.text, password: passwordextField?.text) { [weak self] (user, error) in
                 if error != "nil" {
-                    self.showAlert(title: "Login Failed", msg: error, actionTitle: "Try Again")
+                    self?.showAlert(title: "Login Failed", msg: error, actionTitle: "Try Again")
                 } else {
-                    self.fireBaseManager.decideUserRole(user: Auth.auth().currentUser) { (viewController, role) in
+                    self?.fireBaseManager.decideUserRole(user: Auth.auth().currentUser) { (viewController, role) in
                         UserDefaults.standard.set(role, forKey: Constants.UserDefaults.role)
                         guard let viewController = viewController else { return }
                         let currentUser = Auth.auth().currentUser
@@ -51,12 +51,10 @@ class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
                                 UserDefaults.standard.set(token?.claims, forKey: Constants.UserDefaults.currentUser)
                         })
                         let navigationController = UINavigationController(rootViewController: viewController)
-                        self.present(navigationController, animated: true, completion: nil)
-//                        self.navigationController?.pushViewController(viewController, animated: true)
+                        self?.present(navigationController, animated: true, completion: nil)
                     }
                 }
-                //CANNOT CALL SUPER WITH WEAK SELF
-                super.stopLoading()
+                self?.stopLoading()
             }
         }
     }
@@ -73,6 +71,14 @@ class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
         super.touchesBegan(touches, with: event)
         let touch: UITouch? = touches.first
         view.endEditing(true)
+    }
+    
+    override func stopLoading() {
+        super.stopLoading()
+    }
+    
+    override func startLoading() {
+        super.startLoading()
     }
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
@@ -108,10 +114,10 @@ class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
                 if self.view.frame.origin.y == 0 {
                     self.view.frame.origin.y -= keyBoardFrame.height
                 }
-            }else {
+            } else {
                 return
             }
-        }else if notification.name == UIResponder.keyboardWillHideNotification {
+        } else if notification.name == UIResponder.keyboardWillHideNotification {
             if self.view.frame.origin.y != 0 {
                 self.view.frame.origin.y = 0
             }

@@ -42,7 +42,6 @@ extension ProjectDescriptionVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        //if indexPath.row == 0 {
         switch indexPath.section {
         case Constants.ProjectDescription.Sections.description.rawValue:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProjectDescriptionTVCell.self), for: indexPath) as? ProjectDescriptionTVCell else { fatalError() }
