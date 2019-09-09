@@ -528,7 +528,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="416"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Teamwork-Theme" translatesAutoresizingMaskIntoConstraints="NO" id="qH9-ux-Ipi">
-                                <rect key="frame" x="0.0" y="314.5" width="414" height="193"/>
+                                <rect key="frame" x="110.5" y="314.5" width="193" height="193"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0WZ-e9-NDB">
                                 <rect key="frame" x="178.5" y="523" width="57" height="32"/>
@@ -580,7 +580,7 @@
                             <constraint firstItem="jYY-Ku-lnJ" firstAttribute="top" secondItem="TJy-b7-5lf" secondAttribute="bottom" constant="8" id="gGg-UB-Fyb"/>
                             <constraint firstItem="0WZ-e9-NDB" firstAttribute="centerX" secondItem="MBi-HQ-tnu" secondAttribute="centerX" id="gbx-Kt-rFX"/>
                             <constraint firstItem="TJy-b7-5lf" firstAttribute="centerX" secondItem="MBi-HQ-tnu" secondAttribute="centerX" id="k0a-qp-zg3"/>
-                            <constraint firstItem="qH9-ux-Ipi" firstAttribute="width" secondItem="MBi-HQ-tnu" secondAttribute="width" id="k4b-hi-mbf"/>
+                            <constraint firstItem="qH9-ux-Ipi" firstAttribute="width" secondItem="MBi-HQ-tnu" secondAttribute="width" multiplier="193:414" id="k4b-hi-mbf"/>
                             <constraint firstItem="6J6-IZ-KWv" firstAttribute="trailing" secondItem="nDB-c2-ljb" secondAttribute="trailing" constant="80" id="qRn-y9-TgT"/>
                             <constraint firstItem="nDB-c2-ljb" firstAttribute="bottom" secondItem="6J6-IZ-KWv" secondAttribute="bottom" multiplier="0.8861" id="u1q-Xm-V0S"/>
                             <constraint firstItem="qH9-ux-Ipi" firstAttribute="height" secondItem="MBi-HQ-tnu" secondAttribute="height" multiplier="193:896" id="ytt-2L-Gkf"/>
