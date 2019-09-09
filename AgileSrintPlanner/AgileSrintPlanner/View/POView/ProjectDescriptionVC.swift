@@ -5,6 +5,7 @@ class ProjectDescriptionVC: BaseVC {
     var tableView: UITableView!
     var projectDetails: ProjectDetails?
     var projectDetailsArr: [String] = []
+    //ASK FOR CONSTANTS HERE
     let headings = ["Title", "Domain", "Description"]
     let sectionHeading = ["Project Description", "Product Backlogs", "Team"]
     

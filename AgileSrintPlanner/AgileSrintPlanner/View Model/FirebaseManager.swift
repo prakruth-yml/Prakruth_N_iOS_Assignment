@@ -17,7 +17,7 @@ class FirebaseManager {
             }
             if let authRes = authRes {
                 guard let user = Auth.auth().currentUser else { fatalError() }
-                self.ref.child("Employee").child("\(user.uid)").setValue(["name": name, "emailId": email, "role": "PM"])
+                self.ref.child(Constants.FirebaseConstants.employeeTable).child("\(user.uid)").setValue([Constants.FirebaseConstants.empName: name, Constants.FirebaseConstants.empEmail: email, Constants.FirebaseConstants.empRole: "PO"])
             }
             completion(successMsg)
         }
@@ -43,9 +43,9 @@ class FirebaseManager {
     
     func decideUserRole(user: User?, completion: @escaping (UIViewController?, String) -> Void) {
         
-        ref.child("Employee").observeSingleEvent(of: .value) { (snapshot) in
+        ref.child(Constants.FirebaseConstants.employeeTable).observeSingleEvent(of: .value) { (snapshot) in
             guard let user = Auth.auth().currentUser else { fatalError() }
-            let role = snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: "role").value as? String
+            let role = snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: Constants.FirebaseConstants.empRole).value as? String
             var roleStr: String
             switch role {
             case Roles.developer.rawValue:
@@ -55,7 +55,7 @@ class FirebaseManager {
             case Roles.productOwner.rawValue:
                 let vc = UIStoryboard(name: "Main", bundle: nil)
                     .instantiateViewController(withIdentifier: String(describing: ProductOwnerMainVC.self))
-                completion(vc, "PO")
+                completion(vc, Roles.productOwner.rawValue)
             default:
                 print("NO ROle")
             }
@@ -63,11 +63,11 @@ class FirebaseManager {
     }
     
     func getUserDetails(completion: @escaping ((String, String, String) -> Void)) {
-        ref.child("Employee").observeSingleEvent(of: .value) { (snapshot) in
+        ref.child(Constants.FirebaseConstants.employeeTable).observeSingleEvent(of: .value) { (snapshot) in
             guard let user = Auth.auth().currentUser else { fatalError() }
-            completion(snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: "name").value as? String ?? "",
-                       snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: "emailId").value as? String ?? "",
-                       snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: "role").value as? String ?? "")
+            completion(snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: Constants.FirebaseConstants.empName).value as? String ?? "",
+                       snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: Constants.FirebaseConstants.empEmail).value as? String ?? "",
+                       snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: Constants.FirebaseConstants.empRole).value as? String ?? "")
         }
     }
     
@@ -75,17 +75,18 @@ class FirebaseManager {
     }
     
     func addNewProjectByPO(title: String, domain: String, descp: String, completion: @escaping (() -> Void)) {
-        guard let key = ref.child("Projects").childByAutoId().key else { fatalError() }
-        let data = ["Title": title, "Domain": domain, "Descp": descp]
+        guard let key = ref.child(Constants.FirebaseConstants.projectsTable).childByAutoId().key else { fatalError() }
+        let data = [Constants.FirebaseConstants.projectTitle: title, Constants.FirebaseConstants.projectDomain: domain, Constants.FirebaseConstants.projectDescription: descp]
         let members: [String:String] = [:]
-        let childUpdates = ["/Projects/\(key)/Data":data, "/Projects/\(key)/Members": members]
+//        let childUpdates = ["/Projects/\(key)/Data":data, "/Projects/\(key)/Members": members]
+        let childUpdates = ["\(Constants.FirebaseConstants.projectsTable)/\(key)/Data":data, "\(Constants.FirebaseConstants.projectsTable)/\(key)/Members": members]
         ref.updateChildValues(childUpdates)
         completion()
     }
     
     func getProjectDetails(completion: @escaping ((DataSnapshot) -> Void)) {
         var detailsArr: [ProjectDetails] = []
-        ref.child("Projects").observeSingleEvent(of: .value) { (snapshot) in
+        ref.child(Constants.FirebaseConstants.projectsTable).observeSingleEvent(of: .value) { (snapshot) in
             print(snapshot.childrenCount)
             completion(snapshot)
         }

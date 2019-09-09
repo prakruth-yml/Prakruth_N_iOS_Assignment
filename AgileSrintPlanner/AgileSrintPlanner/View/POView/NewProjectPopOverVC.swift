@@ -17,16 +17,16 @@ class NewProjectPopOverVC: BaseVC {
     
     @IBAction private func addProjectButtonDidPress(_ button: UIButton) {
         if titleTextField.text?.isEmpty ?? false {
-            showAlert(title: "Missing Data", msg: "Project Title is Mandatory", actionTitle: "Try Again")
+            showAlert(title: Constants.AlertMessages.missingDataAlert, msg: "Project Title is Mandatory", actionTitle: Constants.AlertMessages.tryAgainAction)
         } else if domainTextField.text?.isEmpty ?? false {
-            showAlert(title: "Missing Data", msg: "Project Domain is Mandatory", actionTitle: "Try Again")
+            showAlert(title: Constants.AlertMessages.missingDataAlert, msg: "Project Domain is Mandatory", actionTitle: Constants.AlertMessages.tryAgainAction)
         } else if descpTextField.text?.isEmpty ?? false {
-            showAlert(title: "Missing Data", msg: "Project Description is Mandatory", actionTitle: "Try Again")
+            showAlert(title: Constants.AlertMessages.missingDataAlert, msg: "Project Description is Mandatory", actionTitle: Constants.AlertMessages.tryAgainAction)
         } else {
             super.stopLoading()
             viewModel.addNewProject(title: titleTextField?.text ?? "", domain: domainTextField?.text ?? "", descp: descpTextField?.text ?? "") { [weak self] in
                 self?.stopLoading()
-                self?.showAlert(title: "Success", msg: "Project Created Successfully", actionTitle: "Close")
+                self?.showAlert(title: Constants.AlertMessages.successAlert, msg: "Project Created Successfully", actionTitle: Constants.AlertMessages.closeAction)
             }
             view.removeFromSuperview()
         }

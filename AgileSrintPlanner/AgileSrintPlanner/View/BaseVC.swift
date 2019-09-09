@@ -18,7 +18,7 @@ class BaseVC: UIViewController {
     }
     
     func isValidEmail(email: String) -> Bool {
-        let pattern = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let pattern = Constants.EmailValidation.emailRegex
         let regex = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive)
         return regex?.firstMatch(in: email, options: [], range: NSRange(location: 0, length: email.count)) != nil
     }
@@ -46,11 +46,11 @@ class BaseVC: UIViewController {
     func decideRole(role: String) -> String {
         switch(role) {
         case Roles.productOwner.rawValue:
-            return "Product Owner"
+            return Constants.RolesFullForm.productOwner
         case Roles.projectManager.rawValue:
-            return "Project Manager"
+            return Constants.RolesFullForm.projectManager
         case Roles.developer.rawValue:
-            return "Developer"
+            return Constants.RolesFullForm.dev
         default:
             return ""
         }

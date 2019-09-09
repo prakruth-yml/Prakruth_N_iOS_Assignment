@@ -34,14 +34,14 @@ class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
 
     @IBAction private func emailLoginButtonDidPress(_ button: UIButton) {
         if nameTextField?.text?.isEmpty ?? true || passwordextField?.text?.isEmpty ?? true {
-            showAlert(title: "Login Failed", msg: "Email or Password Missing", actionTitle: "Close")
+            showAlert(title: Constants.AlertMessages.failedLoginAlert, msg: "Email or Password Missing", actionTitle: Constants.AlertMessages.closeAction)
         } else if !isValidEmail(email: nameTextField.text ?? "") {
-            showAlert(title: "Login Failed", msg: "Email Id Wrongly Formated", actionTitle: "Close")
+            showAlert(title: Constants.AlertMessages.failedLoginAlert, msg: "Email Id Wrongly Formated", actionTitle: Constants.AlertMessages.closeAction)
         } else {
             super.startLoading()
             fireBaseManager.emailUserLogin(email: nameTextField?.text, password: passwordextField?.text) { [weak self] (user, error) in
                 if error != "nil" {
-                    self?.showAlert(title: "Login Failed", msg: error, actionTitle: "Try Again")
+                    self?.showAlert(title: Constants.AlertMessages.failedLoginAlert, msg: error, actionTitle: Constants.AlertMessages.closeAction)
                 } else {
                     self?.fireBaseManager.decideUserRole(user: Auth.auth().currentUser) { (viewController, role) in
                         UserDefaults.standard.set(role, forKey: Constants.UserDefaults.role)

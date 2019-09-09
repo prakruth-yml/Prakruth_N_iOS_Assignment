@@ -15,9 +15,10 @@ class POViewModel {
         var detailsArr: [ProjectDetails] = []
         firebase.getProjectDetails { (snapshot) in
             for child in snapshot.children.allObjects as! [DataSnapshot] {
-                let title = child.childSnapshot(forPath: "Data").childSnapshot(forPath: "Title").value as? String ?? ""
-                let domain = child.childSnapshot(forPath: "Data").childSnapshot(forPath: "Domain").value as? String ?? ""
-                let descp = child.childSnapshot(forPath: "Data").childSnapshot(forPath: "Descp").value as? String ?? ""
+                let title = child.childSnapshot(forPath: Constants.FirebaseConstants.projectMembers).childSnapshot(forPath: Constants.FirebaseConstants.projectTitle).value as? String ?? ""
+                let domain = child.childSnapshot(forPath: Constants.FirebaseConstants.projectMembers).childSnapshot(forPath: Constants.FirebaseConstants.projectDomain).value as? String ?? ""
+                let descp = child.childSnapshot(forPath: Constants.FirebaseConstants.projectMembers).childSnapshot(forPath: Constants.FirebaseConstants.projectDescription
+                    ).value as? String ?? ""
                 let tempStruct = ProjectDetails(data: Data(title: title, domain: domain, descp: descp))
                 detailsArr.append(tempStruct)
             }

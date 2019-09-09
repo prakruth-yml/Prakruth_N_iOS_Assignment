@@ -26,7 +26,7 @@ class AccDetailsVC: BaseVC {
         UserDefaults.standard.removeObject(forKey: Constants.UserDefaults.role)
         UserDefaults.standard.synchronize()
         firebase.emailUserSignOut { [weak self] in
-            guard let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: ViewController.self)) as? ViewController else { return }
+            guard let viewController = self?.storyboard?.instantiateViewController(withIdentifier: String(describing: ViewController.self)) as? ViewController else { return }
             self?.present(viewController, animated: true, completion: nil)
         }
     }
