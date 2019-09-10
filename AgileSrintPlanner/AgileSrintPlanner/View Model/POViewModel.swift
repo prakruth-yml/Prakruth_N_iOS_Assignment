@@ -5,28 +5,36 @@ import FirebaseUI
 
 class POViewModel {
     
-    var firebase = FirebaseManager()
+    private var firebase = FirebaseManager()
     var projectDetails: [ProjectDetails]?
+    var projectMembers: [ProjectMembers]?
+    let headings = ["Title", "Domain", "Description"]
+    let sectionHeading = ["Project Description", "Product Backlogs", "Team"]
     
-    func addNewProject(title: String, domain: String, descp: String, completion: @escaping (() -> Void)){
-        firebase.addNewProjectByPO(title: title, domain: domain, descp: descp, completion: completion)
+    func addNewProject(title: String, domain: String, descp: String, poName: String, completion: @escaping (() -> Void)) {
+        firebase.addNewProjectByPO(title: title, domain: domain, descp: descp, poName: poName, completion: completion)
     }
     
     func getProjectDetailsFromFM(completion: @escaping (() -> Void)) {
-//    func getProjectDetailsFromFM(completion: @escaping (([ProjectDetails]) -> Void)) {
         var detailsArr: [ProjectDetails] = []
-        firebase.getProjectDetails { (snapshot) in
-            guard let snapshot = snapshot.children.allObjects as? [DataSnapshot] else { return }
-            
+        firebase.getProjectDetails { [weak self] (snapshot) in
+            guard let snapshot = snapshot.children.allObjects as? [DataSnapshot],
+                  let weakSelf = self else { return }
+
             for child in snapshot {
                 let title = child.childSnapshot(forPath: Constants.FirebaseConstants.projectMembers).childSnapshot(forPath: Constants.FirebaseConstants.projectTitle).value as? String ?? ""
                 let domain = child.childSnapshot(forPath: Constants.FirebaseConstants.projectMembers).childSnapshot(forPath: Constants.FirebaseConstants.projectDomain).value as? String ?? ""
                 let descp = child.childSnapshot(forPath: Constants.FirebaseConstants.projectMembers).childSnapshot(forPath: Constants.FirebaseConstants.projectDescription
                     ).value as? String ?? ""
-                let tempStruct = ProjectDetails(data: Data(title: title, domain: domain, descp: descp))
-                detailsArr.append(tempStruct)
+                var teamMembers: [TeamMember] = []
+                guard let member = child.childSnapshot(forPath: Constants.FirebaseConstants.ProjectTable.members).children.allObjects as? [DataSnapshot] else { return }
+                for eachMember in member {
+                    teamMembers.append(TeamMember(name: eachMember.value as? String ?? "", role: eachMember.key))
+                }
+                let projectStructure = ProjectDetails(data: Data(title: title, domain: domain, descp: descp), teamMember: teamMembers)
+                detailsArr.append(projectStructure)
             }
-            self.projectDetails = detailsArr
+            weakSelf.projectDetails = detailsArr
             completion()
         }
     }

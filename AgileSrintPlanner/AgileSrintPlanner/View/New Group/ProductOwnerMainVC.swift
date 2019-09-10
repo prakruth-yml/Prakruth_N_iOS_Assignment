@@ -5,26 +5,23 @@ import FirebaseUI
 
 class ProductOwnerMainVC: BaseVC {
     
-    @IBOutlet weak var hiddenText: UILabel!
-    @IBOutlet weak var accDetails: UIImageView!
+    @IBOutlet private weak var emptyLabel: UILabel!
     @IBOutlet weak var listGridButton: UIImageView!
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var navBarItem: UINavigationItem!
     
-    let firebaseManager = FirebaseManager()
-    var viewModel = POViewModel()
-    let sectionInsets = UIEdgeInsets(top: 20.0, left: 20.0, bottom: 20.0, right: 20.0)
+    private var viewModel = POViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         navBarItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon-user-acc"), style: .plain, target: self, action: #selector(userDisplayButtonDidPress))
         navBarItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icons8-menu-50"), style: .plain, target: self, action: #selector(listImageDidPress))
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadCollectionView), name: Notification.Name(Constants.NotificationCenterNames.newProjectAdded), object: nil)
         getAndReloadData()
     }
     
-    @objc func reloadCollectionView(notification: NSNotification) {
-        getAndReloadData()
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
     }
     
     private func getAndReloadData() {
@@ -37,32 +34,33 @@ class ProductOwnerMainVC: BaseVC {
         }
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        let touch: UITouch? = touches.first
-    }
-    
     @IBAction private func addButtonDidPress(_ button: UIButton) {
-        guard let vc = storyboard?.instantiateViewController(withIdentifier: String(describing: NewProjectPopOverVC.self)) as? NewProjectPopOverVC else { return }
-        vc.callBack(collectionView: &collectionView)
-        addChild(vc)
-        vc.view.frame = view.frame
-        view.addSubview(vc.view)
-        vc.didMove(toParent: self)
+        guard let newProjectVC = storyboard?.instantiateViewController(withIdentifier: String(describing: NewProjectPopOverVC.self)) as? NewProjectPopOverVC else { return }
+        
+        newProjectVC.callback = { [weak self] in
+            guard let self = self else { return }
+            
+            self.getAndReloadData()
+        }
+        addChild(newProjectVC)
+        newProjectVC.view.frame = view.frame
+        view.addSubview(newProjectVC.view)
+        newProjectVC.didMove(toParent: self)
     }
     
-    @objc func userDisplayButtonDidPress(_ button: UIButton) {
+    @objc private func userDisplayButtonDidPress(_ button: UIButton) {
         guard let viewController = storyboard?.instantiateViewController(withIdentifier: String(describing: AccDetailsVC.self)) as? AccDetailsVC else { return }
         
         navigationController?.pushViewController(viewController, animated: true)
     }
 
-    @objc func listImageDidPress(_ sender: UITapGestureRecognizer) {
+    @objc private func listImageDidPress(_ sender: UITapGestureRecognizer) {
         
     }
 }
 
 extension ProductOwnerMainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.projectDetails?.count ?? 0
     }
@@ -79,7 +77,7 @@ extension ProductOwnerMainVC: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellsPerRow = CGFloat(1)
-        let availableWidth = collectionView.frame.size.width - sectionInsets.left
+        let availableWidth = collectionView.frame.size.width - CGFloat(Constants.CollectionViewCell.leftSpacing)
         let widthPerItem = availableWidth / cellsPerRow
         return CGSize(width: widthPerItem, height: widthPerItem / 2)
     }
@@ -88,11 +86,13 @@ extension ProductOwnerMainVC: UICollectionViewDelegate, UICollectionViewDataSour
         guard let viewController = storyboard?.instantiateViewController(withIdentifier: String(describing: ProjectDescriptionVC.self)) as? ProjectDescriptionVC else { return }
         
         viewController.projectDetails = viewModel.projectDetails?[indexPath.row]
+//        viewController.teamMember = viewModel.
         navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
 extension UIColor {
+    
     static func randomClr() -> UIColor {
         return UIColor(red: CGFloat.random(in: 0...1), green: CGFloat.random(in: 0...1), blue: CGFloat.random(in: 0...1), alpha: 1.0)
     }

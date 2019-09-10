@@ -11,9 +11,11 @@ class Constants {
         static let projectManager = "Project Manager"
         static let dev = "Developer"
     }
+    
     struct  UserDefaults {
         static let currentUser = "currentUser"
         static let role = "role"
+        static let currentUserName = "userName"
     }
     
     struct  StickiesColor {
@@ -38,6 +40,7 @@ class Constants {
     }
     
     struct  FirebaseConstants {
+
         static let employeeTable = "Employee"
         static let empName = "name"
         static let empEmail = "emailId"
@@ -47,6 +50,12 @@ class Constants {
         static let projectDomain = "Domain"
         static let projectDescription = "Descp"
         static let projectMembers = "Data"
+        static let poNameInAddProject = "PO"
+        struct ProjectTable {
+            static let name = "Projects"
+            static let data = "Data"
+            static let members = "Members"
+        }
     }
     
     struct AlertMessages {
@@ -75,5 +84,9 @@ class Constants {
     
     struct NotificationCenterNames {
         static let newProjectAdded = "newProjectAdded"
+    }
+    
+    struct CollectionViewCell {
+        static let leftSpacing = 20.0
     }
 }

@@ -7,10 +7,12 @@ class NewProjectPopOverVC: BaseVC {
     @IBOutlet weak var domainTextField: UITextField!
     @IBOutlet weak var descpTextField: UITextView!
     
+    var callback: (() -> Void)?
     var viewModel = POViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = UIColor.black.withAlphaComponent(0.8)
         popOver()
     }
@@ -24,17 +26,24 @@ class NewProjectPopOverVC: BaseVC {
             showAlert(title: Constants.AlertMessages.missingDataAlert, msg: Constants.ProjectValidation.descriptionMissing, actionTitle: Constants.AlertMessages.tryAgainAction)
         } else {
             stopLoading()
-            viewModel.addNewProject(title: titleTextField?.text ?? "", domain: domainTextField?.text ?? "", descp: descpTextField?.text ?? "") { [weak self] in
+            guard let poName = UserDefaults.standard.object(forKey: Constants.UserDefaults.currentUserName) as? String else { return }
+            viewModel.addNewProject(title: titleTextField?.text ?? "", domain: domainTextField?.text ?? "", descp: descpTextField?.text ?? "", poName: poName) { [weak self] in
                 guard let weakSelf = self else { return }
 
-                DispatchQueue.main.async{
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    
                     weakSelf.stopLoading()
                     weakSelf.showAlert(title: Constants.AlertMessages.successAlert, msg: Constants.ProjectValidation.success, actionTitle: Constants.AlertMessages.closeAction)
-                    NotificationCenter.default.post(name: Notification.Name(Constants.NotificationCenterNames.newProjectAdded), object: nil)
+                    self.callback?()
                 }
             }
             view.removeFromSuperview()
         }
+    }
+    
+    @IBAction private func closeButtonDidPress(_ button: UIButton) {
+        view.removeFromSuperview()
     }
     
     func callBack(collectionView: inout UICollectionView) {
@@ -43,6 +52,7 @@ class NewProjectPopOverVC: BaseVC {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
+        
         let touch: UITouch? = touches.first
         if touch?.view != actualView {
             view.removeFromSuperview()

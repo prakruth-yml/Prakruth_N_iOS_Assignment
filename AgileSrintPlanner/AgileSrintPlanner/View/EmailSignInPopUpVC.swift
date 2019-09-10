@@ -14,6 +14,7 @@ class EmailSignInPopUpVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupTextFieldDelegates()
         view.backgroundColor = UIColor.black.withAlphaComponent(0.8)
         signUpButton.imageView?.contentMode = .scaleAspectFit
@@ -22,6 +23,7 @@ class EmailSignInPopUpVC: BaseVC {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -61,7 +63,7 @@ class EmailSignInPopUpVC: BaseVC {
                     DispatchQueue.main.async {
                         weakSelf.view.removeFromSuperview()
                         weakSelf.stopLoading()
-                        weakSelf.showAlert(title: Constants.AlertMessages.closeAction, msg: "Account has been created successfully", actionTitle: Constants.AlertMessages.closeAction)
+                        weakSelf.showAlert(title: Constants.AlertMessages.closeAction, msg: "Account has been created successfully. Please login with the same", actionTitle: Constants.AlertMessages.closeAction)
                     }
                 }
             }

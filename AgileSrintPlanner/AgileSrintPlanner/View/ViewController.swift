@@ -15,6 +15,7 @@ class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         GIDSignIn.sharedInstance()?.uiDelegate = self
         GIDSignIn.sharedInstance()?.delegate = self
         setupTextFieldDelegates()
@@ -25,6 +26,7 @@ class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -60,6 +62,7 @@ class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
                         let currentUser = Auth.auth().currentUser
                         currentUser?.getIDTokenResult(forcingRefresh: true, completion: { (token, error) in
                             UserDefaults.standard.set(token?.claims, forKey: Constants.UserDefaults.currentUser)
+                            UserDefaults.standard.set(currentUser?.displayName, forKey: Constants.UserDefaults.currentUserName)
                         })
                         let navigationController = UINavigationController(rootViewController: viewController)
                         weakSelf.present(navigationController, animated: true)
@@ -80,6 +83,7 @@ class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
+        
         let touch: UITouch? = touches.first
         view.endEditing(true)
     }

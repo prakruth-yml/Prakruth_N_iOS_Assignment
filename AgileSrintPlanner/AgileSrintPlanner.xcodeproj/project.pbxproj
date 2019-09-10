@@ -17,6 +17,8 @@
 		AB6710F7231E9F6B00E2897E /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6710F6231E9F6B00E2897E /* FirebaseManager.swift */; };
 		AB6710F9231F83FD00E2897E /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6710F8231F83FD00E2897E /* BaseVC.swift */; };
 		ABAC160A2327625900DF0059 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAC16092327625900DF0059 /* ViewController.swift */; };
+		ABAC160C2327717400DF0059 /* TeamMembersTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAC160B2327717400DF0059 /* TeamMembersTVCell.swift */; };
+		ABAC160E232780BF00DF0059 /* TeamDisplayCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAC160D232780BF00DF0059 /* TeamDisplayCVCell.swift */; };
 		ABB7B3522319405B0084B44D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB7B3512319405B0084B44D /* AppDelegate.swift */; };
 		ABB7B3572319405B0084B44D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABB7B3552319405B0084B44D /* Main.storyboard */; };
 		ABB7B359231940670084B44D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABB7B358231940670084B44D /* Assets.xcassets */; };
@@ -46,6 +48,8 @@
 		AB6710F6231E9F6B00E2897E /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		AB6710F8231F83FD00E2897E /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		ABAC16092327625900DF0059 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		ABAC160B2327717400DF0059 /* TeamMembersTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamMembersTVCell.swift; sourceTree = "<group>"; };
+		ABAC160D232780BF00DF0059 /* TeamDisplayCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDisplayCVCell.swift; sourceTree = "<group>"; };
 		ABB7B34E2319405A0084B44D /* AgileSrintPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AgileSrintPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABB7B3512319405B0084B44D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ABB7B3562319405B0084B44D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -167,6 +171,8 @@
 				AB2E20CB2326352E008AAB12 /* ProjectDescriptionTVCell.swift */,
 				AB2E20D323264F54008AAB12 /* ProductBacklogTVCell.swift */,
 				AB2E20CF2326365F008AAB12 /* ProjectDescriptionVC.swift */,
+				ABAC160B2327717400DF0059 /* TeamMembersTVCell.swift */,
+				ABAC160D232780BF00DF0059 /* TeamDisplayCVCell.swift */,
 			);
 			path = POView;
 			sourceTree = "<group>";
@@ -345,6 +351,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB2E20CE23263589008AAB12 /* BaseTVCell.swift in Sources */,
+				ABAC160E232780BF00DF0059 /* TeamDisplayCVCell.swift in Sources */,
 				AB6710F7231E9F6B00E2897E /* FirebaseManager.swift in Sources */,
 				AB2E20CC2326352E008AAB12 /* ProjectDescriptionTVCell.swift in Sources */,
 				ABFF65E32321179300AD13D3 /* POViewModel.swift in Sources */,
@@ -354,6 +361,7 @@
 				AB6710F5231E821C00E2897E /* EmailSignInPopUpVC.swift in Sources */,
 				ABD335E0231FC87A0023AC98 /* ProductOwner.swift in Sources */,
 				ABD335E923200A150023AC98 /* AccDetailsVC.swift in Sources */,
+				ABAC160C2327717400DF0059 /* TeamMembersTVCell.swift in Sources */,
 				AB2E20D02326365F008AAB12 /* ProjectDescriptionVC.swift in Sources */,
 				ABD335DE231FBFB50023AC98 /* ProductOwnerMainVC.swift in Sources */,
 				ABB7B3522319405B0084B44D /* AppDelegate.swift in Sources */,
