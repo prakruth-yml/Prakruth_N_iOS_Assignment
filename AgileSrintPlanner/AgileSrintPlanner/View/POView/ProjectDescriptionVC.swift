@@ -57,9 +57,9 @@ extension ProjectDescriptionVC: UITableViewDelegate, UITableViewDataSource {
         case Constants.ProjectDescription.Sections.team.rawValue:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TeamMembersTVCell.self), for: indexPath) as? TeamMembersTVCell else { return TeamMembersTVCell() }
             
-//            cell.collectionView.dataSource = self
-//            cell.collectionView.delegate = self
-//            cell.collectionView.backgroundColor = .black
+            cell.collectionView.dataSource = self
+            cell.collectionView.delegate = self
+            cell.collectionView.backgroundColor = .black
             return cell
         default:
             return ProductBacklogTVCell()
@@ -71,19 +71,19 @@ extension ProjectDescriptionVC: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-//extension ProjectDescriptionVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        //        return projectDetails?.teamMember.count ?? 0
-//        return 1
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: TeamDisplayCVCell.self), for: indexPath) as? TeamDisplayCVCell else { return TeamDisplayCVCell() }
-//
-//        cell.imageView.image = UIImage(named: "Teamwork-Theme")
-//        cell.nameLabel.text = "projectDetails?.teamMember[indexPath.row].name"
-//        cell.roleLabel.text = "projectDetails?.teamMember[indexPath.row].role"
-//
-//        return cell
-//    }
-//}
+extension ProjectDescriptionVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        //        return projectDetails?.teamMember.count ?? 0
+        return 1
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: TeamDisplayCVCell.self), for: indexPath) as? TeamDisplayCVCell else { return TeamDisplayCVCell() }
+
+        cell.imageView.image = UIImage(named: "Teamwork-Theme")
+        cell.nameLabel.text = "projectDetails?.teamMember[indexPath.row].name"
+        cell.roleLabel.text = "projectDetails?.teamMember[indexPath.row].role"
+
+        return cell
+    }
+}
