@@ -45,13 +45,13 @@ extension ProjectDescriptionVC: UITableViewDelegate, UITableViewDataSource {
         
         switch indexPath.section {
         case Constants.ProjectDescription.Sections.description.rawValue:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProjectDescriptionTVCell.self), for: indexPath) as? ProjectDescriptionTVCell else { fatalError() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProjectDescriptionTVCell.self), for: indexPath) as? ProjectDescriptionTVCell else { return ProjectDescriptionTVCell() }
             
             cell.label.text = headings[indexPath.row]
             cell.textToDisplay.text = projectDetailsArr[indexPath.row]
             return cell
         case Constants.ProjectDescription.Sections.backlogs.rawValue:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProductBacklogTVCell.self), for: indexPath) as? ProductBacklogTVCell else { fatalError() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProductBacklogTVCell.self), for: indexPath) as? ProductBacklogTVCell else { return ProjectDescriptionTVCell() }
             
                     return cell
         case Constants.ProjectDescription.Sections.team.rawValue:

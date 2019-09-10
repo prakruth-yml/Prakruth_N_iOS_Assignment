@@ -15,7 +15,7 @@ class FirebaseManager {
                 completion(err)
             }
             if authRes != nil {
-                guard let user = Auth.auth().currentUser else { fatalError() }
+                guard let user = Auth.auth().currentUser else { return }
                 
                 self.ref.child(Constants.FirebaseConstants.employeeTable).child("\(user.uid)").setValue([Constants.FirebaseConstants.empName: name, Constants.FirebaseConstants.empEmail: email, Constants.FirebaseConstants.empRole: "PO"])
                 self.ref.child(Constants.FirebaseConstants.employeeTable).child("\(user.uid)").child(Constants.FirebaseConstants.empEmail)
@@ -26,7 +26,7 @@ class FirebaseManager {
     
     func emailUserLogin(email: String?, password: String?, completion: @escaping ((Any?, Error?) -> Void)) {
         guard let email = email,
-              let password = password else { fatalError() }
+              let password = password else { return }
         
         Auth.auth().signIn(withEmail: email, password: password) { user, error in
             if let error = error {
@@ -46,7 +46,7 @@ class FirebaseManager {
     func decideUserRole(user: User?, completion: @escaping (UIViewController?, String) -> Void) {
         
         ref.child(Constants.FirebaseConstants.employeeTable).observeSingleEvent(of: .value) { (snapshot) in
-            guard let user = Auth.auth().currentUser else { fatalError() }
+            guard let user = Auth.auth().currentUser else { return }
             let role = snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: Constants.FirebaseConstants.empRole).value as? String
             switch role {
             case Roles.developer.rawValue:
@@ -65,7 +65,7 @@ class FirebaseManager {
     
     func getUserDetails(completion: @escaping ((String, String, String) -> Void)) {
         ref.child(Constants.FirebaseConstants.employeeTable).observeSingleEvent(of: .value) { (snapshot) in
-            guard let user = Auth.auth().currentUser else { fatalError() }
+            guard let user = Auth.auth().currentUser else { return }
             completion(snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: Constants.FirebaseConstants.empName).value as? String ?? "",
                        snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: Constants.FirebaseConstants.empEmail).value as? String ?? "",
                        snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: Constants.FirebaseConstants.empRole).value as? String ?? "")
@@ -76,7 +76,7 @@ class FirebaseManager {
     }
     
     func addNewProjectByPO(title: String, domain: String, descp: String, completion: @escaping (() -> Void)) {
-        guard let key = ref.child(Constants.FirebaseConstants.projectsTable).childByAutoId().key else { fatalError() }
+        guard let key = ref.child(Constants.FirebaseConstants.projectsTable).childByAutoId().key else { return }
         let data = [Constants.FirebaseConstants.projectTitle: title, Constants.FirebaseConstants.projectDomain: domain, Constants.FirebaseConstants.projectDescription: descp]
         let members: [String:String] = [:]
 //        let childUpdates = ["/Projects/\(key)/Data":data, "/Projects/\(key)/Members": members]

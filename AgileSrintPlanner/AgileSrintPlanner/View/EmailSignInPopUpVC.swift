@@ -20,6 +20,11 @@ class EmailSignInPopUpVC: BaseVC {
         popOver()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     private func popOver() {
         view.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
         view.alpha = 0.0
@@ -35,13 +40,13 @@ class EmailSignInPopUpVC: BaseVC {
     
     @IBAction private func signInButtonDidPress(_ button: UIButton) {
         if emailIdTextField.text?.isEmpty ?? true || passwordTextField.text?.isEmpty ?? true || nameTextField.text?.isEmpty ?? true {
-            showAlert(title: Constants.AlertMessages.errorAlert, msg: "Name or Email Id or Password Missing", actionTitle: Constants.AlertMessages.closeAction)
+            showAlert(title: Constants.AlertMessages.errorAlert, msg: Constants.EmailValidation.entiresMissing, actionTitle: Constants.AlertMessages.closeAction)
         } else if !isValidEmail(email: emailIdTextField.text ?? "") {
-            showAlert(title: Constants.AlertMessages.errorAlert, msg: "Wrongly formated Email Id", actionTitle: Constants.AlertMessages.closeAction)
+            showAlert(title: Constants.AlertMessages.errorAlert, msg: Constants.EmailValidation.entriesWrongFormat, actionTitle: Constants.AlertMessages.closeAction)
         } else if passwordTextField.text != confirmPasswordTF.text {
-            showAlert(title: Constants.AlertMessages.failedLoginAlert, msg: "Passwords does not match", actionTitle: Constants.AlertMessages.closeAction)
+            showAlert(title: Constants.AlertMessages.failedLoginAlert, msg: Constants.EmailValidation.passwordsMismatch, actionTitle: Constants.AlertMessages.closeAction)
         } else {
-            super.startLoading()
+            startLoading()
             firebaseManager.emailLoginUserCreate(name: nameTextField.text ?? "name", email: emailIdTextField.text ?? "email", password: passwordTextField.text ?? "password") { [weak self] (error) in
                 
                 guard let weakSelf = self else { return }

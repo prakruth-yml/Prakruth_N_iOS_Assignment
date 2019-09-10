@@ -16,8 +16,8 @@
 		AB6710F5231E821C00E2897E /* EmailSignInPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6710F4231E821C00E2897E /* EmailSignInPopUpVC.swift */; };
 		AB6710F7231E9F6B00E2897E /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6710F6231E9F6B00E2897E /* FirebaseManager.swift */; };
 		AB6710F9231F83FD00E2897E /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6710F8231F83FD00E2897E /* BaseVC.swift */; };
+		ABAC160A2327625900DF0059 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAC16092327625900DF0059 /* ViewController.swift */; };
 		ABB7B3522319405B0084B44D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB7B3512319405B0084B44D /* AppDelegate.swift */; };
-		ABB7B3542319405B0084B44D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB7B3532319405B0084B44D /* ViewController.swift */; };
 		ABB7B3572319405B0084B44D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABB7B3552319405B0084B44D /* Main.storyboard */; };
 		ABB7B359231940670084B44D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABB7B358231940670084B44D /* Assets.xcassets */; };
 		ABB7B35C231940670084B44D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABB7B35A231940670084B44D /* LaunchScreen.storyboard */; };
@@ -45,9 +45,9 @@
 		AB6710F4231E821C00E2897E /* EmailSignInPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignInPopUpVC.swift; sourceTree = "<group>"; };
 		AB6710F6231E9F6B00E2897E /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		AB6710F8231F83FD00E2897E /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
+		ABAC16092327625900DF0059 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		ABB7B34E2319405A0084B44D /* AgileSrintPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AgileSrintPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABB7B3512319405B0084B44D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		ABB7B3532319405B0084B44D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		ABB7B3562319405B0084B44D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		ABB7B358231940670084B44D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ABB7B35B231940670084B44D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -104,8 +104,8 @@
 			isa = PBXGroup;
 			children = (
 				ABD335E3231FFE850023AC98 /* POView */,
-				ABB7B3532319405B0084B44D /* ViewController.swift */,
 				ABB7B3552319405B0084B44D /* Main.storyboard */,
+				ABAC16092327625900DF0059 /* ViewController.swift */,
 				AB6710F4231E821C00E2897E /* EmailSignInPopUpVC.swift */,
 				AB6710F8231F83FD00E2897E /* BaseVC.swift */,
 				ABD335E6231FFED30023AC98 /* BaseCVCell.swift */,
@@ -348,8 +348,8 @@
 				AB6710F7231E9F6B00E2897E /* FirebaseManager.swift in Sources */,
 				AB2E20CC2326352E008AAB12 /* ProjectDescriptionTVCell.swift in Sources */,
 				ABFF65E32321179300AD13D3 /* POViewModel.swift in Sources */,
+				ABAC160A2327625900DF0059 /* ViewController.swift in Sources */,
 				ABD335E7231FFED30023AC98 /* BaseCVCell.swift in Sources */,
-				ABB7B3542319405B0084B44D /* ViewController.swift in Sources */,
 				AB2E20D423264F54008AAB12 /* ProductBacklogTVCell.swift in Sources */,
 				AB6710F5231E821C00E2897E /* EmailSignInPopUpVC.swift in Sources */,
 				ABD335E0231FC87A0023AC98 /* ProductOwner.swift in Sources */,

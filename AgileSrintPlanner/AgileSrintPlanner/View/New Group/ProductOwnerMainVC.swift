@@ -19,6 +19,15 @@ class ProductOwnerMainVC: BaseVC {
         super.viewDidLoad()
         navBarItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon-user-acc"), style: .plain, target: self, action: #selector(userDisplayButtonDidPress))
         navBarItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icons8-menu-50"), style: .plain, target: self, action: #selector(listImageDidPress))
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadCollectionView), name: Notification.Name(Constants.NotificationCenterNames.newProjectAdded), object: nil)
+        getAndReloadData()
+    }
+    
+    @objc func reloadCollectionView(notification: NSNotification) {
+        getAndReloadData()
+    }
+    
+    private func getAndReloadData() {
         startLoading()
         viewModel.getProjectDetailsFromFM { [weak self] in
             guard let weakSelf = self else { return }
@@ -26,9 +35,6 @@ class ProductOwnerMainVC: BaseVC {
             weakSelf.collectionView.reloadData()
             weakSelf.stopLoading()
         }
-    }    
-    func test() {
-        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -37,7 +43,8 @@ class ProductOwnerMainVC: BaseVC {
     }
     
     @IBAction private func addButtonDidPress(_ button: UIButton) {
-        guard let vc = storyboard?.instantiateViewController(withIdentifier: String(describing: NewProjectPopOverVC.self)) as? NewProjectPopOverVC else { fatalError() }
+        guard let vc = storyboard?.instantiateViewController(withIdentifier: String(describing: NewProjectPopOverVC.self)) as? NewProjectPopOverVC else { return }
+        vc.callBack(collectionView: &collectionView)
         addChild(vc)
         vc.view.frame = view.frame
         view.addSubview(vc.view)
@@ -78,7 +85,7 @@ extension ProductOwnerMainVC: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let viewController = storyboard?.instantiateViewController(withIdentifier: String(describing: ProjectDescriptionVC.self)) as? ProjectDescriptionVC else { fatalError() }
+        guard let viewController = storyboard?.instantiateViewController(withIdentifier: String(describing: ProjectDescriptionVC.self)) as? ProjectDescriptionVC else { return }
         
         viewController.projectDetails = viewModel.projectDetails?[indexPath.row]
         navigationController?.pushViewController(viewController, animated: true)

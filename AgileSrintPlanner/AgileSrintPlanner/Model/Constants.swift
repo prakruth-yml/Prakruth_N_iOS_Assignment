@@ -61,5 +61,19 @@ class Constants {
     
     struct EmailValidation {
         static let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        static let entiresMissing = "Email or Password Missing"
+        static let entriesWrongFormat = "Email Wrongly Formatted"
+        static let passwordsMismatch = "Passwords do not Match"
+    }
+    
+    struct ProjectValidation {
+        static let titleMissing = "Project Title is Mandatory"
+        static let domainMissing = "Project Domain is Mandatory"
+        static let descriptionMissing = "Project Description is Mandatory"
+        static let success = "Project Created Successfully"
+    }
+    
+    struct NotificationCenterNames {
+        static let newProjectAdded = "newProjectAdded"
     }
 }

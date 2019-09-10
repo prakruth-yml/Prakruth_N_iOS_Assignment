@@ -12,7 +12,7 @@ class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
     @IBOutlet private weak var passwordextField: UITextField!
     
     var fireBaseManager = FirebaseManager()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         GIDSignIn.sharedInstance()?.uiDelegate = self
@@ -23,20 +23,25 @@ class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(moveViewWhenKeyboardAppears), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     @IBAction private func newUserButtonDidPress(_ button: UIButton) {
-        guard let popVC = self.storyboard?.instantiateViewController(withIdentifier: String(describing: EmailSignInPopUpVC.self)) as? EmailSignInPopUpVC else { fatalError() }
+        guard let popVC = self.storyboard?.instantiateViewController(withIdentifier: String(describing: EmailSignInPopUpVC.self)) as? EmailSignInPopUpVC else { return }
         
         addChild(popVC)
         popVC.view.frame = view.frame
         view.addSubview(popVC.view)
         popVC.didMove(toParent: self)
     }
-
+    
     @IBAction private func emailLoginButtonDidPress(_ button: UIButton) {
         if nameTextField?.text?.isEmpty ?? true || passwordextField?.text?.isEmpty ?? true {
-            showAlert(title: Constants.AlertMessages.failedLoginAlert, msg: "Email or Password Missing", actionTitle: Constants.AlertMessages.closeAction)
+            showAlert(title: Constants.AlertMessages.failedLoginAlert, msg: Constants.EmailValidation.entiresMissing, actionTitle: Constants.AlertMessages.closeAction)
         } else if !isValidEmail(email: nameTextField.text ?? "") {
-            showAlert(title: Constants.AlertMessages.failedLoginAlert, msg: "Email Id Wrongly Formated", actionTitle: Constants.AlertMessages.closeAction)
+            showAlert(title: Constants.AlertMessages.failedLoginAlert, msg: Constants.EmailValidation.entriesWrongFormat, actionTitle: Constants.AlertMessages.closeAction)
         } else {
             startLoading()
             fireBaseManager.emailUserLogin(email: nameTextField?.text, password: passwordextField?.text) { [weak self] (user, error) in
@@ -60,7 +65,7 @@ class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
                         weakSelf.present(navigationController, animated: true)
                     }
                 }
-                self?.stopLoading()
+                weakSelf.stopLoading()
             }
         }
     }
@@ -72,7 +77,7 @@ class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
             passwordextField.isSecureTextEntry = true
         }
     }
-
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         let touch: UITouch? = touches.first
