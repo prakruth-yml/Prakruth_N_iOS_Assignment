@@ -16,9 +16,14 @@ class FirebaseManager {
             if authRes != nil {
                 guard let user = Auth.auth().currentUser else { return }
                 
-                user.createProfileChangeRequest().displayName = name
-                weakSelf.ref.child(Constants.FirebaseConstants.employeeTable).child("\(user.uid)").setValue([Constants.FirebaseConstants.empName: name, Constants.FirebaseConstants.empEmail: email, Constants.FirebaseConstants.empRole: "PO"])
-                weakSelf.ref.child(Constants.FirebaseConstants.employeeTable).child("\(user.uid)").child(Constants.FirebaseConstants.empEmail)
+                let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                changeRequest?.displayName = name
+                changeRequest?.commitChanges { (error) in
+                    if let error = error {
+                        print(error)
+                    }
+                }
+                weakSelf.ref.child(Constants.FirebaseConstants.employeeTable).child(user.uid).setValue([Constants.FirebaseConstants.empName: name, Constants.FirebaseConstants.empEmail: email, Constants.FirebaseConstants.empRole: "PO"])
             }
             completion(error)
         }
@@ -65,10 +70,6 @@ class FirebaseManager {
             completion(ProfileDetails(name: snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: Constants.FirebaseConstants.empName).value as? String ?? "",
                                       role: snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: Constants.FirebaseConstants.empRole).value as? String ?? "",
                                       email: snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: Constants.FirebaseConstants.empEmail).value as? String ?? ""))
-            
-//            completion(snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: Constants.FirebaseConstants.empName).value as? String ?? "",
-//                       snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: Constants.FirebaseConstants.empEmail).value as? String ?? "",
-//                       snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: Constants.FirebaseConstants.empRole).value as? String ?? "")
         }
     }
     

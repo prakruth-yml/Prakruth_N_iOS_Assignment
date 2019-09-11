@@ -381,7 +381,6 @@
                     <connections>
                         <outlet property="collectionView" destination="dGi-Sd-ots" id="3vY-Uo-Jsw"/>
                         <outlet property="emptyLabel" destination="NWo-TA-XIE" id="uM0-Iq-6fw"/>
-                        <outlet property="navBarItem" destination="gwb-c7-YYX" id="IEi-5s-Gb3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CEM-Mw-sac" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -407,32 +406,32 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="194.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0KM-w9-Pkr">
-                                                    <rect key="frame" x="16" y="16" width="283" height="26"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0KM-w9-Pkr">
+                                                    <rect key="frame" x="20" y="16" width="369" height="26"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="19"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Njd-to-b3V">
-                                                    <rect key="frame" x="16" y="47" width="288" height="137"/>
-                                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="22"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="sfkjvbdfjbdbvd" translatesAutoresizingMaskIntoConstraints="NO" id="jWe-tl-0MU">
+                                                    <rect key="frame" x="20" y="50" width="379" height="134.5"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="jWe-tl-0MU" firstAttribute="leading" secondItem="0KM-w9-Pkr" secondAttribute="leading" id="5Lq-zP-DXn"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="0KM-w9-Pkr" secondAttribute="trailing" constant="5" id="FqL-HN-16o"/>
-                                                <constraint firstItem="Njd-to-b3V" firstAttribute="top" secondItem="0KM-w9-Pkr" secondAttribute="bottom" constant="5" id="K5c-vA-rll"/>
-                                                <constraint firstItem="Njd-to-b3V" firstAttribute="centerX" secondItem="jmn-bS-ca0" secondAttribute="centerX" id="Paz-1o-jGV"/>
+                                                <constraint firstItem="jWe-tl-0MU" firstAttribute="top" secondItem="0KM-w9-Pkr" secondAttribute="bottom" constant="8" id="Gde-ra-YId"/>
+                                                <constraint firstAttribute="trailing" secondItem="jWe-tl-0MU" secondAttribute="trailing" constant="15" id="PhO-fJ-p7Z"/>
+                                                <constraint firstAttribute="bottom" secondItem="jWe-tl-0MU" secondAttribute="bottomMargin" constant="18" id="SaZ-c5-oLe"/>
                                                 <constraint firstItem="0KM-w9-Pkr" firstAttribute="top" secondItem="jmn-bS-ca0" secondAttribute="topMargin" constant="5" id="T4Q-tq-znh"/>
-                                                <constraint firstItem="Njd-to-b3V" firstAttribute="bottom" secondItem="jmn-bS-ca0" secondAttribute="bottomMargin" id="W6F-GT-KMo"/>
-                                                <constraint firstItem="Njd-to-b3V" firstAttribute="trailing" secondItem="jmn-bS-ca0" secondAttribute="trailingMargin" id="cjN-SP-2Gc"/>
                                                 <constraint firstItem="0KM-w9-Pkr" firstAttribute="leading" secondItem="jmn-bS-ca0" secondAttribute="leadingMargin" id="pG4-ob-LUi"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="label" destination="0KM-w9-Pkr" id="axa-JX-EQu"/>
-                                            <outlet property="textToDisplay" destination="Njd-to-b3V" id="jpQ-xJ-bfD"/>
+                                            <outlet property="textToDisplay" destination="jWe-tl-0MU" id="npF-xA-cqc"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProductBacklogTVCell" rowHeight="191" id="hOB-OA-SCN" customClass="ProductBacklogTVCell" customModule="AgileSrintPlanner" customModuleProvider="target">
@@ -443,7 +442,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zj2-nI-NLb">
-                                                    <rect key="frame" x="16" y="13" width="288" height="64"/>
+                                                    <rect key="frame" x="20" y="13" width="374" height="64"/>
                                                     <color key="backgroundColor" red="0.4756349325" green="0.47564673419999998" blue="0.47564041610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="60" maxY="0.0"/>
                                                     <inset key="imageEdgeInsets" minX="317" minY="1" maxX="1" maxY="10"/>

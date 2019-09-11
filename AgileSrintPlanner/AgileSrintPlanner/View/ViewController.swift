@@ -60,9 +60,11 @@ class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
                         UserDefaults.standard.set(role, forKey: Constants.UserDefaults.role)
                         guard let viewController = viewController else { return }
                         let currentUser = Auth.auth().currentUser
+                        UserDefaults.standard.set(currentUser?.displayName, forKey: Constants.UserDefaults.currentUserName)
+                        UserDefaults.standard.set(currentUser?.uid, forKey: Constants.UserDefaults.currentUserId)
+                        UserDefaults.standard.set(currentUser?.email, forKey: Constants.UserDefaults.currentUserEmail)
                         currentUser?.getIDTokenResult(forcingRefresh: true, completion: { (token, error) in
                             UserDefaults.standard.set(token?.claims, forKey: Constants.UserDefaults.currentUser)
-                            UserDefaults.standard.set(currentUser?.displayName, forKey: Constants.UserDefaults.currentUserName)
                         })
                         let navigationController = UINavigationController(rootViewController: viewController)
                         weakSelf.present(navigationController, animated: true)

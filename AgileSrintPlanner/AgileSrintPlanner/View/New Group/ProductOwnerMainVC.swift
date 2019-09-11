@@ -8,15 +8,14 @@ class ProductOwnerMainVC: BaseVC {
     @IBOutlet private weak var emptyLabel: UILabel!
     @IBOutlet weak var listGridButton: UIImageView!
     @IBOutlet private weak var collectionView: UICollectionView!
-    @IBOutlet private weak var navBarItem: UINavigationItem!
     
     private var viewModel = POViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navBarItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon-user-acc"), style: .plain, target: self, action: #selector(userDisplayButtonDidPress))
-        navBarItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icons8-menu-50"), style: .plain, target: self, action: #selector(listImageDidPress))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon-user-acc"), style: .plain, target: self, action: #selector(userDisplayButtonDidPress))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icons8-menu-50"), style: .plain, target: self, action: #selector(listImageDidPress))
         getAndReloadData()
     }
     
@@ -26,12 +25,18 @@ class ProductOwnerMainVC: BaseVC {
     
     private func getAndReloadData() {
         startLoading()
-        viewModel.getProjectDetailsFromFM { [weak self] in
+//        viewModel.getProjectDetailsFromFM { [weak self] in
+//            guard let weakSelf = self else { return }
+//
+//            weakSelf.collectionView.reloadData()
+//            weakSelf.stopLoading()
+//        }
+        viewModel.getProjectDetailsForUserWith(email: UserDefaults.standard.object(forKey: Constants.UserDefaults.currentUserName) as? String ?? "", completion: { [weak self] in
             guard let weakSelf = self else { return }
             
             weakSelf.collectionView.reloadData()
             weakSelf.stopLoading()
-        }
+        })
     }
     
     @IBAction private func addButtonDidPress(_ button: UIButton) {

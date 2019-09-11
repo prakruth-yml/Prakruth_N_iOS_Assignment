@@ -14,7 +14,12 @@ class ProjectDescriptionVC: BaseVC {
         projectDetailsArr = [projectDetails?.data.title, projectDetails?.data.domain, projectDetails?.data.descp] as? [String] ?? [""]
         print(projectDetails?.teamMember)
         navigationItem.title = projectDetailsArr[0]
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constants.NavigationBarConstants.editTitle, style: .plain, target: self, action: #selector(editNavBarItemDidPress))
         tableView.tableFooterView = UIView()
+    }
+    
+    @objc func editNavBarItemDidPress() {
+        
     }
 }
 
@@ -66,6 +71,7 @@ extension ProjectDescriptionVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
         switch indexPath.section {
         case Constants.ProjectDescription.Sections.team.rawValue:
             return 0.4609 * view.frame.height
@@ -77,8 +83,7 @@ extension ProjectDescriptionVC: UITableViewDelegate, UITableViewDataSource {
 
 extension ProjectDescriptionVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //        return projectDetails?.teamMember.count ?? 0
-        return 3
+                return projectDetails?.teamMember.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -86,8 +91,8 @@ extension ProjectDescriptionVC: UICollectionViewDelegate, UICollectionViewDataSo
 
         cell.imageView.image = UIImage(named: "Teamwork-Theme")
         cell.imageView.layer.cornerRadius = cell.imageView.frame.width / 2
-        cell.nameLabel.text = "projectDetails?.teamMember[indexPath.row].name"
-        cell.roleLabel.text = "projectDetails?.teamMember[indexPath.row].role"
+        cell.nameLabel.text = projectDetails?.teamMember[indexPath.row].name
+        cell.roleLabel.text = projectDetails?.teamMember[indexPath.row].role
         return cell
     }
     

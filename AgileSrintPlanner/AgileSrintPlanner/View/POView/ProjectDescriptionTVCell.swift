@@ -9,7 +9,14 @@
 import UIKit
 
 class ProjectDescriptionTVCell: BaseTVCell {
-    
+
     @IBOutlet weak var label: UILabel!
-    @IBOutlet weak var textToDisplay: UILabel!
+    @IBOutlet weak var textToDisplay: UITextView!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        textToDisplay.textContainer.maximumNumberOfLines = 10
+    }
+    
 }

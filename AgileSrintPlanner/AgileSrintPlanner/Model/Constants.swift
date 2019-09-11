@@ -16,6 +16,8 @@ class Constants {
         static let currentUser = "currentUser"
         static let role = "role"
         static let currentUserName = "userName"
+        static let currentUserId = "uid"
+        static let currentUserEmail = "email"
     }
     
     struct  StickiesColor {
@@ -88,5 +90,10 @@ class Constants {
     
     struct CollectionViewCell {
         static let leftSpacing = 20.0
+    }
+    
+    struct NavigationBarConstants {
+        static let editTitle = "Edit"
+        static let doneTitle = "Done"
     }
 }
