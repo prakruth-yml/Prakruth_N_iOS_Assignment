@@ -59,7 +59,6 @@ extension ProjectDescriptionVC: UITableViewDelegate, UITableViewDataSource {
             
             cell.collectionView.dataSource = self
             cell.collectionView.delegate = self
-            cell.collectionView.backgroundColor = .black
             return cell
         default:
             return ProductBacklogTVCell()
@@ -67,23 +66,35 @@ extension ProjectDescriptionVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        switch indexPath.section {
+        case Constants.ProjectDescription.Sections.team.rawValue:
+            return 0.4609 * view.frame.height
+        default:
+            return UITableView.automaticDimension
+        }
     }
 }
 
 extension ProjectDescriptionVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //        return projectDetails?.teamMember.count ?? 0
-        return 1
+        return 3
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: TeamDisplayCVCell.self), for: indexPath) as? TeamDisplayCVCell else { return TeamDisplayCVCell() }
 
         cell.imageView.image = UIImage(named: "Teamwork-Theme")
+        cell.imageView.layer.cornerRadius = cell.imageView.frame.width / 2
         cell.nameLabel.text = "projectDetails?.teamMember[indexPath.row].name"
         cell.roleLabel.text = "projectDetails?.teamMember[indexPath.row].role"
-
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellsPerRow = CGFloat(2)
+        let availableWidth = collectionView.frame.size.width - CGFloat(Constants.CollectionViewCell.leftSpacing)
+        let widthPerItem = availableWidth / cellsPerRow
+        return CGSize(width: widthPerItem, height: widthPerItem)
     }
 }
