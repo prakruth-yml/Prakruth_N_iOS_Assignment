@@ -17,7 +17,7 @@
                     <view key="view" contentMode="scaleToFill" id="jPG-Rt-e52">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.88499061606202878" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="fEG-1F-BXj"/>
                     </view>
                 </viewController>
@@ -399,7 +399,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProjectDescriptionTVCell" rowHeight="195" id="Cgw-bD-Wkt" customClass="ProjectDescriptionTVCell" customModule="AgileSrintPlanner" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProjectDescriptionTVCell" rowHeight="195" id="Cgw-bD-Wkt" customClass="ProjectDescriptionTVCell" customModule="AgileSrintPlanner" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="195"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Cgw-bD-Wkt" id="jmn-bS-ca0">
@@ -408,13 +408,14 @@
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0KM-w9-Pkr">
                                                     <rect key="frame" x="20" y="16" width="369" height="26"/>
+                                                    <color key="backgroundColor" red="1" green="0.82375502590000005" blue="0.84718924760000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="19"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="sfkjvbdfjbdbvd" translatesAutoresizingMaskIntoConstraints="NO" id="jWe-tl-0MU">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="sfkjvbdfjbdbvd" translatesAutoresizingMaskIntoConstraints="NO" id="jWe-tl-0MU">
                                                     <rect key="frame" x="20" y="50" width="379" height="134.5"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" red="0.29188507800000002" green="0.67548918719999995" blue="0.76073229310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
@@ -445,7 +446,7 @@
                                                     <rect key="frame" x="20" y="13" width="374" height="64"/>
                                                     <color key="backgroundColor" red="0.4756349325" green="0.47564673419999998" blue="0.47564041610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="60" maxY="0.0"/>
-                                                    <inset key="imageEdgeInsets" minX="317" minY="1" maxX="1" maxY="10"/>
+                                                    <inset key="imageEdgeInsets" minX="317" minY="10" maxX="0.0" maxY="10"/>
                                                     <state key="normal" title="Product Backlog" image="icons8-wide-long-right-arrow-64">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
@@ -487,6 +488,10 @@
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mE5-0a-hov">
                                                                         <rect key="frame" x="67" y="24" width="75" height="75"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" secondItem="mE5-0a-hov" secondAttribute="height" multiplier="1:1" id="MJ2-QZ-lQa"/>
+                                                                            <constraint firstAttribute="width" constant="75" id="rdf-lh-Vpq"/>
+                                                                        </constraints>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
                                                                         </userDefinedRuntimeAttributes>
@@ -506,7 +511,6 @@
                                                                 </subviews>
                                                             </view>
                                                             <constraints>
-                                                                <constraint firstItem="mE5-0a-hov" firstAttribute="width" secondItem="hjx-15-HuL" secondAttribute="width" multiplier="75:209" id="0XT-Dh-udV"/>
                                                                 <constraint firstItem="fcJ-iT-vva" firstAttribute="trailing" secondItem="hjx-15-HuL" secondAttribute="trailingMargin" multiplier="0.976" id="HIK-No-qky"/>
                                                                 <constraint firstItem="OvP-3C-f9m" firstAttribute="centerX" secondItem="hjx-15-HuL" secondAttribute="centerX" id="IRY-rK-PWy"/>
                                                                 <constraint firstItem="mE5-0a-hov" firstAttribute="bottom" secondItem="fcJ-iT-vva" secondAttribute="top" multiplier="0.95" id="O0g-OF-K5A"/>
@@ -514,7 +518,6 @@
                                                                 <constraint firstItem="OvP-3C-f9m" firstAttribute="bottom" secondItem="hjx-15-HuL" secondAttribute="bottom" multiplier="0.885" id="RVy-GY-jTh"/>
                                                                 <constraint firstItem="mE5-0a-hov" firstAttribute="centerX" secondItem="hjx-15-HuL" secondAttribute="centerX" id="h61-lX-dKb"/>
                                                                 <constraint firstItem="fcJ-iT-vva" firstAttribute="centerX" secondItem="hjx-15-HuL" secondAttribute="centerX" id="i0k-0G-Yyy"/>
-                                                                <constraint firstItem="mE5-0a-hov" firstAttribute="height" secondItem="hjx-15-HuL" secondAttribute="height" multiplier="75:174" id="sJv-e5-8MJ"/>
                                                                 <constraint firstItem="OvP-3C-f9m" firstAttribute="trailing" secondItem="hjx-15-HuL" secondAttribute="trailingMargin" multiplier="0.976" id="tcA-QV-fhY"/>
                                                             </constraints>
                                                             <size key="customSize" width="209" height="174"/>
@@ -544,17 +547,30 @@
                                     <outlet property="delegate" destination="YjU-XZ-iLC" id="hEF-up-qpR"/>
                                 </connections>
                             </tableView>
+                            <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W9t-eK-VbH">
+                                <rect key="frame" x="354" y="802" width="50" height="50"/>
+                                <color key="backgroundColor" red="0.7803921568627451" green="0.82352941176470584" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" image="icons8-plus-24"/>
+                                <connections>
+                                    <action selector="addNewUserButtonDidPress:" destination="YjU-XZ-iLC" eventType="touchUpInside" id="qLC-MS-mDD"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="AMT-cO-LSw" firstAttribute="bottom" secondItem="W9t-eK-VbH" secondAttribute="bottom" constant="10" id="4TC-ni-x8f"/>
                             <constraint firstItem="rYA-aj-MOa" firstAttribute="top" secondItem="AMT-cO-LSw" secondAttribute="top" id="DbY-qh-oe3"/>
+                            <constraint firstItem="W9t-eK-VbH" firstAttribute="height" secondItem="AMT-cO-LSw" secondAttribute="height" multiplier="50:818" id="FpQ-nS-b4S"/>
+                            <constraint firstItem="AMT-cO-LSw" firstAttribute="trailing" secondItem="W9t-eK-VbH" secondAttribute="trailing" constant="10" id="Ibi-1C-tjt"/>
                             <constraint firstItem="rYA-aj-MOa" firstAttribute="trailing" secondItem="AMT-cO-LSw" secondAttribute="trailing" id="LKR-py-v4J"/>
                             <constraint firstItem="rYA-aj-MOa" firstAttribute="leading" secondItem="AMT-cO-LSw" secondAttribute="leading" id="Rq6-FE-Niv"/>
+                            <constraint firstItem="W9t-eK-VbH" firstAttribute="width" secondItem="AMT-cO-LSw" secondAttribute="width" multiplier="50:414" id="git-E2-tnu"/>
                             <constraint firstItem="AMT-cO-LSw" firstAttribute="bottom" secondItem="rYA-aj-MOa" secondAttribute="bottom" id="kb0-p8-jcv"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="AMT-cO-LSw"/>
                     </view>
                     <connections>
+                        <outlet property="newUserButton" destination="W9t-eK-VbH" id="lC9-fK-X6C"/>
                         <outlet property="tableView" destination="rYA-aj-MOa" id="RV8-LK-scC"/>
                     </connections>
                 </viewController>
@@ -784,6 +800,7 @@
         <image name="icon-user-acc" width="50" height="50"/>
         <image name="icons8-add-50" width="50" height="50"/>
         <image name="icons8-menu-50" width="50" height="50"/>
+        <image name="icons8-plus-24" width="24" height="24"/>
         <image name="icons8-wide-long-right-arrow-64" width="64" height="64"/>
         <image name="message-48" width="36" height="36"/>
         <image name="plus-5-48" width="36" height="36"/>

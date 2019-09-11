@@ -3,9 +3,11 @@ import UIKit
 class ProjectDescriptionVC: BaseVC {
     
     @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var newUserButton: UIButton!
     
     var projectDetails: ProjectDetails?
     var projectDetailsArr: [String] = []
+    var editCondition = false
     
     var viewModel = POViewModel()
 
@@ -13,12 +15,25 @@ class ProjectDescriptionVC: BaseVC {
         super.viewDidLoad()
         projectDetailsArr = [projectDetails?.data.title, projectDetails?.data.domain, projectDetails?.data.descp] as? [String] ?? [""]
         print(projectDetails?.teamMember)
-        navigationItem.title = projectDetailsArr[0]
+        navigationItem.title = projectDetailsArr.first
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constants.NavigationBarConstants.editTitle, style: .plain, target: self, action: #selector(editNavBarItemDidPress))
         tableView.tableFooterView = UIView()
+        newUserButton.layer.cornerRadius = newUserButton.imageView?.frame.width ?? 1.0 / 2
     }
     
     @objc func editNavBarItemDidPress() {
+        if !editCondition {
+            editCondition = true
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constants.NavigationBarConstants.doneTitle, style: .plain, target: self, action: #selector(editNavBarItemDidPress))
+            tableView.reloadData()
+        } else {
+            editCondition = false
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constants.NavigationBarConstants.editTitle, style: .plain, target: self, action: #selector(editNavBarItemDidPress))
+            tableView.reloadData()
+        }
+    }
+    
+    @IBAction private func addNewUserButtonDidPress(_ button: UIButton) {
         
     }
 }
@@ -47,19 +62,31 @@ extension ProjectDescriptionVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        switch indexPath.section {
-        case Constants.ProjectDescription.Sections.description.rawValue:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProjectDescriptionTVCell.self), for: indexPath) as? ProjectDescriptionTVCell else { return ProjectDescriptionTVCell() }
-            
-            cell.label.text = viewModel.headings[indexPath.row]
-            cell.textToDisplay.text = projectDetailsArr[indexPath.row]
-            return cell
-        case Constants.ProjectDescription.Sections.backlogs.rawValue:
+        let sectionItem = Constants.ProjectDescription.Sections(rawValue: indexPath.section)
+        switch sectionItem ?? .description {
+        case .description:
+            if editCondition {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProjectDescriptionTVCell.self), for: indexPath) as? ProjectDescriptionTVCell else { return ProjectDescriptionTVCell() }
+                
+                cell.label.text = viewModel.headings[indexPath.row]
+                cell.textToDisplay.text = projectDetailsArr[indexPath.row]
+                cell.textToDisplay.isUserInteractionEnabled = true
+                cell.textToDisplay.isEditable = true
+                return cell
+            } else {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProjectDescriptionTVCell.self), for: indexPath) as? ProjectDescriptionTVCell else { return ProjectDescriptionTVCell() }
+                
+                cell.label.text = viewModel.headings[indexPath.row]
+                cell.textToDisplay.text = projectDetailsArr[indexPath.row]
+                cell.textToDisplay.isEditable = false
+                cell.backgroundColor = UIColor.yellow
+                return cell
+            }
+        case .backlogs:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProductBacklogTVCell.self), for: indexPath) as? ProductBacklogTVCell else { return ProjectDescriptionTVCell() }
             
             return cell
-        case Constants.ProjectDescription.Sections.team.rawValue:
+        case .team:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TeamMembersTVCell.self), for: indexPath) as? TeamMembersTVCell else { return TeamMembersTVCell() }
             
             cell.collectionView.dataSource = self

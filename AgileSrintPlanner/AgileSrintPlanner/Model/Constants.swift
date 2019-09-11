@@ -1,3 +1,5 @@
+import UIKit
+
 enum Roles: String {
     case developer = "dev"
     case projectManager = "PM"
@@ -95,5 +97,9 @@ class Constants {
     struct NavigationBarConstants {
         static let editTitle = "Edit"
         static let doneTitle = "Done"
+    }
+    
+    struct CustomColor {
+        static let tableViewSectionHeader = UIColor(red: 199 / 255, green: 210 / 255, blue: 216 / 255, alpha: 1.0)
     }
 }
