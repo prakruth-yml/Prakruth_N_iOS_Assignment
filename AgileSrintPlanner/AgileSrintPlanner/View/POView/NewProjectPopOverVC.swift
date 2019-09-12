@@ -75,8 +75,13 @@ class NewProjectPopOverVC: BaseVC {
     private func setTextField(button: UIButton, stringToAppend: String) {
         guard let textFieldText = domainTextField.text else { return }
         
+        if(domainTextField.text?.isEmpty ?? Constants.NilCoalescingDefaults.bool){
+            domainTextField.text = stringToAppend
+            button.setTitleColor(UIColor(red: 1.0, green: 0, blue: 0, alpha: 0.35), for: .normal)
+            return
+        }
         domainTextField.text = textFieldText + ", " + stringToAppend
-        button.isUserInteractionEnabled = false
+        button.setTitleColor(UIColor(red: 1.0, green: 0, blue: 0, alpha: 0.35), for: .normal)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

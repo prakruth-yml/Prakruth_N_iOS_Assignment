@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB171B0C232A864E00922E13 /* AddNewTeamMemberVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB171B0B232A864E00922E13 /* AddNewTeamMemberVC.swift */; };
 		AB2B3E73231E28AD00B22599 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB2B3E72231E28AD00B22599 /* GoogleService-Info.plist */; };
 		AB2E20CC2326352E008AAB12 /* ProjectDescriptionTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E20CB2326352E008AAB12 /* ProjectDescriptionTVCell.swift */; };
 		AB2E20CE23263589008AAB12 /* BaseTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E20CD23263589008AAB12 /* BaseTVCell.swift */; };
@@ -38,6 +39,7 @@
 		029D984A44785ED6064C6CFF /* Pods-AgileSrintPlanner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgileSrintPlanner.debug.xcconfig"; path = "Target Support Files/Pods-AgileSrintPlanner/Pods-AgileSrintPlanner.debug.xcconfig"; sourceTree = "<group>"; };
 		49ADB83A3E89659CDA3CF487 /* Pods-AgileSrintPlanner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgileSrintPlanner.release.xcconfig"; path = "Target Support Files/Pods-AgileSrintPlanner/Pods-AgileSrintPlanner.release.xcconfig"; sourceTree = "<group>"; };
 		60E798C9683F6D1E72EFC22D /* Pods_AgileSrintPlanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AgileSrintPlanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB171B0B232A864E00922E13 /* AddNewTeamMemberVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTeamMemberVC.swift; sourceTree = "<group>"; };
 		AB2B3E72231E28AD00B22599 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AB2E20CB2326352E008AAB12 /* ProjectDescriptionTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDescriptionTVCell.swift; sourceTree = "<group>"; };
 		AB2E20CD23263589008AAB12 /* BaseTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTVCell.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				ABAC160B2327717400DF0059 /* TeamMembersTVCell.swift */,
 				AB2E20D323264F54008AAB12 /* ProductBacklogTVCell.swift */,
 				ABAC160D232780BF00DF0059 /* TeamDisplayCVCell.swift */,
+				AB171B0B232A864E00922E13 /* AddNewTeamMemberVC.swift */,
 			);
 			path = POView;
 			sourceTree = "<group>";
@@ -360,6 +363,7 @@
 				AB2E20D423264F54008AAB12 /* ProductBacklogTVCell.swift in Sources */,
 				AB6710F5231E821C00E2897E /* EmailSignInPopUpVC.swift in Sources */,
 				ABD335E0231FC87A0023AC98 /* ProductOwner.swift in Sources */,
+				AB171B0C232A864E00922E13 /* AddNewTeamMemberVC.swift in Sources */,
 				ABD335E923200A150023AC98 /* AccDetailsVC.swift in Sources */,
 				ABAC160C2327717400DF0059 /* TeamMembersTVCell.swift in Sources */,
 				AB2E20D02326365F008AAB12 /* ProjectDescriptionVC.swift in Sources */,

@@ -71,13 +71,25 @@ class ProjectDescriptionVC: BaseVC {
                     self.showAlert(title: Constants.AlertMessages.successAlert, msg: Constants.AlertMessages.successUpdate, actionTitle: Constants.AlertMessages.closeAction)
                 }
             }
-            let declineAction = UIAlertAction(title: Constants.AlertMessages.checkAgain, style: .cancel, handler: nil)
+            let declineAction = UIAlertAction(title: Constants.AlertMessages.checkAgain, style: .cancel) { [weak self] (_) in
+                guard let self = self,
+                    let poName = UserDefaults.standard.object(forKey: Constants.UserDefaults.currentUserName) as? String else { return }
+                
+                self.startLoading()
+                self.getAndReloadData(projectName: self.projectDetailsArr.first ?? Constants.NilCoalescingDefaults.string)
+                self.stopLoading()
+            }
             showAlert(title: Constants.AlertMessages.confirmChanges, msg: Constants.AlertMessages.confirmMessage, alertStyle: .alert, actions: [confirmAction, declineAction])
         }
     }
     
     @IBAction private func addNewUserButtonDidPress(_ button: UIButton) {
+        guard let newMemberVC = storyboard?.instantiateViewController(withIdentifier: String(describing:AddNewTeamMemberVC.self)) as? AddNewTeamMemberVC else { return }
         
+        addChild(newMemberVC)
+        newMemberVC.view.frame = view.frame
+        view.addSubview(newMemberVC.view)
+        newMemberVC.didMove(toParent: self)
     }
 }
 
