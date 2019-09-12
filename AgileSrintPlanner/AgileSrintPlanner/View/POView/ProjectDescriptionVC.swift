@@ -9,13 +9,10 @@ class ProjectDescriptionVC: BaseVC {
     var projectDetailsArr: [String] = []
     var updateDetails: [String] = []
     var viewModel = POViewModel()
-//    var projectTitle: String?
-//    let projectName: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         projectDetailsArr = [projectDetails?.data.title, projectDetails?.data.domain, projectDetails?.data.descp] as? [String] ?? [""]
-        print(projectDetails?.teamMember)
         navigationItem.title = projectDetailsArr.first
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constants.NavigationBarConstants.editTitle, style: .plain, target: self, action: #selector(editNavBarItemDidPress))
         tableView.tableFooterView = UIView()
@@ -23,14 +20,13 @@ class ProjectDescriptionVC: BaseVC {
     }
     
     func getAndReloadData(projectName: String) {
-        startLoading()
         viewModel.getProjectDetailsForUserWith(email: UserDefaults.standard.object(forKey: Constants.UserDefaults.currentUserName) as? String ?? "", completion: { [weak self] in
             guard let self = self else { return }
-            
-            self.stopLoading()
+         
             self.getCurrentProjectDetails(projectName: projectName)
             self.projectDetailsArr = [self.projectDetails?.data.title, self.projectDetails?.data.domain, self.projectDetails?.data.descp] as? [String] ?? [""]
-            self.stopLoading()
+            self.navigationItem.title = self.projectDetailsArr.first
+            self.tableView.reloadData()
         })
     }
     
@@ -51,7 +47,9 @@ class ProjectDescriptionVC: BaseVC {
             viewModel.editCondition = true
             newUserButton.isHidden = false
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constants.NavigationBarConstants.doneTitle, style: .plain, target: self, action: #selector(editNavBarItemDidPress))
+            self.tableView.reloadData()
         } else {
+            updateDetails.removeAll()
             for row in 0..<Constants.ProjectDescription.rowsInDescription {
                 guard let cell = tableView.cellForRow(at: IndexPath(row: row, section: 0)) as? ProjectDescriptionTVCell else { return }
             
@@ -68,15 +66,14 @@ class ProjectDescriptionVC: BaseVC {
                 self.viewModel.updateDetailsOfProject(title: self.projectDetailsArr.first ?? Constants.NilCoalescingDefaults.string, updateDetails: self.updateDetails, members: [Constants.FirebaseConstants.poNameInAddProject: poName]) { [weak self] in
                     guard let self = self else { return }
                     
+                    self.getAndReloadData(projectName: self.updateDetails[0])
                     self.stopLoading()
                     self.showAlert(title: Constants.AlertMessages.successAlert, msg: Constants.AlertMessages.successUpdate, actionTitle: Constants.AlertMessages.closeAction)
-                    self.getAndReloadData(projectName: self.updateDetails[0])
                 }
             }
             let declineAction = UIAlertAction(title: Constants.AlertMessages.checkAgain, style: .cancel, handler: nil)
             showAlert(title: Constants.AlertMessages.confirmChanges, msg: Constants.AlertMessages.confirmMessage, alertStyle: .alert, actions: [confirmAction, declineAction])
         }
-        tableView.reloadData()
     }
     
     @IBAction private func addNewUserButtonDidPress(_ button: UIButton) {

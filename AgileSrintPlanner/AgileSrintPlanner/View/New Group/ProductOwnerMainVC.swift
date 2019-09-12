@@ -6,9 +6,9 @@ import FirebaseUI
 class ProductOwnerMainVC: BaseVC {
     
     @IBOutlet private weak var emptyLabel: UILabel!
-    @IBOutlet weak var listGridButton: UIImageView!
+    @IBOutlet private weak var listGridButton: UIImageView!
     @IBOutlet private weak var collectionView: UICollectionView!
-    
+
     private var viewModel = POViewModel()
     
     override func viewDidLoad() {
@@ -16,22 +16,21 @@ class ProductOwnerMainVC: BaseVC {
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon-user-acc"), style: .plain, target: self, action: #selector(userDisplayButtonDidPress))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icons8-menu-50"), style: .plain, target: self, action: #selector(listImageDidPress))
-        getAndReloadData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        getAndReloadData()
+    }
+ 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
     }
     
-    //Gets the Project Details of current user from firebase and refresh the collection view
+    /// Gets the Project Details of current user from firebase and refresh the collection view
     private func getAndReloadData() {
         startLoading()
-//        viewModel.getProjectDetailsFromFM { [weak self] in
-//            guard let weakSelf = self else { return }
-//
-//            weakSelf.collectionView.reloadData()
-//            weakSelf.stopLoading()
-//        }
         viewModel.getProjectDetailsForUserWith(email: UserDefaults.standard.object(forKey: Constants.UserDefaults.currentUserName) as? String ?? "", completion: { [weak self] in
             guard let weakSelf = self else { return }
             
@@ -42,7 +41,7 @@ class ProductOwnerMainVC: BaseVC {
             weakSelf.stopLoading()
         })
     }
-    
+
     @IBAction private func addButtonDidPress(_ button: UIButton) {
         guard let newProjectVC = storyboard?.instantiateViewController(withIdentifier: String(describing: NewProjectPopOverVC.self)) as? NewProjectPopOverVC else { return }
         
@@ -67,6 +66,19 @@ class ProductOwnerMainVC: BaseVC {
     @objc private func listImageDidPress(_ sender: UITapGestureRecognizer) {
         
     }
+    
+    @objc private func projectDeleteButtonDIdTap(_ button: UIButton) {
+        
+        let closeAction = UIAlertAction(title: Constants.AlertMessages.closeAction, style: .cancel, handler: nil)
+        let deleteAction = UIAlertAction(title: Constants.AlertMessages.deleteAction, style: .destructive) { [weak self] (_) in
+            guard let self = self else { return }
+            
+            let projectTitle = self.viewModel.projectDetails?[button.tag].data.title
+            self.viewModel.removeProject(projectName: projectTitle ?? Constants.NilCoalescingDefaults.string)
+            self.getAndReloadData()
+        }
+        showAlert(title: Constants.AlertMessages.confirmDelete, msg: Constants.AlertMessages.deleteMessage, alertStyle: .alert, actions: [closeAction, deleteAction])
+    }
 }
 
 extension ProductOwnerMainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -76,12 +88,20 @@ extension ProductOwnerMainVC: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: POProductBacklogCVCell.self), for: indexPath) as? POProductBacklogCVCell
         cell?.titleOfProject.text = viewModel.projectDetails?[indexPath.row].data.title
         cell?.domainOfProject.text = viewModel.projectDetails?[indexPath.row].data.domain
         cell?.descriptionOfProject.text = viewModel.projectDetails?[indexPath.row].data.descp
         cell?.backgroundColor = UIColor.randomClr()
         cell?.layer.cornerRadius = 7.0
+        if let userRole = UserDefaults.standard.object(forKey: Constants.UserDefaults.role) as? String {
+            if userRole == Roles.productOwner.rawValue {
+                cell?.projectDeleteButton.tag = indexPath.row
+                cell?.projectDeleteButton.isHidden = false
+                cell?.projectDeleteButton.addTarget(self, action: #selector(projectDeleteButtonDIdTap(_:)), for: .touchUpInside)
+            }
+        }
         return cell ?? UICollectionViewCell()
     }
     
@@ -96,7 +116,6 @@ extension ProductOwnerMainVC: UICollectionViewDelegate, UICollectionViewDataSour
         guard let viewController = storyboard?.instantiateViewController(withIdentifier: String(describing: ProjectDescriptionVC.self)) as? ProjectDescriptionVC else { return }
         
         viewController.projectDetails = viewModel.projectDetails?[indexPath.row]
-//        viewController.teamMember = viewModel.
         navigationController?.pushViewController(viewController, animated: true)
     }
 }

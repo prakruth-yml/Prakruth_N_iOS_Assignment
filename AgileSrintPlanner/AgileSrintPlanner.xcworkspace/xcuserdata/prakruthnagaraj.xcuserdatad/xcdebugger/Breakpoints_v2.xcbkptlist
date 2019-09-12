@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AgileSrintPlanner/View/POView/ProjectDescriptionVC.swift"
-            timestampString = "589967172.280689"
+            filePath = "AgileSrintPlanner/View/POView/POProductBacklogCVCell.swift"
+            timestampString = "589975435.4044681"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
-            landmarkName = "getAndReloadData(projectName:)"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "projectDeleteButtonDIdTap(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

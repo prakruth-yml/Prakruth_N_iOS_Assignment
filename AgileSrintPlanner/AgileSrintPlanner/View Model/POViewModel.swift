@@ -67,9 +67,9 @@ class POViewModel {
                     let projectStructure = ProjectDetails(data: Data(title: title, domain: domain, descp: descp), teamMember: teamMembers)
                     detailsArr.append(projectStructure)
                 }
-                weakSelf.projectDetails = detailsArr
-                completion()
             }
+            weakSelf.projectDetails = detailsArr
+            completion()
         }
     }
     
@@ -86,5 +86,12 @@ class POViewModel {
     
     func updateDetailsOfProject(title: String, updateDetails: [String], members: [String : String], completion: @escaping (() -> Void)) {
         firebase.updateDetailsOfProject(projectName: title, updates: updateDetails, members: members, completion: completion)
+    }
+    
+    /// Removes the project from firebase table
+    ///
+    /// - Parameter projectName: name of project
+    func removeProject(projectName: String) {
+        firebase.deleteChild(name: projectName)
     }
 }

@@ -2,10 +2,14 @@ import UIKit
 
 class NewProjectPopOverVC: BaseVC {
     
-    @IBOutlet weak var actualView: UIView!
-    @IBOutlet weak var titleTextField: UITextField!
-    @IBOutlet weak var domainTextField: UITextField!
-    @IBOutlet weak var descpTextField: UITextView!
+    @IBOutlet private weak var actualView: UIView!
+    @IBOutlet private weak var titleTextField: UITextField!
+    @IBOutlet private weak var domainTextField: UITextField!
+    @IBOutlet private weak var descpTextField: UITextView!
+    @IBOutlet private weak var iosButton: UIButton!
+    @IBOutlet private weak var androidButton: UIButton!
+    @IBOutlet private weak var backEndButton: UIButton!
+    @IBOutlet private weak var frontEndButton: UIButton!
     
     var callback: (() -> Void)?
     var viewModel = POViewModel()
@@ -15,6 +19,22 @@ class NewProjectPopOverVC: BaseVC {
         
         view.backgroundColor = UIColor.black.withAlphaComponent(0.8)
         popOver()
+    }
+    
+    @IBAction private func iosButtonDidPress(_ button: UIButton) {
+        setTextField(button: iosButton, stringToAppend: Constants.YMLDomains.ios)
+    }
+    
+    @IBAction private func androidButtonDidPress(_ button: UIButton) {
+        setTextField(button: androidButton, stringToAppend: Constants.YMLDomains.android)
+    }
+    
+    @IBAction private func backEndButtonDidPress(_ button: UIButton) {
+        setTextField(button: backEndButton, stringToAppend: Constants.YMLDomains.bk)
+    }
+    
+    @IBAction private func frontEndButtonDidPress(_ button: UIButton) {
+        setTextField(button: frontEndButton, stringToAppend: Constants.YMLDomains.front)
     }
     
     @IBAction private func addProjectButtonDidPress(_ button: UIButton) {
@@ -47,8 +67,16 @@ class NewProjectPopOverVC: BaseVC {
         view.removeFromSuperview()
     }
     
-    func callBack(collectionView: inout UICollectionView) {
+    /// Sets the domain textfield and disables the buttom
+    ///
+    /// - Parameters:
+    ///   - stringToAppend: string to append to textfield
+    ///   - button: button to disable
+    private func setTextField(button: UIButton, stringToAppend: String) {
+        guard let textFieldText = domainTextField.text else { return }
         
+        domainTextField.text = textFieldText + ", " + stringToAppend
+        button.isUserInteractionEnabled = false
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

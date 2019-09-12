@@ -13,4 +13,9 @@ class POProductBacklogCVCell: BaseCVCell {
     @IBOutlet weak var titleOfProject: UILabel!
     @IBOutlet weak var domainOfProject: UILabel!
     @IBOutlet weak var descriptionOfProject: UILabel!
+    @IBOutlet weak var projectDeleteButton: UIButton!
+    
+    @IBAction func projectDeleteButtonDIdTap(_ sender: Any) {
+        
+    }
 }

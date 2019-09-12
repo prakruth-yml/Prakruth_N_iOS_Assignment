@@ -108,9 +108,15 @@ class FirebaseManager {
     func updateDetailsOfProject(projectName: String, updates: [String], members: [String : String], completion: @escaping (() -> Void)) {
         ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).removeValue()
         let data = [Constants.FirebaseConstants.projectTitle: updates[0], Constants.FirebaseConstants.projectDomain: updates[1], Constants.FirebaseConstants.projectDescription: updates[2]]
-//        let members: [String:String] = [Constants.FirebaseConstants.poNameInAddProject: poName]
         let childUpdates = ["\(Constants.FirebaseConstants.projectsTable)/\(updates[0])/Data":data, "\(Constants.FirebaseConstants.projectsTable)/\(updates[0])/Members": members]
         ref.updateChildValues(childUpdates)
         completion()
+    }
+    
+    /// Removes the child from firebase table
+    ///
+    /// - Parameter name: name of child
+    func deleteChild(name: String) {
+        ref.child(Constants.FirebaseConstants.ProjectTable.name).child(name).removeValue()
     }
 }

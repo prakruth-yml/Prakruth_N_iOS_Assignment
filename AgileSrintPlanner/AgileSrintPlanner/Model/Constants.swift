@@ -74,6 +74,9 @@ class Constants {
         static let checkAgain = "Check Again"
         static let confirmMessage = "Are You sure you want to submit changes?"
         static let successUpdate = "Updates Successfully Made"
+        static let deleteAction = "Delete"
+        static let confirmDelete = "Confirm Delete"
+        static let deleteMessage = "Are you sure you want to delete this porject"
     }
     
     struct EmailValidation {
@@ -127,5 +130,12 @@ class Constants {
         static let string = ""
         static let int = 0
         static let bool = true
+    }
+    
+    struct YMLDomains {
+        static let ios = "IOS"
+        static let android = "Android"
+        static let bk = "Back End"
+        static let front = "Front End"
     }
 }
