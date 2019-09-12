@@ -10,11 +10,16 @@ class POViewModel {
     var projectMembers: [ProjectMembers]?
     let headings = ["Title", "Domain", "Description"]
     let sectionHeading = ["Project Description", "Product Backlogs", "Team"]
+    var editCondition = false
     
+    //API Call to firebase to add a new project
+    //title: Title of Project; domain: Domain of project to be worked on; descp: Small description of the project; completion: Completion Handler
     func addNewProject(title: String, domain: String, descp: String, poName: String, completion: @escaping (() -> Void)) {
         firebase.addNewProjectByPO(title: title, domain: domain, descp: descp, poName: poName, completion: completion)
     }
     
+    //API Call to firebase to fetch all project detals
+    //completion: Completion Handler
     func getProjectDetailsFromFM(completion: @escaping (() -> Void)) {
         var detailsArr: [ProjectDetails] = []
         firebase.getProjectDetails { [weak self] (snapshot) in
@@ -39,6 +44,8 @@ class POViewModel {
         }
     }
     
+    //API Call to firebase to get project details of current user
+    //email: Current signed in user; completion: Completion Handle
     func getProjectDetailsForUserWith(email: String, completion: @escaping (() -> Void)) {
         var detailsArr: [ProjectDetails] = []
         firebase.getProjectDetails { [weak self] (snapshot) in
@@ -66,6 +73,8 @@ class POViewModel {
         }
     }
     
+    //Function to check if user is part of a team
+    //email: Current User; projects: List of all projects; teamMembers: all Team members of the project
     func isUserPartOfTeam(email: String, projects: DataSnapshot, teamMembers: [DataSnapshot]) -> Bool {
         for member in teamMembers {
             if member.value as? String == email {
@@ -73,5 +82,9 @@ class POViewModel {
             }
         }
         return false
+    }
+    
+    func updateDetailsOfProject(title: String, updateDetails: [String], members: [String : String], completion: @escaping (() -> Void)) {
+        firebase.updateDetailsOfProject(projectName: title, updates: updateDetails, members: members, completion: completion)
     }
 }

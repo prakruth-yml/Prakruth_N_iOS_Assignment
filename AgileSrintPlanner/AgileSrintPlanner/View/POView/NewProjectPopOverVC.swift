@@ -27,6 +27,7 @@ class NewProjectPopOverVC: BaseVC {
         } else {
             stopLoading()
             guard let poName = UserDefaults.standard.object(forKey: Constants.UserDefaults.currentUserName) as? String else { return }
+            
             viewModel.addNewProject(title: titleTextField?.text ?? "", domain: domainTextField?.text ?? "", descp: descpTextField?.text ?? "", poName: poName) { [weak self] in
                 guard let weakSelf = self else { return }
 

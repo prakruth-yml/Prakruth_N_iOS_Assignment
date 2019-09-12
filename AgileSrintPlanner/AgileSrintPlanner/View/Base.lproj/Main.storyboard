@@ -17,7 +17,7 @@
                     <view key="view" contentMode="scaleToFill" id="jPG-Rt-e52">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.88499061606202878" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="fEG-1F-BXj"/>
                     </view>
                 </viewController>
@@ -408,14 +408,14 @@
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0KM-w9-Pkr">
                                                     <rect key="frame" x="20" y="16" width="369" height="26"/>
-                                                    <color key="backgroundColor" red="1" green="0.82375502590000005" blue="0.84718924760000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="19"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="sfkjvbdfjbdbvd" translatesAutoresizingMaskIntoConstraints="NO" id="jWe-tl-0MU">
                                                     <rect key="frame" x="20" y="50" width="379" height="134.5"/>
-                                                    <color key="backgroundColor" red="0.29188507800000002" green="0.67548918719999995" blue="0.76073229310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
@@ -550,6 +550,9 @@
                             <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W9t-eK-VbH">
                                 <rect key="frame" x="354" y="802" width="50" height="50"/>
                                 <color key="backgroundColor" red="0.7803921568627451" green="0.82352941176470584" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="W9t-eK-VbH" secondAttribute="height" multiplier="1:1" id="rl9-zx-zpe"/>
+                                </constraints>
                                 <state key="normal" image="icons8-plus-24"/>
                                 <connections>
                                     <action selector="addNewUserButtonDidPress:" destination="YjU-XZ-iLC" eventType="touchUpInside" id="qLC-MS-mDD"/>
@@ -564,7 +567,6 @@
                             <constraint firstItem="AMT-cO-LSw" firstAttribute="trailing" secondItem="W9t-eK-VbH" secondAttribute="trailing" constant="10" id="Ibi-1C-tjt"/>
                             <constraint firstItem="rYA-aj-MOa" firstAttribute="trailing" secondItem="AMT-cO-LSw" secondAttribute="trailing" id="LKR-py-v4J"/>
                             <constraint firstItem="rYA-aj-MOa" firstAttribute="leading" secondItem="AMT-cO-LSw" secondAttribute="leading" id="Rq6-FE-Niv"/>
-                            <constraint firstItem="W9t-eK-VbH" firstAttribute="width" secondItem="AMT-cO-LSw" secondAttribute="width" multiplier="50:414" id="git-E2-tnu"/>
                             <constraint firstItem="AMT-cO-LSw" firstAttribute="bottom" secondItem="rYA-aj-MOa" secondAttribute="bottom" id="kb0-p8-jcv"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="AMT-cO-LSw"/>

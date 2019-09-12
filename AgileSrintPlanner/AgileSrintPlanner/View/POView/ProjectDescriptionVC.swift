@@ -7,9 +7,10 @@ class ProjectDescriptionVC: BaseVC {
     
     var projectDetails: ProjectDetails?
     var projectDetailsArr: [String] = []
-    var editCondition = false
-    
+    var updateDetails: [String] = []
     var viewModel = POViewModel()
+//    var projectTitle: String?
+//    let projectName: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,16 +22,61 @@ class ProjectDescriptionVC: BaseVC {
         newUserButton.layer.cornerRadius = newUserButton.imageView?.frame.width ?? 1.0 / 2
     }
     
-    @objc func editNavBarItemDidPress() {
-        if !editCondition {
-            editCondition = true
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constants.NavigationBarConstants.doneTitle, style: .plain, target: self, action: #selector(editNavBarItemDidPress))
-            tableView.reloadData()
-        } else {
-            editCondition = false
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constants.NavigationBarConstants.editTitle, style: .plain, target: self, action: #selector(editNavBarItemDidPress))
-            tableView.reloadData()
+    func getAndReloadData(projectName: String) {
+        startLoading()
+        viewModel.getProjectDetailsForUserWith(email: UserDefaults.standard.object(forKey: Constants.UserDefaults.currentUserName) as? String ?? "", completion: { [weak self] in
+            guard let self = self else { return }
+            
+            self.stopLoading()
+            self.getCurrentProjectDetails(projectName: projectName)
+            self.projectDetailsArr = [self.projectDetails?.data.title, self.projectDetails?.data.domain, self.projectDetails?.data.descp] as? [String] ?? [""]
+            self.stopLoading()
+        })
+    }
+    
+    private func getCurrentProjectDetails(projectName: String) {
+        guard let projectDetailsToSearch = viewModel.projectDetails else { return }
+        
+        for project in projectDetailsToSearch {
+            if project.data.title == projectName {
+                projectDetails = project
+                return
+            }
         }
+    }
+    
+    //Edit button action function
+    @objc func editNavBarItemDidPress() {
+        if !viewModel.editCondition {
+            viewModel.editCondition = true
+            newUserButton.isHidden = false
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constants.NavigationBarConstants.doneTitle, style: .plain, target: self, action: #selector(editNavBarItemDidPress))
+        } else {
+            for row in 0..<Constants.ProjectDescription.rowsInDescription {
+                guard let cell = tableView.cellForRow(at: IndexPath(row: row, section: 0)) as? ProjectDescriptionTVCell else { return }
+            
+                updateDetails.append(cell.textToDisplay.text)
+            }
+            viewModel.editCondition = false
+            newUserButton.isHidden = true
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constants.NavigationBarConstants.editTitle, style: .plain, target: self, action: #selector(editNavBarItemDidPress))
+            let confirmAction = UIAlertAction(title: Constants.AlertMessages.confirmChanges, style: .default) { [weak self] (_) in
+                guard let self = self,
+                      let poName = UserDefaults.standard.object(forKey: Constants.UserDefaults.currentUserName) as? String else { return }
+                
+                self.startLoading()
+                self.viewModel.updateDetailsOfProject(title: self.projectDetailsArr.first ?? Constants.NilCoalescingDefaults.string, updateDetails: self.updateDetails, members: [Constants.FirebaseConstants.poNameInAddProject: poName]) { [weak self] in
+                    guard let self = self else { return }
+                    
+                    self.stopLoading()
+                    self.showAlert(title: Constants.AlertMessages.successAlert, msg: Constants.AlertMessages.successUpdate, actionTitle: Constants.AlertMessages.closeAction)
+                    self.getAndReloadData(projectName: self.updateDetails[0])
+                }
+            }
+            let declineAction = UIAlertAction(title: Constants.AlertMessages.checkAgain, style: .cancel, handler: nil)
+            showAlert(title: Constants.AlertMessages.confirmChanges, msg: Constants.AlertMessages.confirmMessage, alertStyle: .alert, actions: [confirmAction, declineAction])
+        }
+        tableView.reloadData()
     }
     
     @IBAction private func addNewUserButtonDidPress(_ button: UIButton) {
@@ -62,26 +108,22 @@ extension ProjectDescriptionVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let sectionItem = Constants.ProjectDescription.Sections(rawValue: indexPath.section)
         switch sectionItem ?? .description {
         case .description:
-            if editCondition {
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProjectDescriptionTVCell.self), for: indexPath) as? ProjectDescriptionTVCell else { return ProjectDescriptionTVCell() }
-                
-                cell.label.text = viewModel.headings[indexPath.row]
-                cell.textToDisplay.text = projectDetailsArr[indexPath.row]
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProjectDescriptionTVCell.self), for: indexPath) as? ProjectDescriptionTVCell else { return ProjectDescriptionTVCell() }
+            
+            cell.label.text = viewModel.headings[indexPath.row]
+            cell.textToDisplay.text = projectDetailsArr[indexPath.row]
+            if viewModel.editCondition {
                 cell.textToDisplay.isUserInteractionEnabled = true
                 cell.textToDisplay.isEditable = true
-                return cell
             } else {
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProjectDescriptionTVCell.self), for: indexPath) as? ProjectDescriptionTVCell else { return ProjectDescriptionTVCell() }
-                
-                cell.label.text = viewModel.headings[indexPath.row]
-                cell.textToDisplay.text = projectDetailsArr[indexPath.row]
                 cell.textToDisplay.isEditable = false
-                cell.backgroundColor = UIColor.yellow
-                return cell
+                cell.textToDisplay.isUserInteractionEnabled = false
             }
+            return cell
         case .backlogs:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProductBacklogTVCell.self), for: indexPath) as? ProductBacklogTVCell else { return ProjectDescriptionTVCell() }
             
@@ -92,8 +134,6 @@ extension ProjectDescriptionVC: UITableViewDelegate, UITableViewDataSource {
             cell.collectionView.dataSource = self
             cell.collectionView.delegate = self
             return cell
-        default:
-            return ProductBacklogTVCell()
         }
     }
     
@@ -105,6 +145,10 @@ extension ProjectDescriptionVC: UITableViewDelegate, UITableViewDataSource {
         default:
             return UITableView.automaticDimension
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 

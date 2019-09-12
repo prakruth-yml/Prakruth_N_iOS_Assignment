@@ -70,6 +70,10 @@ class Constants {
         static let failedLoginAlert = "Login Failed"
         static let errorAlert = "Error"
         static let userCreationFailedAlert = "User Creation Failed"
+        static let confirmChanges = "Confirm Changes"
+        static let checkAgain = "Check Again"
+        static let confirmMessage = "Are You sure you want to submit changes?"
+        static let successUpdate = "Updates Successfully Made"
     }
     
     struct EmailValidation {
@@ -101,5 +105,27 @@ class Constants {
     
     struct CustomColor {
         static let tableViewSectionHeader = UIColor(red: 199 / 255, green: 210 / 255, blue: 216 / 255, alpha: 1.0)
+    }
+    
+    struct POProjectsDescription {
+        enum EditDetails {
+            case canEdit
+            case doneEdit
+            
+            var bool: Bool {
+                switch self {
+                case .canEdit:
+                    return true
+                default:
+                    return false
+                }
+            }
+        }
+    }
+    
+    struct NilCoalescingDefaults {
+        static let string = ""
+        static let int = 0
+        static let bool = true
     }
 }

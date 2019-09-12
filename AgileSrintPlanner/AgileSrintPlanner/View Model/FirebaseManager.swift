@@ -97,4 +97,20 @@ class FirebaseManager {
             print(snapshot)
         }
     }
+    
+    /// API Call to update details of project in firebase with name projectName
+    ///
+    /// - Parameters:
+    ///   - projectName: name of project to update details.
+    ///   - updates: array of updates of project details.
+    ///   - members: array of updates of project members
+    ///   - completion: completion handler
+    func updateDetailsOfProject(projectName: String, updates: [String], members: [String : String], completion: @escaping (() -> Void)) {
+        ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).removeValue()
+        let data = [Constants.FirebaseConstants.projectTitle: updates[0], Constants.FirebaseConstants.projectDomain: updates[1], Constants.FirebaseConstants.projectDescription: updates[2]]
+//        let members: [String:String] = [Constants.FirebaseConstants.poNameInAddProject: poName]
+        let childUpdates = ["\(Constants.FirebaseConstants.projectsTable)/\(updates[0])/Data":data, "\(Constants.FirebaseConstants.projectsTable)/\(updates[0])/Members": members]
+        ref.updateChildValues(childUpdates)
+        completion()
+    }
 }

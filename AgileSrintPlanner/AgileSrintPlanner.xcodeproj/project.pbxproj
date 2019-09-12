@@ -166,8 +166,8 @@
 			children = (
 				ABD335DD231FBFB50023AC98 /* ProductOwnerMainVC.swift */,
 				ABD335E823200A150023AC98 /* AccDetailsVC.swift */,
-				AB2E20CF2326365F008AAB12 /* ProjectDescriptionVC.swift */,
 				ABFF65E02321052100AD13D3 /* NewProjectPopOverVC.swift */,
+				AB2E20CF2326365F008AAB12 /* ProjectDescriptionVC.swift */,
 				ABD335E4231FFEC30023AC98 /* POProductBacklogCVCell.swift */,
 				AB2E20CB2326352E008AAB12 /* ProjectDescriptionTVCell.swift */,
 				ABAC160B2327717400DF0059 /* TeamMembersTVCell.swift */,

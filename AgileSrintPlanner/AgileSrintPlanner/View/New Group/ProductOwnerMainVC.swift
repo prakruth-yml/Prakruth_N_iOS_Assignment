@@ -13,7 +13,7 @@ class ProductOwnerMainVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon-user-acc"), style: .plain, target: self, action: #selector(userDisplayButtonDidPress))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icons8-menu-50"), style: .plain, target: self, action: #selector(listImageDidPress))
         getAndReloadData()
@@ -23,6 +23,7 @@ class ProductOwnerMainVC: BaseVC {
         super.viewDidDisappear(animated)
     }
     
+    //Gets the Project Details of current user from firebase and refresh the collection view
     private func getAndReloadData() {
         startLoading()
 //        viewModel.getProjectDetailsFromFM { [weak self] in
@@ -34,6 +35,9 @@ class ProductOwnerMainVC: BaseVC {
         viewModel.getProjectDetailsForUserWith(email: UserDefaults.standard.object(forKey: Constants.UserDefaults.currentUserName) as? String ?? "", completion: { [weak self] in
             guard let weakSelf = self else { return }
             
+            if weakSelf.viewModel.projectDetails?.isEmpty ?? true {
+                weakSelf.emptyLabel.isHidden = false
+            }
             weakSelf.collectionView.reloadData()
             weakSelf.stopLoading()
         })
@@ -45,6 +49,7 @@ class ProductOwnerMainVC: BaseVC {
         newProjectVC.callback = { [weak self] in
             guard let self = self else { return }
             
+            self.emptyLabel.isHidden = true
             self.getAndReloadData()
         }
         addChild(newProjectVC)
@@ -99,6 +104,6 @@ extension ProductOwnerMainVC: UICollectionViewDelegate, UICollectionViewDataSour
 extension UIColor {
     
     static func randomClr() -> UIColor {
-        return UIColor(red: CGFloat.random(in: 0...1), green: CGFloat.random(in: 0...1), blue: CGFloat.random(in: 0...1), alpha: 1.0)
+        return UIColor(red: CGFloat.random(in: 0.5...1), green: CGFloat.random(in: 0.5...1), blue: CGFloat.random(in: 0.5...1), alpha: 1.0)
     }
 }
