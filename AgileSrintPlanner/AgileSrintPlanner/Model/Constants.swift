@@ -59,6 +59,7 @@ class Constants {
             static let name = "Projects"
             static let data = "Data"
             static let members = "Members"
+            static let developers = "Developers"
         }
     }
     
@@ -76,7 +77,7 @@ class Constants {
         static let successUpdate = "Updates Successfully Made"
         static let deleteAction = "Delete"
         static let confirmDelete = "Confirm Delete"
-        static let deleteMessage = "Are you sure you want to delete this porject"
+        static let deleteMessage = "Are you sure you want to delete this porject?"
     }
     
     struct EmailValidation {

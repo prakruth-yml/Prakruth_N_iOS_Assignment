@@ -27,6 +27,9 @@ class ProjectDescriptionVC: BaseVC {
             self.projectDetailsArr = [self.projectDetails?.data.title, self.projectDetails?.data.domain, self.projectDetails?.data.descp] as? [String] ?? [""]
             self.navigationItem.title = self.projectDetailsArr.first
             self.tableView.reloadData()
+            guard let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: Constants.ProjectDescription.Sections.team.rawValue)) as? TeamMembersTVCell else { return }
+            
+            cell.collectionView.reloadData()
         })
     }
     
@@ -86,6 +89,13 @@ class ProjectDescriptionVC: BaseVC {
     @IBAction private func addNewUserButtonDidPress(_ button: UIButton) {
         guard let newMemberVC = storyboard?.instantiateViewController(withIdentifier: String(describing:AddNewTeamMemberVC.self)) as? AddNewTeamMemberVC else { return }
         
+        newMemberVC.callback = { [weak self] in
+            guard let self = self,
+                  let projectName = self.projectDetailsArr.first else { return }
+            
+            self.getAndReloadData(projectName: projectName)
+        }
+        newMemberVC.projectName = projectDetailsArr.first
         addChild(newMemberVC)
         newMemberVC.view.frame = view.frame
         view.addSubview(newMemberVC.view)

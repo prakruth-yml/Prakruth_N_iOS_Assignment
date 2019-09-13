@@ -79,7 +79,8 @@ class FirebaseManager {
     func addNewProjectByPO(title: String, domain: String, descp: String, poName: String, completion: @escaping (() -> Void)) {
         guard let key = ref.child(Constants.FirebaseConstants.projectsTable).child(title).key else { return }
         let data = [Constants.FirebaseConstants.projectTitle: title, Constants.FirebaseConstants.projectDomain: domain, Constants.FirebaseConstants.projectDescription: descp]
-        let members: [String:String] = [Constants.FirebaseConstants.poNameInAddProject: poName]
+//        let members: [String:String] = [poName : Constants.FirebaseConstants.poNameInAddProject]
+        let members: [String:String] = [Constants.FirebaseConstants.poNameInAddProject : poName]
         let childUpdates = ["\(Constants.FirebaseConstants.projectsTable)/\(title)/Data":data, "\(Constants.FirebaseConstants.projectsTable)/\(title)/Members": members]
         ref.updateChildValues(childUpdates)
         completion()
@@ -113,10 +114,28 @@ class FirebaseManager {
         completion()
     }
     
+    /// Function to add a new team member to database
+    ///
+    /// - Parameters:
+    ///   - projectName: name of the project
+    ///   - member: the new team member to add
+    ///   - completion: completion block
+    func addNewTeamMemberToProject(projectName: String, member: [String : String], completion: @escaping (() -> Void)) {
+        ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.members).updateChildValues(member) { (_, _) in
+            completion()
+        }
+    }
+    
     /// Removes the child from firebase table
     ///
     /// - Parameter name: name of child
     func deleteChild(name: String) {
         ref.child(Constants.FirebaseConstants.ProjectTable.name).child(name).removeValue()
+    }
+    
+    func addNewDeveloper(projectName: String, member: [String : String], completion: @escaping (() -> Void)) {
+        ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.members).child(Constants.FirebaseConstants.ProjectTable.developers).updateChildValues(member) { (_, _) in
+            completion()
+        }
     }
 }

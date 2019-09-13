@@ -631,6 +631,10 @@
                                     </button>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xgF-IS-a4g">
                                         <rect key="frame" x="10" y="319.5" width="374" height="158.5"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="mkS-ae-I1x" id="sMU-Ib-HqQ"/>
+                                            <outlet property="delegate" destination="mkS-ae-I1x" id="iDp-d8-5eJ"/>
+                                        </connections>
                                     </pickerView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fMg-Ua-8sS">
                                         <rect key="frame" x="10" y="126.5" width="374" height="26"/>

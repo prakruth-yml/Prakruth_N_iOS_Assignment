@@ -11,6 +11,7 @@ class POViewModel {
     let headings = ["Title", "Domain", "Description"]
     let sectionHeading = ["Project Description", "Product Backlogs", "Team"]
     var editCondition = false
+    var projectRolePicked: String?
     
     //API Call to firebase to add a new project
     //title: Title of Project; domain: Domain of project to be worked on; descp: Small description of the project; completion: Completion Handler
@@ -93,5 +94,13 @@ class POViewModel {
     /// - Parameter projectName: name of project
     func removeProject(projectName: String) {
         firebase.deleteChild(name: projectName)
+    }
+    
+    func addNewTeamMember(projectName: String, teamMember: [String : String], completion: @escaping (() -> Void)) {
+        firebase.addNewTeamMemberToProject(projectName: projectName, member: teamMember, completion: completion)
+    }
+    
+    func addDeveloper(projectName: String, teamMember: [String : String], completion: @escaping (() -> Void)) {
+        firebase.addNewDeveloper(projectName: projectName, member: teamMember, completion: completion)
     }
 }
