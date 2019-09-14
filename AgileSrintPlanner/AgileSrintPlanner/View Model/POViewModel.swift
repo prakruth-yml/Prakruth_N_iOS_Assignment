@@ -63,7 +63,18 @@ class POViewModel {
                         ).value as? String ?? ""
                     var teamMembers: [TeamMember] = []
                     for eachMember in member {
-                        teamMembers.append(TeamMember(name: eachMember.value as? String ?? "", role: eachMember.key))
+                        print(eachMember)
+                        if eachMember.key != Constants.FirebaseConstants.ProjectTable.developers {
+                            teamMembers.append(TeamMember(name: eachMember.value as? String ?? "", role: eachMember.key))
+                        } else {
+                            guard let devs = eachMember.children.allObjects as? [DataSnapshot] else { return }
+                            
+                            print(devs)
+                            for dev in devs {
+                                print(dev)
+                                teamMembers.append(TeamMember(name: dev.key as? String ?? "" , role: Constants.FirebaseConstants.ProjectTable.developer))
+                            }
+                        }
                     }
                     let projectStructure = ProjectDetails(data: Data(title: title, domain: domain, descp: descp), teamMember: teamMembers)
                     detailsArr.append(projectStructure)
@@ -85,8 +96,8 @@ class POViewModel {
         return false
     }
     
-    func updateDetailsOfProject(title: String, updateDetails: [String], members: [String : String], completion: @escaping (() -> Void)) {
-        firebase.updateDetailsOfProject(projectName: title, updates: updateDetails, members: members, completion: completion)
+    func updateDetailsOfProject(title: String, updateDetails: [String], completion: @escaping (() -> Void)) {
+        firebase.updateDetailsOfProject(projectName: title, updates: updateDetails, completion: completion)
     }
     
     /// Removes the project from firebase table
@@ -102,5 +113,18 @@ class POViewModel {
     
     func addDeveloper(projectName: String, teamMember: [String : String], completion: @escaping (() -> Void)) {
         firebase.addNewDeveloper(projectName: projectName, member: teamMember, completion: completion)
+    }
+    
+    func getDevelopersForProject(projectName: String) {
+        
+    }
+    
+    /// Function to remove a team member
+    ///
+    /// - Parameters:
+    ///   - projectName: The project to which the member belongs to
+    ///   - teamMember: The team member to remove
+    func removeTeamMember(projectName: String, teamMember: TeamMember) {
+        firebase.removeTeamMember(projectName: projectName, teamMember: teamMember)
     }
 }

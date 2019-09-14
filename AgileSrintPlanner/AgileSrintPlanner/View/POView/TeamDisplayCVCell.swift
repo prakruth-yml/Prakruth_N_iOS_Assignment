@@ -13,4 +13,5 @@ class TeamDisplayCVCell: BaseCVCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var roleLabel: UILabel!
+    @IBOutlet weak var deleteTeamMeberButton: UIButton!
 }

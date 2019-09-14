@@ -60,6 +60,7 @@ class Constants {
             static let data = "Data"
             static let members = "Members"
             static let developers = "Developers"
+            static let developer = "Developer"
         }
     }
     
@@ -77,7 +78,10 @@ class Constants {
         static let successUpdate = "Updates Successfully Made"
         static let deleteAction = "Delete"
         static let confirmDelete = "Confirm Delete"
-        static let deleteMessage = "Are you sure you want to delete this porject?"
+        static let deleteMessage = "Are you sure you want to delete this project?"
+        static let deleteMember = "Are you sure you want to delete this member?"
+        static let poDeleteWarning = "Not Possible!"
+        static let poDeleteMessage = "Can't remove Product Owner"
     }
     
     struct EmailValidation {

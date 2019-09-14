@@ -43,6 +43,11 @@ class ProjectDescriptionVC: BaseVC {
             }
         }
     }
+//
+//    private func getTeamMembers() {
+//
+//        for eachMem
+//    }
     
     //Edit button action function
     @objc func editNavBarItemDidPress() {
@@ -50,6 +55,10 @@ class ProjectDescriptionVC: BaseVC {
             viewModel.editCondition = true
             newUserButton.isHidden = false
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constants.NavigationBarConstants.doneTitle, style: .plain, target: self, action: #selector(editNavBarItemDidPress))
+            guard let tvCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as? TeamMembersTVCell else { return }
+            
+            tvCell.collectionView.reloadData()
+    
             self.tableView.reloadData()
         } else {
             updateDetails.removeAll()
@@ -60,13 +69,16 @@ class ProjectDescriptionVC: BaseVC {
             }
             viewModel.editCondition = false
             newUserButton.isHidden = true
+            guard let tvCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as? TeamMembersTVCell else { return }
+            
+            tvCell.collectionView.reloadData()
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constants.NavigationBarConstants.editTitle, style: .plain, target: self, action: #selector(editNavBarItemDidPress))
             let confirmAction = UIAlertAction(title: Constants.AlertMessages.confirmChanges, style: .default) { [weak self] (_) in
                 guard let self = self,
                       let poName = UserDefaults.standard.object(forKey: Constants.UserDefaults.currentUserName) as? String else { return }
                 
                 self.startLoading()
-                self.viewModel.updateDetailsOfProject(title: self.projectDetailsArr.first ?? Constants.NilCoalescingDefaults.string, updateDetails: self.updateDetails, members: [Constants.FirebaseConstants.poNameInAddProject: poName]) { [weak self] in
+                self.viewModel.updateDetailsOfProject(title: self.projectDetailsArr.first ?? Constants.NilCoalescingDefaults.string, updateDetails: self.updateDetails) { [weak self] in
                     guard let self = self else { return }
                     
                     self.getAndReloadData(projectName: self.updateDetails[0])
@@ -146,6 +158,7 @@ extension ProjectDescriptionVC: UITableViewDelegate, UITableViewDataSource {
         case .backlogs:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProductBacklogTVCell.self), for: indexPath) as? ProductBacklogTVCell else { return ProjectDescriptionTVCell() }
             
+            cell.backlogButton.addTarget(self, action: #selector(backlogButtonDidPress(_:)), for: .touchUpInside)
             return cell
         case .team:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TeamMembersTVCell.self), for: indexPath) as? TeamMembersTVCell else { return TeamMembersTVCell() }
@@ -169,6 +182,12 @@ extension ProjectDescriptionVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    @objc func backlogButtonDidPress(_ button: UIButton) {
+        guard let backlogVC = storyboard?.instantiateViewController(withIdentifier: String(describing: StoriesDisplayVC.self)) as? StoriesDisplayVC else { return }
+        
+        navigationController?.pushViewController(backlogVC, animated: true)
+    }
 }
 
 extension ProjectDescriptionVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -183,6 +202,15 @@ extension ProjectDescriptionVC: UICollectionViewDelegate, UICollectionViewDataSo
         cell.imageView.layer.cornerRadius = cell.imageView.frame.width / 2
         cell.nameLabel.text = projectDetails?.teamMember[indexPath.row].name
         cell.roleLabel.text = projectDetails?.teamMember[indexPath.row].role
+        cell.deleteTeamMeberButton.addTarget(self, action: #selector(removeUserButtonDidPress(_:)), for: .touchUpInside)
+        cell.deleteTeamMeberButton.tag = indexPath.row
+        if !(projectDetails?.teamMember[indexPath.row].role == Constants.RolesFullForm.productOwner) {
+            if !viewModel.editCondition {
+                cell.deleteTeamMeberButton.isHidden = true
+            } else {
+                cell.deleteTeamMeberButton.isHidden = false
+            }
+        }
         return cell
     }
     
@@ -191,5 +219,26 @@ extension ProjectDescriptionVC: UICollectionViewDelegate, UICollectionViewDataSo
         let availableWidth = collectionView.frame.size.width - CGFloat(Constants.CollectionViewCell.leftSpacing)
         let widthPerItem = availableWidth / cellsPerRow
         return CGSize(width: widthPerItem, height: widthPerItem)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("called")
+    }
+    
+    @objc func removeUserButtonDidPress(_ button: UIButton) {
+        if projectDetails?.teamMember[button.tag].role == Roles.productOwner.rawValue {
+            showAlert(title: Constants.AlertMessages.poDeleteWarning, msg: Constants.AlertMessages.poDeleteMessage, actionTitle: Constants.AlertMessages.closeAction)
+            return 
+        }
+        let closeAlertAction = UIAlertAction(title: Constants.AlertMessages.checkAgain, style: .default, handler: nil)
+        let confirmAlertAction = UIAlertAction(title: Constants.AlertMessages.confirmChanges, style: .destructive) { [weak self] (_) in
+            guard let self = self,
+                  let projectDetails = self.projectDetails else  { return }
+            
+            self.viewModel.removeTeamMember(projectName: self.projectDetailsArr[0], teamMember: projectDetails.teamMember[button.tag])
+            self.getAndReloadData(projectName: self.projectDetailsArr[0])
+            print("\(self.projectDetailsArr[0]) \(projectDetails.teamMember[button.tag])")
+        }
+        showAlert(title: Constants.AlertMessages.confirmDelete, msg: Constants.AlertMessages.deleteMember, alertStyle: .alert, actions: [closeAlertAction, confirmAlertAction])
     }
 }

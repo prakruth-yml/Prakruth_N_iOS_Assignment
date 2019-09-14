@@ -106,13 +106,34 @@ class FirebaseManager {
     ///   - updates: array of updates of project details.
     ///   - members: array of updates of project members
     ///   - completion: completion handler
-    func updateDetailsOfProject(projectName: String, updates: [String], members: [String : String], completion: @escaping (() -> Void)) {
-        ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).removeValue()
-        let data = [Constants.FirebaseConstants.projectTitle: updates[0], Constants.FirebaseConstants.projectDomain: updates[1], Constants.FirebaseConstants.projectDescription: updates[2]]
-        let childUpdates = ["\(Constants.FirebaseConstants.projectsTable)/\(updates[0])/Data":data, "\(Constants.FirebaseConstants.projectsTable)/\(updates[0])/Members": members]
-        ref.updateChildValues(childUpdates)
-        completion()
+    func updateDetailsOfProject(projectName: String, updates: [String], completion: @escaping (() -> Void)) {
+        var nonDevs: [String : Any] = [:]
+        var devs: [String : String] = [:]
+        ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.members).observeSingleEvent(of: .value) { (snapshot) in
+            guard let snapshot = snapshot.children.allObjects as? [DataSnapshot] else { return }
+            
+            for child in snapshot {
+                if child.key == Constants.FirebaseConstants.ProjectTable.developers {
+                    guard let dev = child.children.allObjects as? [DataSnapshot] else { return }
+                    
+                    for eachDev in dev {
+                        devs[eachDev.key] = eachDev.value as? String
+                    }
+                    nonDevs[Constants.FirebaseConstants.ProjectTable.developers] = devs
+                } else {
+                    nonDevs[child.key] = child.value as? String
+                }
+            }
+            let data = [Constants.FirebaseConstants.projectTitle: updates[0], Constants.FirebaseConstants.projectDomain: updates[1], Constants.FirebaseConstants.projectDescription: updates[2]]
+            let childUpdates = ["\(Constants.FirebaseConstants.projectsTable)/\(updates[0])/Data":data, "\(Constants.FirebaseConstants.projectsTable)/\(updates[0])/Members": nonDevs] as [String : Any]
+            self.ref.updateChildValues(childUpdates)
+            if projectName != updates[0] {
+                self.ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).removeValue()
+            }
+            completion()
+        }
     }
+
     
     /// Function to add a new team member to database
     ///
@@ -136,6 +157,20 @@ class FirebaseManager {
     func addNewDeveloper(projectName: String, member: [String : String], completion: @escaping (() -> Void)) {
         ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.members).child(Constants.FirebaseConstants.ProjectTable.developers).updateChildValues(member) { (_, _) in
             completion()
+        }
+    }
+    
+    /// Function to make an API call remove a team member from database
+    ///
+    /// - Parameters:
+    ///   - projectName: The project to which the member belongs to
+    ///   - teamMember: The team member to remove
+    func removeTeamMember(projectName: String, teamMember: TeamMember) {
+        
+        if teamMember.role != Constants.FirebaseConstants.ProjectTable.developer {
+        ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.members).child(teamMember.role).removeValue()
+        } else {
+        ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.members).child(Constants.FirebaseConstants.ProjectTable.developers).child(teamMember.name).removeValue()
         }
     }
 }
