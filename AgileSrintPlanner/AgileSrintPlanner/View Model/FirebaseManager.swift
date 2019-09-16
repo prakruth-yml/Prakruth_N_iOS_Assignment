@@ -173,4 +173,29 @@ class FirebaseManager {
         ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.members).child(Constants.FirebaseConstants.ProjectTable.developers).child(teamMember.name).removeValue()
         }
     }
+    
+    /// Function to add a new story to firebase database
+    ///
+    /// - Parameters:
+    ///   - projectName: name of project
+    ///   - story: the details of story to add
+    ///   - completion: completion handle
+    func addStory(projectName: String, story: [String], completion: @escaping ((Error?) -> Void)) {
+        let storyRef = Constants.FirebaseConstants.ProjectTable.Stories.self
+        let updateDetails = [storyRef.title: story[0], storyRef.summary: story[2], storyRef.description:story[3], storyRef.platform: story[4], storyRef.status: story[5]]
+    ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.Stories.tableName).child(updateDetails[storyRef.title] ?? "").updateChildValues(updateDetails) { (error, _) in
+        
+            completion(error)
+        }
+    }
+    
+    func getStoryDetails(projectName: String, completion: @escaping SnapshotResponse) {
+        ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.Stories.tableName).observeSingleEvent(of: .value) { (snapshot) in
+            completion(snapshot)
+        }
+    }
+    
+    func removeStory(projectName: String, storyName: String) {
+        ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.Stories.tableName).child(storyName).removeValue()
+    }
 }

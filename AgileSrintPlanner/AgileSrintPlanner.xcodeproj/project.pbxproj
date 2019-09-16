@@ -19,6 +19,11 @@
 		AB6710F5231E821C00E2897E /* EmailSignInPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6710F4231E821C00E2897E /* EmailSignInPopUpVC.swift */; };
 		AB6710F7231E9F6B00E2897E /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6710F6231E9F6B00E2897E /* FirebaseManager.swift */; };
 		AB6710F9231F83FD00E2897E /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6710F8231F83FD00E2897E /* BaseVC.swift */; };
+		AB6C8080232F5AF600B8D760 /* AddNewStoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6C807F232F5AF600B8D760 /* AddNewStoryVC.swift */; };
+		AB6C8082232F5B5F00B8D760 /* AddNewStoryDataPickerTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6C8081232F5B5F00B8D760 /* AddNewStoryDataPickerTVCell.swift */; };
+		AB6C8084232F5B7500B8D760 /* AddNewStoryTextViewTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6C8083232F5B7500B8D760 /* AddNewStoryTextViewTVCell.swift */; };
+		AB6C8086232F5EC200B8D760 /* ProductBacklog.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6C8085232F5EC200B8D760 /* ProductBacklog.swift */; };
+		AB6C8088232F60CE00B8D760 /* ProductBacklogsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6C8087232F60CE00B8D760 /* ProductBacklogsViewModel.swift */; };
 		ABAC160A2327625900DF0059 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAC16092327625900DF0059 /* ViewController.swift */; };
 		ABAC160C2327717400DF0059 /* TeamMembersTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAC160B2327717400DF0059 /* TeamMembersTVCell.swift */; };
 		ABAC160E232780BF00DF0059 /* TeamDisplayCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAC160D232780BF00DF0059 /* TeamDisplayCVCell.swift */; };
@@ -53,6 +58,11 @@
 		AB6710F4231E821C00E2897E /* EmailSignInPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignInPopUpVC.swift; sourceTree = "<group>"; };
 		AB6710F6231E9F6B00E2897E /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		AB6710F8231F83FD00E2897E /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
+		AB6C807F232F5AF600B8D760 /* AddNewStoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewStoryVC.swift; sourceTree = "<group>"; };
+		AB6C8081232F5B5F00B8D760 /* AddNewStoryDataPickerTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewStoryDataPickerTVCell.swift; sourceTree = "<group>"; };
+		AB6C8083232F5B7500B8D760 /* AddNewStoryTextViewTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewStoryTextViewTVCell.swift; sourceTree = "<group>"; };
+		AB6C8085232F5EC200B8D760 /* ProductBacklog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductBacklog.swift; sourceTree = "<group>"; };
+		AB6C8087232F60CE00B8D760 /* ProductBacklogsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductBacklogsViewModel.swift; sourceTree = "<group>"; };
 		ABAC16092327625900DF0059 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		ABAC160B2327717400DF0059 /* TeamMembersTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamMembersTVCell.swift; sourceTree = "<group>"; };
 		ABAC160D232780BF00DF0059 /* TeamDisplayCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDisplayCVCell.swift; sourceTree = "<group>"; };
@@ -106,6 +116,9 @@
 			children = (
 				AB171B0E232D3E9900922E13 /* StoriesDisplayVC.swift */,
 				AB171B10232D3F9300922E13 /* StoriesDisplayTVCell.swift */,
+				AB6C807F232F5AF600B8D760 /* AddNewStoryVC.swift */,
+				AB6C8081232F5B5F00B8D760 /* AddNewStoryDataPickerTVCell.swift */,
+				AB6C8083232F5B7500B8D760 /* AddNewStoryTextViewTVCell.swift */,
 			);
 			path = "Product Backlogs";
 			sourceTree = "<group>";
@@ -114,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				ABD335DF231FC87A0023AC98 /* ProductOwner.swift */,
+				AB6C8085232F5EC200B8D760 /* ProductBacklog.swift */,
 				ABD335E1231FC8940023AC98 /* Constants.swift */,
 			);
 			path = Model;
@@ -138,6 +152,7 @@
 			children = (
 				AB6710F6231E9F6B00E2897E /* FirebaseManager.swift */,
 				ABFF65E22321179300AD13D3 /* POViewModel.swift */,
+				AB6C8087232F60CE00B8D760 /* ProductBacklogsViewModel.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -369,6 +384,7 @@
 			files = (
 				AB2E20CE23263589008AAB12 /* BaseTVCell.swift in Sources */,
 				ABAC160E232780BF00DF0059 /* TeamDisplayCVCell.swift in Sources */,
+				AB6C8080232F5AF600B8D760 /* AddNewStoryVC.swift in Sources */,
 				AB6710F7231E9F6B00E2897E /* FirebaseManager.swift in Sources */,
 				AB171B0F232D3E9900922E13 /* StoriesDisplayVC.swift in Sources */,
 				AB2E20CC2326352E008AAB12 /* ProjectDescriptionTVCell.swift in Sources */,
@@ -377,9 +393,12 @@
 				ABD335E7231FFED30023AC98 /* BaseCVCell.swift in Sources */,
 				AB171B11232D3F9300922E13 /* StoriesDisplayTVCell.swift in Sources */,
 				AB2E20D423264F54008AAB12 /* ProductBacklogTVCell.swift in Sources */,
+				AB6C8086232F5EC200B8D760 /* ProductBacklog.swift in Sources */,
 				AB6710F5231E821C00E2897E /* EmailSignInPopUpVC.swift in Sources */,
 				ABD335E0231FC87A0023AC98 /* ProductOwner.swift in Sources */,
 				AB171B0C232A864E00922E13 /* AddNewTeamMemberVC.swift in Sources */,
+				AB6C8082232F5B5F00B8D760 /* AddNewStoryDataPickerTVCell.swift in Sources */,
+				AB6C8088232F60CE00B8D760 /* ProductBacklogsViewModel.swift in Sources */,
 				ABD335E923200A150023AC98 /* AccDetailsVC.swift in Sources */,
 				ABAC160C2327717400DF0059 /* TeamMembersTVCell.swift in Sources */,
 				AB2E20D02326365F008AAB12 /* ProjectDescriptionVC.swift in Sources */,
@@ -387,6 +406,7 @@
 				ABB7B3522319405B0084B44D /* AppDelegate.swift in Sources */,
 				AB6710F9231F83FD00E2897E /* BaseVC.swift in Sources */,
 				ABFF65E12321052100AD13D3 /* NewProjectPopOverVC.swift in Sources */,
+				AB6C8084232F5B7500B8D760 /* AddNewStoryTextViewTVCell.swift in Sources */,
 				ABD335E5231FFEC30023AC98 /* POProductBacklogCVCell.swift in Sources */,
 				ABD335E2231FC8940023AC98 /* Constants.swift in Sources */,
 			);

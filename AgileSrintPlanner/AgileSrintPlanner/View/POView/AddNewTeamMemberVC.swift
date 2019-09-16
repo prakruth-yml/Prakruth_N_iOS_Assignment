@@ -89,7 +89,6 @@ extension AddNewTeamMemberVC: UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print(projectRoles[row])
         viewModel.projectRolePicked = projectRoles[row]
     }
     

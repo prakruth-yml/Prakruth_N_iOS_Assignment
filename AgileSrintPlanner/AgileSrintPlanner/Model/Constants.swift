@@ -61,6 +61,14 @@ class Constants {
             static let members = "Members"
             static let developers = "Developers"
             static let developer = "Developer"
+            struct Stories {
+                static let tableName = "Stories"
+                static let title = "Title"
+                static let summary = "Summary"
+                static let description = "Descp"
+                static let platform = "Platform"
+                static let status = "Backlog"
+            }
         }
     }
     
@@ -82,6 +90,7 @@ class Constants {
         static let deleteMember = "Are you sure you want to delete this member?"
         static let poDeleteWarning = "Not Possible!"
         static let poDeleteMessage = "Can't remove Product Owner"
+        static let storySuccess = "Story Added Successfully"
     }
     
     struct EmailValidation {
@@ -109,6 +118,7 @@ class Constants {
     struct NavigationBarConstants {
         static let editTitle = "Edit"
         static let doneTitle = "Done"
+        static let cancelTitle = "Cancel"
     }
     
     struct CustomColor {
@@ -142,5 +152,17 @@ class Constants {
         static let android = "Android"
         static let bk = "Back End"
         static let front = "Front End"
+    }
+    
+    struct StoryDisplayTableView {
+        static let numberOfRows = 4
+        static let textViewCell = 0
+        static let pickerViewCell = 1
+        enum CellToChoose: Int {
+            case issueType = 0
+            case summary = 1
+            case descp = 2
+            case platform = 3
+        }
     }
 }
