@@ -247,4 +247,17 @@ class FirebaseManager {
     func removeStory(projectName: String, storyName: String) {
         ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.Stories.tableName).child(storyName).removeValue()
     }
+    
+    /// Function to add a sprint to database
+    ///
+    /// - Parameters:
+    ///   - projectName: Name of project
+    ///   - sprint: Sprint to add
+    func addSprintToProject(projectName: String, sprint: Sprint, completion: @escaping ((Error?) -> Void)) {
+        let tableRef = Constants.FirebaseConstants.ProjectTable.Sprint.self
+        let childUpdates = [tableRef.title : sprint.title, tableRef.startDate: sprint.startDate, tableRef.endDate: sprint.endDate]
+        ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.Sprint.tableName).updateChildValues(childUpdates) { (error, _) in
+            completion(error)
+        }
+    }
 }

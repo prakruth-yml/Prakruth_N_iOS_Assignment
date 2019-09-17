@@ -14,6 +14,9 @@ class POViewModel {
     var projectRolePicked: String?
     let productBacklog = ["Product Backlogs", "Sprints"]
     var currentProjectName: String?
+    var sprintStartDate: String?
+    var sprintEndDate: String?
+    var currentSprint: Sprint?
     
     //API Call to firebase to add a new project
     //title: Title of Project; domain: Domain of project to be worked on; descp: Small description of the project; completion: Completion Handler
@@ -140,5 +143,21 @@ class POViewModel {
     ///   - teamMember: The team member to remove
     func removeTeamMember(projectName: String, teamMember: TeamMember) {
         firebase.removeTeamMember(projectName: projectName, teamMember: teamMember)
+    }
+    
+    func addSprint(projectName: String, sprint: Sprint, completion: @escaping ((Error?) -> Void)) {
+        firebase.addSprintToProject(projectName: projectName, sprint: sprint, completion: completion)
+    }
+    
+    func setSprintStartDate(date: String) {
+        sprintStartDate = date
+    }
+    
+    func setSprintEndDate(date: String) {
+        sprintEndDate = date
+    }
+    
+    func setCurrentSprint(title: String, startDate: String, endDate: String) {
+        currentSprint = Sprint(title: title, startDate: startDate, endDate: endDate)
     }
 }

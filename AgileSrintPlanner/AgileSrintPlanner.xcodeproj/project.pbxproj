@@ -20,6 +20,7 @@
 		AB39F1D42331047200A4719D /* SprintDisplayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB39F1D32331047200A4719D /* SprintDisplayVC.swift */; };
 		AB39F1D623310B6D00A4719D /* SprintDisplayTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB39F1D523310B6D00A4719D /* SprintDisplayTVCell.swift */; };
 		AB39F1D8233119B000A4719D /* SprintDisplayCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB39F1D7233119B000A4719D /* SprintDisplayCVCell.swift */; };
+		AB39F1DA2331212000A4719D /* AddSprintVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB39F1D92331212000A4719D /* AddSprintVC.swift */; };
 		AB6710EC231E4DE300E2897E /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = AB6710EB231E4DE300E2897E /* .swiftlint.yml */; };
 		AB6710F5231E821C00E2897E /* EmailSignInPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6710F4231E821C00E2897E /* EmailSignInPopUpVC.swift */; };
 		AB6710F7231E9F6B00E2897E /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6710F6231E9F6B00E2897E /* FirebaseManager.swift */; };
@@ -64,6 +65,7 @@
 		AB39F1D32331047200A4719D /* SprintDisplayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SprintDisplayVC.swift; sourceTree = "<group>"; };
 		AB39F1D523310B6D00A4719D /* SprintDisplayTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SprintDisplayTVCell.swift; sourceTree = "<group>"; };
 		AB39F1D7233119B000A4719D /* SprintDisplayCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SprintDisplayCVCell.swift; sourceTree = "<group>"; };
+		AB39F1D92331212000A4719D /* AddSprintVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSprintVC.swift; sourceTree = "<group>"; };
 		AB6710EB231E4DE300E2897E /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; name = .swiftlint.yml; path = AgileSrintPlanner/.swiftlint.yml; sourceTree = "<group>"; };
 		AB6710F4231E821C00E2897E /* EmailSignInPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignInPopUpVC.swift; sourceTree = "<group>"; };
 		AB6710F6231E9F6B00E2897E /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				AB39F1D32331047200A4719D /* SprintDisplayVC.swift */,
 				AB39F1D523310B6D00A4719D /* SprintDisplayTVCell.swift */,
 				AB39F1D7233119B000A4719D /* SprintDisplayCVCell.swift */,
+				AB39F1D92331212000A4719D /* AddSprintVC.swift */,
 			);
 			path = "Product Backlogs";
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 				AB6710F7231E9F6B00E2897E /* FirebaseManager.swift in Sources */,
 				AB171B0F232D3E9900922E13 /* StoriesDisplayVC.swift in Sources */,
 				AB2E20CC2326352E008AAB12 /* ProjectDescriptionTVCell.swift in Sources */,
+				AB39F1DA2331212000A4719D /* AddSprintVC.swift in Sources */,
 				ABFF65E32321179300AD13D3 /* POViewModel.swift in Sources */,
 				ABAC160A2327625900DF0059 /* ViewController.swift in Sources */,
 				ABD335E7231FFED30023AC98 /* BaseCVCell.swift in Sources */,

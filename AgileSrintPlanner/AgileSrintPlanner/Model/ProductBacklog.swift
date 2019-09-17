@@ -10,3 +10,9 @@ struct Story {
     var platform: String
     var status: String
 }
+
+struct Sprint {
+    var title: String
+    var startDate: String
+    var endDate: String
+}

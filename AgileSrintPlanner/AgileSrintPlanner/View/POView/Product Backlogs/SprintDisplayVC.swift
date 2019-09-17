@@ -2,7 +2,6 @@ import UIKit
 
 class SprintDisplayVC: BaseVC {
     
-    @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var emptyWarningLabel: UILabel!
     @IBOutlet private weak var collectionView: UICollectionView!
     
@@ -11,12 +10,12 @@ class SprintDisplayVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.tableFooterView = UIView()
         navigationItem.title = viewModel.currentProjectName ?? "" + " - Sprints"
+        userSpecificUI()
         //set hidden label
     }
     
-    func userSpecificGUI() {
+    func userSpecificUI() {
         guard let role = UserDefaults.standard.object(forKey: Constants.UserDefaults.role) as? String else { return }
         
         if role == Roles.projectManager.rawValue {
@@ -25,7 +24,18 @@ class SprintDisplayVC: BaseVC {
     }
     
     @objc private func addSprintButtonDidPress() {
+        guard let newSprintVC = storyboard?.instantiateViewController(withIdentifier: String(describing: AddSprintVC.self)) as? AddSprintVC else { return }
         
+//        newSprintVC.callBack = { [weak self] in
+//            guard let self = self else { return }
+//            
+//            self.emptyLabel.isHidden = true
+//            self.getAndReloadData()
+//        }
+        addChild(newSprintVC)
+        newSprintVC.view.frame = view.frame
+        view.addSubview(newSprintVC.view)
+        newSprintVC.didMove(toParent: self)
     }
 }
 
@@ -49,14 +59,20 @@ extension SprintDisplayVC: UICollectionViewDelegate, UICollectionViewDataSource,
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SprintDisplayCVCell.self), for: indexPath) as? SprintDisplayCVCell else { return SprintDisplayCVCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: SprintDisplayCVCell.self), for: indexPath) as? SprintDisplayCVCell else { return SprintDisplayCVCell() }
         
         cell.backgroundColor = UIColor.randomClr()
         cell.titleLabel.text = "cac"
         cell.startDateLabel.text = "cac"
         cell.endDateLabel.text = "cdascsa"
+        cell.layer.cornerRadius = 7.0
         return cell
     }
     
-    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellsPerRow = CGFloat(2)
+        let availableWidth = collectionView.frame.size.width - CGFloat(Constants.CollectionViewCell.leftSpacing)
+        let widthPerItem = availableWidth / cellsPerRow
+        return CGSize(width: widthPerItem, height: widthPerItem / 2)
+    }
 }

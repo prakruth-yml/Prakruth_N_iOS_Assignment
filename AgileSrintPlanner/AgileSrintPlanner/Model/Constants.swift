@@ -73,6 +73,12 @@ class Constants {
                 static let platform = "Platform"
                 static let status = "Backlog"
             }
+            struct Sprint {
+                static let tableName = "Sprints"
+                static let title = "Title"
+                static let startDate = "StartDate"
+                static let endDate = "endDate"
+            }
         }
     }
     

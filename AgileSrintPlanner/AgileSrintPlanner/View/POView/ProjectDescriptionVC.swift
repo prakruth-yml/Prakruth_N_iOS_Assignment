@@ -4,6 +4,7 @@ class ProjectDescriptionVC: BaseVC {
     
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var newUserButton: UIButton!
+    @IBOutlet private weak var actualView: UIView!
     
     var projectDetails: ProjectDetails?
     var projectDetailsArr: [String] = []
@@ -19,6 +20,15 @@ class ProjectDescriptionVC: BaseVC {
         navigationItem.title = projectDetailsArr.first
         tableView.tableFooterView = UIView()
         newUserButton.layer.cornerRadius = newUserButton.imageView?.frame.width ?? 1.0 / 2
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        
+        let touch: UITouch? = touches.first
+        if touch?.view != actualView {
+            view.removeFromSuperview()
+        }
     }
     
     private func getAndReloadData(projectName: String) {
@@ -253,7 +263,7 @@ extension ProjectDescriptionVC: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellsPerRow = CGFloat(2)
+        let cellsPerRow = CGFloat(2.5)
         let availableWidth = collectionView.frame.size.width - CGFloat(Constants.CollectionViewCell.leftSpacing)
         let widthPerItem = availableWidth / cellsPerRow
         return CGSize(width: widthPerItem, height: widthPerItem)
