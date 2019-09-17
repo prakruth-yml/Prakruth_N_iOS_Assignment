@@ -13,15 +13,16 @@ class ProjectDescriptionVC: BaseVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        userSpecificUI()
         projectDetailsArr = [projectDetails?.data.title, projectDetails?.data.domain, projectDetails?.data.descp] as? [String] ?? [""]
         navigationItem.title = projectDetailsArr.first
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constants.NavigationBarConstants.editTitle, style: .plain, target: self, action: #selector(editNavBarItemDidPress))
         tableView.tableFooterView = UIView()
         newUserButton.layer.cornerRadius = newUserButton.imageView?.frame.width ?? 1.0 / 2
     }
     
     private func getAndReloadData(projectName: String) {
-        viewModel.getProjectDetailsForUserWith(email: UserDefaults.standard.object(forKey: Constants.UserDefaults.currentUserName) as? String ?? "", completion: { [weak self] in
+        viewModel.getProjectDetailsForUserWith(userName: UserDefaults.standard.object(forKey: Constants.UserDefaults.currentUserName) as? String ?? "", completion: { [weak self] in
             guard let self = self else { return }
          
             self.getCurrentProjectDetails(projectName: projectName)
@@ -124,6 +125,14 @@ class ProjectDescriptionVC: BaseVC {
         view.addSubview(newMemberVC.view)
         newMemberVC.didMove(toParent: self)
     }
+    
+    private func userSpecificUI() {
+        guard let role = UserDefaults.standard.object(forKey: Constants.UserDefaults.role) as? String else { return }
+        
+        if role == Roles.productOwner.rawValue {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constants.NavigationBarConstants.editTitle, style: .plain, target: self, action: #selector(editNavBarItemDidPress))
+        }
+    }
 }
 
 extension ProjectDescriptionVC: UITableViewDelegate, UITableViewDataSource {
@@ -171,6 +180,8 @@ extension ProjectDescriptionVC: UITableViewDelegate, UITableViewDataSource {
         case .backlogs:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProductBacklogTVCell.self), for: indexPath) as? ProductBacklogTVCell else { return ProjectDescriptionTVCell() }
             
+            cell.backlogButton.setTitle(viewModel.productBacklog[indexPath.row], for: .normal)
+            cell.backlogButton.tag = indexPath.row
             cell.backlogButton.addTarget(self, action: #selector(backlogButtonDidPress(_:)), for: .touchUpInside)
             return cell
         case .team:
@@ -185,8 +196,6 @@ extension ProjectDescriptionVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         switch indexPath.section {
-        case Constants.ProjectDescription.Sections.team.rawValue:
-            return 0.4609 * view.frame.height
         default:
             return UITableView.automaticDimension
         }
@@ -197,10 +206,22 @@ extension ProjectDescriptionVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     @objc func backlogButtonDidPress(_ button: UIButton) {
-        guard let backlogVC = storyboard?.instantiateViewController(withIdentifier: String(describing: StoriesDisplayVC.self)) as? StoriesDisplayVC else { return }
         
-        backlogVC.projectName = projectDetailsArr[0]
-        navigationController?.pushViewController(backlogVC, animated: true)
+        let buttonTag = Constants.ProjectDescription.BacklogButton(rawValue: button.tag)
+        switch buttonTag{
+        case .backlog?:
+            guard let backlogVC = storyboard?.instantiateViewController(withIdentifier: String(describing: StoriesDisplayVC.self)) as? StoriesDisplayVC else { return }
+            
+            backlogVC.projectName = projectDetailsArr[0]
+            navigationController?.pushViewController(backlogVC, animated: true)
+        case .sprint?:
+            guard let backlogVC = storyboard?.instantiateViewController(withIdentifier: String(describing: SprintDisplayVC.self)) as? SprintDisplayVC else { return }
+            
+            navigationController?.pushViewController(backlogVC, animated: true)
+        default:
+            print("")
+        }
+        
     }
 }
 
@@ -241,24 +262,7 @@ extension ProjectDescriptionVC: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("called")
     }
-    
-//    @objc func removeUserButtonDidPress(_ button: UIButton) {
-//        if projectDetails?.teamMember[button.tag].role == Roles.productOwner.rawValue {
-//            showAlert(title: Constants.AlertMessages.poDeleteWarning, msg: Constants.AlertMessages.poDeleteMessage, actionTitle: Constants.AlertMessages.closeAction)
-//            return
-//        }
-//        let closeAlertAction = UIAlertAction(title: Constants.AlertMessages.checkAgain, style: .default, handler: nil)
-//        let confirmAlertAction = UIAlertAction(title: Constants.AlertMessages.confirmChanges, style: .destructive) { [weak self] (_) in
-//            guard let self = self,
-//                  let projectDetails = self.projectDetails else  { return }
-//
-//            self.viewModel.removeTeamMember(projectName: self.projectDetailsArr[0], teamMember: projectDetails.teamMember[button.tag])
-//            self.getAndReloadData(projectName: self.projectDetailsArr[0])
-//            print("\(self.projectDetailsArr[0]) \(projectDetails.teamMember[button.tag])")
-//        }
-//        showAlert(title: Constants.AlertMessages.confirmDelete, msg: Constants.AlertMessages.deleteMember, alertStyle: .alert, actions: [closeAlertAction, confirmAlertAction])
-//    }
-    
+
     @objc func removeUserButtonDidPress(_ button: UIButton) {
         if projectDetails?.teamMember[button.tag].role == Roles.productOwner.rawValue {
             showAlert(title: Constants.AlertMessages.poDeleteWarning, msg: Constants.AlertMessages.poDeleteMessage, actionTitle: Constants.AlertMessages.closeAction)

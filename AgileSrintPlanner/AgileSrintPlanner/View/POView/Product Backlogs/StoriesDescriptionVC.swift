@@ -1,6 +1,6 @@
 import UIKit
 
-class StoriesDescriptionVC: UIViewController {
+class StoriesDescriptionVC: BaseVC {
     
     @IBOutlet private weak var tableView: UITableView!
     

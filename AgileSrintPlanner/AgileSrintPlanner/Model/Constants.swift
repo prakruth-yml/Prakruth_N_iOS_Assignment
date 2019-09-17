@@ -34,12 +34,16 @@ class Constants {
     struct ProjectDescription {
         static let rowsInDescription = 3
         static let numberOfSections = 3
-        static let rowsInBacklogs = 1
+        static let rowsInBacklogs = 2
         static let rowsInTeam = 1
         enum Sections: Int {
             case description = 0
             case backlogs = 1
             case team = 2
+        }
+        enum BacklogButton: Int {
+            case backlog = 0
+            case sprint = 1
         }
     }
     

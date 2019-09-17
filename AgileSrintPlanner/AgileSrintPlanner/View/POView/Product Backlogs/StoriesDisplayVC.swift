@@ -10,7 +10,7 @@ class StoriesDisplayVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icons8-plus-24"), style: .plain, target: self, action: #selector(addStoryButtonDidPress))
+        userSpecificUI()
         navigationItem.title = projectName
         tableView.tableFooterView = UIView()
         getAndReloadData()
@@ -37,6 +37,14 @@ class StoriesDisplayVC: BaseVC {
             self.stopLoading()
         }
     }
+    
+    private func userSpecificUI() {
+        guard let role = UserDefaults.standard.object(forKey: Constants.UserDefaults.role) as? String else { return }
+        
+        if role == Roles.productOwner.rawValue {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icons8-plus-24"), style: .plain, target: self, action: #selector(addStoryButtonDidPress))
+        }
+    }
 }
 
 extension StoriesDisplayVC: UITableViewDelegate, UITableViewDataSource {
@@ -55,14 +63,18 @@ extension StoriesDisplayVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        switch editingStyle {
-        case .delete:
-            guard let cell = tableView.cellForRow(at: indexPath) as? StoriesDisplayTVCell else { return }
-            
-            viewModel.removeStory(projectName: projectName ?? "", storyName: cell.storyTitleLabel.text ?? "")
-            getAndReloadData()
-        default:
-            print("")
+        guard let role = UserDefaults.standard.object(forKey: Constants.UserDefaults.role) as? String else { return }
+        
+        if role == Roles.productOwner.rawValue {
+            switch editingStyle {
+            case .delete:
+                guard let cell = tableView.cellForRow(at: indexPath) as? StoriesDisplayTVCell else { return }
+                
+                viewModel.removeStory(projectName: projectName ?? "", storyName: cell.storyTitleLabel.text ?? "")
+                getAndReloadData()
+            default:
+                print("")
+            }
         }
     }
     

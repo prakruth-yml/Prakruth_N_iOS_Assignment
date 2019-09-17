@@ -39,9 +39,9 @@ class AccDetailsVC: BaseVC {
         firebase.getUserDetails { [weak self] profile in
             guard let self = self else { return }
             
-            self.nameLabel.text = profile.name
-            self.emailLabel.text = profile.email
-            self.roleLabel.text = self.decideRole(role: profile.role)
+            self.nameLabel.text = UserDefaults.standard.object(forKey: Constants.UserDefaults.currentUserName) as? String
+            self.emailLabel.text = UserDefaults.standard.object(forKey: Constants.UserDefaults.currentUserEmail) as? String
+            self.roleLabel.text = self.decideRole(role: UserDefaults.standard.object(forKey: Constants.UserDefaults.role) as? String ?? "")
             self.stopLoading()
         }
     }

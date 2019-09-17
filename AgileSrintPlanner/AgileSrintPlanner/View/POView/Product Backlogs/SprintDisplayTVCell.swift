@@ -1,5 +1,5 @@
 //
-//  StoryDescriptionTVCellTableViewCell.swift
+//  SprintDisplayTVCell.swift
 //  AgileSrintPlanner
 //
 //  Created by Prakruth Nagaraj on 17/09/19.
@@ -8,10 +8,11 @@
 
 import UIKit
 
-class StoryDescriptionTVCell: BaseTVCell {
+class SprintDisplayTVCell: BaseTVCell {
     
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var descpLabel: UILabel!
+    @IBOutlet weak var startDateLabel: UILabel!
+    @IBOutlet weak var endDateLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()

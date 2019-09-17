@@ -8,30 +8,24 @@ class ProductOwnerMainVC: BaseVC {
     @IBOutlet private weak var emptyLabel: UILabel!
     @IBOutlet private weak var listGridButton: UIImageView!
     @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet private weak var addProjectButton: UIButton!
 
     private var viewModel = POViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        getAndReloadData()
+        userSpecificGUI()
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon-user-acc"), style: .plain, target: self, action: #selector(userDisplayButtonDidPress))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icons8-menu-50"), style: .plain, target: self, action: #selector(listImageDidPress))
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        getAndReloadData()
-    }
- 
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+        addProjectButton.imageView?.contentMode = .scaleToFill
     }
     
     /// Gets the Project Details of current user from firebase and refresh the collection view
     private func getAndReloadData() {
         startLoading()
-        viewModel.getProjectDetailsForUserWith(email: UserDefaults.standard.object(forKey: Constants.UserDefaults.currentUserName) as? String ?? "", completion: { [weak self] in
+        viewModel.getProjectDetailsForUserWith(userName: UserDefaults.standard.object(forKey: Constants.UserDefaults.currentUserName) as? String ?? "", completion: { [weak self] in
             guard let weakSelf = self else { return }
             
             if weakSelf.viewModel.projectDetails?.isEmpty ?? true {
@@ -40,6 +34,17 @@ class ProductOwnerMainVC: BaseVC {
             weakSelf.collectionView.reloadData()
             weakSelf.stopLoading()
         })
+    }
+    
+    private func userSpecificGUI() {
+        guard let role = UserDefaults.standard.object(forKey: Constants.UserDefaults.role) as? String else { return }
+        
+        switch role{
+        case Roles.developer.rawValue, Roles.projectManager.rawValue:
+            addProjectButton.isHidden = true
+        default:
+            print()
+        }
     }
 
     @IBAction private func addButtonDidPress(_ button: UIButton) {

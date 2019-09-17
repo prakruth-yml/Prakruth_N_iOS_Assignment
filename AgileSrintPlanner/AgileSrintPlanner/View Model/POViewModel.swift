@@ -9,9 +9,11 @@ class POViewModel {
     var projectDetails: [ProjectDetails]?
     var projectMembers: [ProjectMembers]?
     let headings = ["Title", "Domain", "Description"]
-    let sectionHeading = ["Project Description", "Product Backlogs", "Team"]
+    let sectionHeading = ["Project Description", "Backlogs", "Team"]
     var editCondition = false
     var projectRolePicked: String?
+    let productBacklog = ["Product Backlogs", "Sprints"]
+    var currentProjectName: String?
     
     //API Call to firebase to add a new project
     //title: Title of Project; domain: Domain of project to be worked on; descp: Small description of the project; completion: Completion Handler
@@ -47,7 +49,8 @@ class POViewModel {
     
     //API Call to firebase to get project details of current user
     //email: Current signed in user; completion: Completion Handle
-    func getProjectDetailsForUserWith(email: String, completion: @escaping (() -> Void)) {
+    func getProjectDetailsForUserWith(userName: String, completion: @escaping (() -> Void)) {
+        let email = userName
         var detailsArr: [ProjectDetails] = []
         firebase.getProjectDetails { [weak self] (snapshot) in
             guard let snapshot = snapshot.children.allObjects as? [DataSnapshot],
@@ -88,9 +91,20 @@ class POViewModel {
     //Function to check if user is part of a team
     //email: Current User; projects: List of all projects; teamMembers: all Team members of the project
     func isUserPartOfTeam(email: String, projects: DataSnapshot, teamMembers: [DataSnapshot]) -> Bool {
+        
         for member in teamMembers {
-            if member.value as? String == email {
-                return true
+            if member.key != Constants.FirebaseConstants.ProjectTable.developers {
+                if member.value as? String == email {
+                    return true
+                }
+            } else {
+                guard let devs = member.value as? [String:String] else { return true }
+                
+                for (key, _) in devs {
+                    if key == email {
+                        return true
+                    }
+                }
             }
         }
         return false
