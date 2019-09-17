@@ -15,6 +15,8 @@
 		AB2E20CE23263589008AAB12 /* BaseTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E20CD23263589008AAB12 /* BaseTVCell.swift */; };
 		AB2E20D02326365F008AAB12 /* ProjectDescriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E20CF2326365F008AAB12 /* ProjectDescriptionVC.swift */; };
 		AB2E20D423264F54008AAB12 /* ProductBacklogTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E20D323264F54008AAB12 /* ProductBacklogTVCell.swift */; };
+		AB39F1D02330A47600A4719D /* StoriesDescriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB39F1CF2330A47600A4719D /* StoriesDescriptionVC.swift */; };
+		AB39F1D22330A4C000A4719D /* StoryDescriptionTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB39F1D12330A4C000A4719D /* StoryDescriptionTVCell.swift */; };
 		AB6710EC231E4DE300E2897E /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = AB6710EB231E4DE300E2897E /* .swiftlint.yml */; };
 		AB6710F5231E821C00E2897E /* EmailSignInPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6710F4231E821C00E2897E /* EmailSignInPopUpVC.swift */; };
 		AB6710F7231E9F6B00E2897E /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6710F6231E9F6B00E2897E /* FirebaseManager.swift */; };
@@ -54,6 +56,8 @@
 		AB2E20CD23263589008AAB12 /* BaseTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTVCell.swift; sourceTree = "<group>"; };
 		AB2E20CF2326365F008AAB12 /* ProjectDescriptionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDescriptionVC.swift; sourceTree = "<group>"; };
 		AB2E20D323264F54008AAB12 /* ProductBacklogTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductBacklogTVCell.swift; sourceTree = "<group>"; };
+		AB39F1CF2330A47600A4719D /* StoriesDescriptionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesDescriptionVC.swift; sourceTree = "<group>"; };
+		AB39F1D12330A4C000A4719D /* StoryDescriptionTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryDescriptionTVCell.swift; sourceTree = "<group>"; };
 		AB6710EB231E4DE300E2897E /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; name = .swiftlint.yml; path = AgileSrintPlanner/.swiftlint.yml; sourceTree = "<group>"; };
 		AB6710F4231E821C00E2897E /* EmailSignInPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignInPopUpVC.swift; sourceTree = "<group>"; };
 		AB6710F6231E9F6B00E2897E /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
@@ -119,6 +123,8 @@
 				AB6C807F232F5AF600B8D760 /* AddNewStoryVC.swift */,
 				AB6C8081232F5B5F00B8D760 /* AddNewStoryDataPickerTVCell.swift */,
 				AB6C8083232F5B7500B8D760 /* AddNewStoryTextViewTVCell.swift */,
+				AB39F1CF2330A47600A4719D /* StoriesDescriptionVC.swift */,
+				AB39F1D12330A4C000A4719D /* StoryDescriptionTVCell.swift */,
 			);
 			path = "Product Backlogs";
 			sourceTree = "<group>";
@@ -382,6 +388,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB39F1D02330A47600A4719D /* StoriesDescriptionVC.swift in Sources */,
 				AB2E20CE23263589008AAB12 /* BaseTVCell.swift in Sources */,
 				ABAC160E232780BF00DF0059 /* TeamDisplayCVCell.swift in Sources */,
 				AB6C8080232F5AF600B8D760 /* AddNewStoryVC.swift in Sources */,
@@ -396,6 +403,7 @@
 				AB6C8086232F5EC200B8D760 /* ProductBacklog.swift in Sources */,
 				AB6710F5231E821C00E2897E /* EmailSignInPopUpVC.swift in Sources */,
 				ABD335E0231FC87A0023AC98 /* ProductOwner.swift in Sources */,
+				AB39F1D22330A4C000A4719D /* StoryDescriptionTVCell.swift in Sources */,
 				AB171B0C232A864E00922E13 /* AddNewTeamMemberVC.swift in Sources */,
 				AB6C8082232F5B5F00B8D760 /* AddNewStoryDataPickerTVCell.swift in Sources */,
 				AB6C8088232F60CE00B8D760 /* ProductBacklogsViewModel.swift in Sources */,

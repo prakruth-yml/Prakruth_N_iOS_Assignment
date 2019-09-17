@@ -57,9 +57,10 @@ class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
                     }
                 } else {
                     weakSelf.fireBaseManager.decideUserRole(user: Auth.auth().currentUser) { (viewController, role) in
-                        UserDefaults.standard.set(role, forKey: Constants.UserDefaults.role)
                         guard let viewController = viewController else { return }
+                
                         let currentUser = Auth.auth().currentUser
+                        UserDefaults.standard.set(role, forKey: Constants.UserDefaults.role)
                         UserDefaults.standard.set(currentUser?.displayName, forKey: Constants.UserDefaults.currentUserName)
                         UserDefaults.standard.set(currentUser?.uid, forKey: Constants.UserDefaults.currentUserId)
                         UserDefaults.standard.set(currentUser?.email, forKey: Constants.UserDefaults.currentUserEmail)

@@ -29,14 +29,14 @@ class AddNewTeamMemberVC: BaseVC {
             //FORCED HERE CHECK IT
             if viewModel.projectRolePicked == "Developer" {
                 let teamMember = [nameTextField : emailTextField]
-                viewModel.addDeveloper(projectName: projectName ?? Constants.NilCoalescingDefaults.string, teamMember: teamMember as! [String : String]) { [weak self] in
+                viewModel.addDeveloper(projectName: projectName ?? Constants.NilCoalescingDefaults.string, teamMember: teamMember as! [String : String] ) { [weak self] in
                     guard let self = self else { return }
                     
                     self.reloadAfterAddingUser()
                 }
             } else {
                 let teamMember = [viewModel.projectRolePicked : nameTextField]
-                viewModel.addNewTeamMember(projectName: projectName ?? Constants.NilCoalescingDefaults.string, teamMember: teamMember as! [String : String]) { [weak self] in
+                viewModel.addNewTeamMember(projectName: projectName ?? Constants.NilCoalescingDefaults.string, teamMember: teamMember as! [String : String], role: "PM", email: emailTextField) { [weak self] in
                     guard let self = self else { return }
                     
                     self.reloadAfterAddingUser()

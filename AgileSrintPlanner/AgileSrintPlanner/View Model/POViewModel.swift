@@ -107,8 +107,8 @@ class POViewModel {
         firebase.deleteChild(name: projectName)
     }
     
-    func addNewTeamMember(projectName: String, teamMember: [String : String], completion: @escaping (() -> Void)) {
-        firebase.addNewTeamMemberToProject(projectName: projectName, member: teamMember, completion: completion)
+    func addNewTeamMember(projectName: String, teamMember: [String : String], role: String?, email: String,completion: @escaping (() -> Void)) {
+        firebase.addNewTeamMemberToProject(projectName: projectName, member: teamMember, role: role, email: email, completion: completion)
     }
     
     func addDeveloper(projectName: String, teamMember: [String : String], completion: @escaping (() -> Void)) {

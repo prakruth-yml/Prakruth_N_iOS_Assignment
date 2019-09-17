@@ -164,5 +164,6 @@ class Constants {
             case descp = 2
             case platform = 3
         }
+        static let storyDescpNumRows = 4
     }
 }

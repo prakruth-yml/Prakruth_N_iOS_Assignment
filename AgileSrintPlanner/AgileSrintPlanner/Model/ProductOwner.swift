@@ -24,4 +24,4 @@ struct ProfileDetails {
     var email: String
 }
 
-let projectRoles = ["Product Owner", "Project Manager", "Developer"]
+let projectRoles = ["Project Manager", "Developer"]

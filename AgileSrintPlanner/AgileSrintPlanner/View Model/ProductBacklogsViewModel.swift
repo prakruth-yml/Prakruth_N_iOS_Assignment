@@ -14,6 +14,9 @@ class ProductBacklogsViewModel {
     var newTaskPicked: String = "Story"
     var storyDetailsToAdd: [String]?
     var storyResponse: [Story]?
+    let displayTitle = ["Issue Type", "Summary", "Description", "Platform", "Status"]
+    var dataSrc: [String]?
+    var storyDetails: Story?
     
     func addStoryToFirebase(projectName: String, story: [String], completion: @escaping ((Error?) -> Void)) {
         firebase.addStory(projectName: projectName, story: story, completion: completion)
