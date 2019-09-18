@@ -194,7 +194,7 @@ class POViewModel {
         }
     }
     
-    func setCurrentProject(project: ProjectDetails) {
+    func setCurrentProject(project: ProjectDetails?) {
         currentProject = project
     }
 }

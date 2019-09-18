@@ -117,6 +117,9 @@ extension ProductOwnerMainVC: UICollectionViewDelegate, UICollectionViewDataSour
         guard let viewController = storyboard?.instantiateViewController(withIdentifier: String(describing: ProjectDescriptionVC.self)) as? ProjectDescriptionVC else { return }
         
         viewController.projectDetails = viewModel.projectDetails?[indexPath.row]
+        viewController.viewModel = viewModel
+        viewController.index = indexPath.row
+        viewModel.setCurrentProject(project: viewModel.projectDetails?[indexPath.row])
         navigationController?.pushViewController(viewController, animated: true)
     }
 }

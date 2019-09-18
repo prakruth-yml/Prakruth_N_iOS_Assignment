@@ -179,7 +179,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" alpha="0.65000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6CG-lL-A5S">
-                                        <rect key="frame" x="358" y="0.0" width="48" height="50"/>
+                                        <rect key="frame" x="356" y="0.0" width="50" height="50"/>
                                         <state key="normal" image="icon-close"/>
                                         <connections>
                                             <action selector="closeButtonDidPress:" destination="qvq-F9-ndB" eventType="touchUpInside" id="ijz-CL-lAN"/>
@@ -206,12 +206,10 @@
                                     <constraint firstItem="DkL-Sj-ZdJ" firstAttribute="width" secondItem="SNS-Qw-UkW" secondAttribute="width" id="DBj-4Y-emH"/>
                                     <constraint firstItem="SNS-Qw-UkW" firstAttribute="height" secondItem="bhy-uz-1OR" secondAttribute="height" multiplier="30:350" id="DDN-QJ-xB9"/>
                                     <constraint firstItem="Q4L-ZA-yLn" firstAttribute="bottom" secondItem="27b-X3-3kY" secondAttribute="top" multiplier="0.9428" id="DUu-qK-mNB"/>
-                                    <constraint firstItem="Q4L-ZA-yLn" firstAttribute="top" secondItem="6CG-lL-A5S" secondAttribute="bottom" constant="73.5" id="IhI-cE-WI1"/>
                                     <constraint firstItem="5tf-GD-am9" firstAttribute="centerX" secondItem="bhy-uz-1OR" secondAttribute="centerX" id="OOB-3X-iSC"/>
                                     <constraint firstItem="DkL-Sj-ZdJ" firstAttribute="bottom" secondItem="SNS-Qw-UkW" secondAttribute="top" multiplier="0.9428" id="Och-MU-a3v"/>
                                     <constraint firstItem="SNS-Qw-UkW" firstAttribute="centerX" secondItem="bhy-uz-1OR" secondAttribute="centerX" id="PDr-xD-IF7"/>
                                     <constraint firstItem="27b-X3-3kY" firstAttribute="height" secondItem="SNS-Qw-UkW" secondAttribute="height" id="Plw-vl-M1I"/>
-                                    <constraint firstItem="6CG-lL-A5S" firstAttribute="leading" secondItem="bhy-uz-1OR" secondAttribute="leading" constant="358" id="Qao-s1-riy"/>
                                     <constraint firstItem="5tf-GD-am9" firstAttribute="width" secondItem="Q4L-ZA-yLn" secondAttribute="width" id="Y8V-1m-PXd"/>
                                     <constraint firstItem="SNS-Qw-UkW" firstAttribute="bottom" secondItem="bhy-uz-1OR" secondAttribute="bottom" multiplier="0.7957" id="YLw-s4-XpQ"/>
                                     <constraint firstAttribute="trailing" secondItem="6CG-lL-A5S" secondAttribute="trailing" constant="8" id="bW2-2H-7f2"/>
