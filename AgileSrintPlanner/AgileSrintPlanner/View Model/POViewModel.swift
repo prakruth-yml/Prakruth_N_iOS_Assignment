@@ -6,7 +6,6 @@ import FirebaseUI
 class POViewModel {
     
     private var firebase = FirebaseManager()
-    var productBackLogVM = ProductBacklogsViewModel()
     var projectDetails: [ProjectDetails]?
     var projectMembers: [ProjectMembers]?
     let headings = ["Title", "Domain", "Description"]

@@ -16,8 +16,6 @@ class ViewController: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        GIDSignIn.sharedInstance()?.uiDelegate = self
-        //GIDSignIn.sharedInstance()?.delegate = self
         setupTextFieldDelegates()
         emailSignInButton.imageView?.contentMode = .scaleAspectFit
         NotificationCenter.default.addObserver(self, selector: #selector(moveViewWhenKeyboardAppears), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -47,7 +45,6 @@ class ViewController: BaseVC {
         } else {
             startLoading()
             fireBaseManager.emailUserLogin(email: nameTextField?.text, password: passwordextField?.text) { [weak self] (user, error) in
-                
                 guard let weakSelf = self else { return }
                 
                 if let error = error {
@@ -64,8 +61,10 @@ class ViewController: BaseVC {
                         UserDefaults.standard.set(currentUser?.displayName, forKey: Constants.UserDefaults.currentUserName)
                         UserDefaults.standard.set(currentUser?.uid, forKey: Constants.UserDefaults.currentUserId)
                         UserDefaults.standard.set(currentUser?.email, forKey: Constants.UserDefaults.currentUserEmail)
-                        currentUser?.getIDTokenResult(forcingRefresh: true, completion: { (token, error) in
-                            UserDefaults.standard.set(token?.claims, forKey: Constants.UserDefaults.currentUser)
+                        currentUser?.getIDTokenResult(forcingRefresh: true, completion: { (token, _) in
+                            guard let token = token else { return }
+                            
+                            UserDefaults.standard.set(token.claims, forKey: Constants.UserDefaults.currentUser)
                         })
                         let navigationController = UINavigationController(rootViewController: viewController)
                         weakSelf.present(navigationController, animated: true)
@@ -87,7 +86,6 @@ class ViewController: BaseVC {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         
-        let touch: UITouch? = touches.first
         view.endEditing(true)
     }
     
@@ -98,31 +96,7 @@ class ViewController: BaseVC {
     override func startLoading() {
         super.startLoading()
     }
-    
-//    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-//        if let error = error {
-//            print(error)
-//            return
-//        }
-//        guard let authentication = user.authentication else { return }
-//        
-//        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
-//                                                       accessToken: authentication.accessToken)
-//        Auth.auth().signIn(with: credential) { (authResult, error) in
-//            if let error = error {
-//                print(error)
-//                return
-//            }
-//            
-//            let firebaseAuth = Auth.auth()
-//            do {
-//                try firebaseAuth.signOut()
-//            } catch let signOutError as NSError {
-//                print ("Error signing out: %@", signOutError)
-//            }
-//        }
-//    }
-    
+
     @objc func moveViewWhenKeyboardAppears(notification: Notification) {
         let notificationInfoObj = notification.userInfo
         guard let notificationInfo = notificationInfoObj else { return }
@@ -145,6 +119,7 @@ class ViewController: BaseVC {
 
 extension ViewController: UITextFieldDelegate {
     
+    /// setup textfield delegates
     func setupTextFieldDelegates() {
         passwordextField.delegate = self
         passwordextField.returnKeyType = .done

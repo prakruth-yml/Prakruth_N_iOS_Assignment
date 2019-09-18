@@ -84,6 +84,11 @@ class NewProjectPopOverVC: BaseVC {
         button.setTitleColor(UIColor(red: 1.0, green: 0, blue: 0, alpha: 0.35), for: .normal)
     }
     
+    /// Function to remove a parent view when touched outside the parent view
+    ///
+    /// - Parameters:
+    ///   - touches: UITouch
+    ///   - event: the event
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         
@@ -93,6 +98,7 @@ class NewProjectPopOverVC: BaseVC {
         }
     }
     
+    /// Function to animate pop over effect
     func popOver() {
         view.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
         view.alpha = 0.0

@@ -6,7 +6,6 @@ import FirebaseUI
 class ProductOwnerMainVC: BaseVC {
     
     @IBOutlet private weak var emptyLabel: UILabel!
-    @IBOutlet private weak var listGridButton: UIImageView!
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var addProjectButton: UIButton!
 
@@ -18,7 +17,6 @@ class ProductOwnerMainVC: BaseVC {
         getAndReloadData()
         userSpecificGUI()
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon-user-acc"), style: .plain, target: self, action: #selector(userDisplayButtonDidPress))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icons8-menu-50"), style: .plain, target: self, action: #selector(listImageDidPress))
         addProjectButton.imageView?.contentMode = .scaleToFill
     }
     
@@ -37,10 +35,11 @@ class ProductOwnerMainVC: BaseVC {
         })
     }
     
+    /// Function to setup UI based on current user
     private func userSpecificGUI() {
         guard let role = UserDefaults.standard.object(forKey: Constants.UserDefaults.role) as? String else { return }
         
-        switch role{
+        switch role {
         case Roles.developer.rawValue, Roles.projectManager.rawValue:
             addProjectButton.isHidden = true
         default:
@@ -67,10 +66,6 @@ class ProductOwnerMainVC: BaseVC {
         guard let viewController = storyboard?.instantiateViewController(withIdentifier: String(describing: AccDetailsVC.self)) as? AccDetailsVC else { return }
         
         navigationController?.pushViewController(viewController, animated: true)
-    }
-
-    @objc private func listImageDidPress(_ sender: UITapGestureRecognizer) {
-        
     }
     
     @objc private func projectDeleteButtonDIdTap(_ button: UIButton) {

@@ -27,6 +27,7 @@ class EmailSignInPopUpVC: BaseVC {
         NotificationCenter.default.removeObserver(self)
     }
     
+    /// function to describe animation for popover
     private func popOver() {
         view.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
         view.alpha = 0.0
@@ -50,7 +51,6 @@ class EmailSignInPopUpVC: BaseVC {
         } else {
             startLoading()
             firebaseManager.emailLoginUserCreate(name: nameTextField.text ?? "name", email: emailIdTextField.text ?? "email", password: passwordTextField.text ?? "password") { [weak self] (error) in
-                
                 guard let weakSelf = self else { return }
                 
                 if let error = error {
@@ -69,14 +69,11 @@ class EmailSignInPopUpVC: BaseVC {
             }
         }
     }
-    
-    @IBAction private func gSignInButtonDidPress(_ button: UIButton) {
-    }
-    
 }
 
 extension EmailSignInPopUpVC: UITextFieldDelegate {
     
+    /// function to setup textfield delegates
     func setupTextFieldDelegates() {
         emailIdTextField.delegate = self
         passwordTextField.delegate = self

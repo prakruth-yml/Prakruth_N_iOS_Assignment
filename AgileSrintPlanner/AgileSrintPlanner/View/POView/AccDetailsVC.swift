@@ -13,7 +13,7 @@ class AccDetailsVC: BaseVC {
         super.viewDidLoad()
         
         imageView.layer.cornerRadius = imageView.frame.width / 2
-        getUserDetailsFromFirbase()
+        setUserDetails()
     }
     
     @IBAction private func signOutButtonDidPress(_ button: UIButton) {
@@ -34,19 +34,10 @@ class AccDetailsVC: BaseVC {
         super.stopLoading()
     }
     
-    private func getUserDetailsFromFirbase() {
-        startLoading()
+    /// function to set user details to outlets
+    private func setUserDetails() {
         nameLabel.text = UserDefaults.standard.object(forKey: Constants.UserDefaults.currentUserName) as? String
         emailLabel.text = UserDefaults.standard.object(forKey: Constants.UserDefaults.currentUserEmail) as? String
         roleLabel.text = decideRole(role: UserDefaults.standard.object(forKey: Constants.UserDefaults.role) as? String ?? "")
-        stopLoading()
-//        firebase.getUserDetails { [weak self] profile in
-//            guard let self = self else { return }
-//
-//            self.nameLabel.text = UserDefaults.standard.object(forKey: Constants.UserDefaults.currentUserName) as? String
-//            self.emailLabel.text = UserDefaults.standard.object(forKey: Constants.UserDefaults.currentUserEmail) as? String
-//            self.roleLabel.text = self.decideRole(role: UserDefaults.standard.object(forKey: Constants.UserDefaults.role) as? String ?? "")
-//            self.stopLoading()
-//        }
     }
 }
