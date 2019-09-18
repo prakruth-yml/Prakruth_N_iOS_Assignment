@@ -45,7 +45,7 @@ class NewProjectPopOverVC: BaseVC {
         } else if descpTextField.text?.isEmpty ?? false {
             showAlert(title: Constants.AlertMessages.missingDataAlert, msg: Constants.ProjectValidation.descriptionMissing, actionTitle: Constants.AlertMessages.tryAgainAction)
         } else {
-            stopLoading()
+            startLoading()
             guard let poName = UserDefaults.standard.object(forKey: Constants.UserDefaults.currentUserName) as? String else { return }
             
             viewModel.addNewProject(title: titleTextField?.text ?? "", domain: domainTextField?.text ?? "", descp: descpTextField?.text ?? "", poName: poName) { [weak self] in

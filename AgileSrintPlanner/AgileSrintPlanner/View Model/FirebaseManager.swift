@@ -98,12 +98,27 @@ class FirebaseManager {
     
     func getUserDetails(completion: @escaping ((_ profile: ProfileDetails) -> Void)) {
         ref.child(Constants.FirebaseConstants.employeeTable).observeSingleEvent(of: .value) { (snapshot) in
-            guard let user = Auth.auth().currentUser else { return }
-            
-            completion(ProfileDetails(name: snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: Constants.FirebaseConstants.empName).value as? String ?? "",
-                                      role: snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: Constants.FirebaseConstants.empRole).value as? String ?? "",
-                                      email: snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: Constants.FirebaseConstants.empEmail).value as? String ?? ""))
+            guard let user = Auth.auth().currentUser,
+                  let response = snapshot.children.allObjects as? [DataSnapshot] else { return }
+        
+            for child in response {
+                let responseDict = child.value as? [String:String]
+                if user.email == responseDict?[Constants.FirebaseConstants.empEmail] {
+                    completion(ProfileDetails(name: responseDict?[Constants.FirebaseConstants.empName]  ?? "",
+                                              role: responseDict?[Constants.FirebaseConstants.empRole] ?? "",
+                                              email: responseDict?[Constants.FirebaseConstants.empEmail] ?? ""))
+                }
+            }
         }
+        
+//
+//        ref.child(Constants.FirebaseConstants.employeeTable).observeSingleEvent(of: .value) { (snapshot) in
+//            guard let user = Auth.auth().currentUser else { return }
+//
+//            completion(ProfileDetails(name: snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: Constants.FirebaseConstants.empName).value as? String ?? "",
+//                                      role: snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: Constants.FirebaseConstants.empRole).value as? String ?? "",
+//                                      email: snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: Constants.FirebaseConstants.empEmail).value as? String ?? ""))
+//        }
     }
     
     func gmailLogin() {
@@ -256,8 +271,14 @@ class FirebaseManager {
     func addSprintToProject(projectName: String, sprint: Sprint, completion: @escaping ((Error?) -> Void)) {
         let tableRef = Constants.FirebaseConstants.ProjectTable.Sprint.self
         let childUpdates = [tableRef.title : sprint.title, tableRef.startDate: sprint.startDate, tableRef.endDate: sprint.endDate]
-        ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.Sprint.tableName).updateChildValues(childUpdates) { (error, _) in
+        ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.Sprint.tableName).child(sprint.title).updateChildValues(childUpdates) { (error, _) in
             completion(error)
+        }
+    }
+    
+    func getSprintDetails(projectName: String, completion: @escaping SnapshotResponse) {
+        ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.Sprint.tableName).observeSingleEvent(of: .value) { (snapshot) in
+            completion(snapshot)
         }
     }
 }

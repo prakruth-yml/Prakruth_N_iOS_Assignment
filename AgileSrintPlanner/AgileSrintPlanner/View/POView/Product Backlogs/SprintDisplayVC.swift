@@ -5,14 +5,14 @@ class SprintDisplayVC: BaseVC {
     @IBOutlet private weak var emptyWarningLabel: UILabel!
     @IBOutlet private weak var collectionView: UICollectionView!
     
-    var viewModel = POViewModel()
+    var viewModel: POViewModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = viewModel.currentProjectName ?? "" + " - Sprints"
+        navigationItem.title = viewModel?.currentProject?.data.title ?? "" + " - Sprints"
         userSpecificUI()
-        //set hidden label
+        getAndReloadData()
     }
     
     func userSpecificUI() {
@@ -23,15 +23,32 @@ class SprintDisplayVC: BaseVC {
         }
     }
     
+    func getAndReloadData() {
+//        startLoading()
+        viewModel?.getSprintDetails(projectName: viewModel?.currentProject?.data.title ?? "") { [weak self] in
+            guard let self = self else { return }
+                
+            if self.viewModel?.sprintDetails.isEmpty ?? true {
+                self.emptyWarningLabel.isHidden = false
+//                self.stopLoading()
+            } else {
+                self.emptyWarningLabel.isHidden = true
+            }
+            self.collectionView.reloadData()
+//            self.stopLoading()
+        }
+    }
+    
     @objc private func addSprintButtonDidPress() {
         guard let newSprintVC = storyboard?.instantiateViewController(withIdentifier: String(describing: AddSprintVC.self)) as? AddSprintVC else { return }
         
-//        newSprintVC.callBack = { [weak self] in
-//            guard let self = self else { return }
-//            
-//            self.emptyLabel.isHidden = true
-//            self.getAndReloadData()
-//        }
+        newSprintVC.viewModel = viewModel
+        newSprintVC.callBack = { [weak self] in
+            guard let self = self else { return }
+            
+            self.emptyWarningLabel.isHidden = true
+            self.getAndReloadData()
+        }
         addChild(newSprintVC)
         newSprintVC.view.frame = view.frame
         view.addSubview(newSprintVC.view)
@@ -39,32 +56,18 @@ class SprintDisplayVC: BaseVC {
     }
 }
 
-//extension SprintDisplayVC: UITableViewDelegate, UITableViewDataSource {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 1
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SprintDisplayTVCell.self), for: indexPath) as? SprintDisplayTVCell else { return SprintDisplayTVCell() }
-//
-//        cell.titleLabel.text = "cac"
-//        cell.startDateLabel.text = "cac"
-//        cell.endDateLabel.text = "cdascsa"
-//        return cell
-//    }
-
 extension SprintDisplayVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return viewModel?.sprintDetails.count ?? 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: SprintDisplayCVCell.self), for: indexPath) as? SprintDisplayCVCell else { return SprintDisplayCVCell() }
         
         cell.backgroundColor = UIColor.randomClr()
-        cell.titleLabel.text = "cac"
-        cell.startDateLabel.text = "cac"
-        cell.endDateLabel.text = "cdascsa"
+        cell.titleLabel.text = viewModel?.sprintDetails[indexPath.row].title
+        cell.startDateLabel.text = viewModel?.sprintDetails[indexPath.row].startDate
+        cell.endDateLabel.text = viewModel?.sprintDetails[indexPath.row].endDate
         cell.layer.cornerRadius = 7.0
         return cell
     }
@@ -73,6 +76,14 @@ extension SprintDisplayVC: UICollectionViewDelegate, UICollectionViewDataSource,
         let cellsPerRow = CGFloat(2)
         let availableWidth = collectionView.frame.size.width - CGFloat(Constants.CollectionViewCell.leftSpacing)
         let widthPerItem = availableWidth / cellsPerRow
-        return CGSize(width: widthPerItem, height: widthPerItem / 2)
+        return CGSize(width: widthPerItem, height: 192)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let sprintDescpVC = storyboard?.instantiateViewController(withIdentifier: String(describing: SprintDescriptionVC.self)) as? SprintDescriptionVC else { return }
+        
+        sprintDescpVC.viewModel = viewModel
+        sprintDescpVC.index = indexPath.row
+        navigationController?.pushViewController(sprintDescpVC, animated: true)
     }
 }

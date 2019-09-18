@@ -6,6 +6,7 @@ import FirebaseUI
 class POViewModel {
     
     private var firebase = FirebaseManager()
+    var productBackLogVM = ProductBacklogsViewModel()
     var projectDetails: [ProjectDetails]?
     var projectMembers: [ProjectMembers]?
     let headings = ["Title", "Domain", "Description"]
@@ -13,10 +14,11 @@ class POViewModel {
     var editCondition = false
     var projectRolePicked: String?
     let productBacklog = ["Product Backlogs", "Sprints"]
-    var currentProjectName: String?
+    var currentProject: ProjectDetails?
     var sprintStartDate: String?
     var sprintEndDate: String?
     var currentSprint: Sprint?
+    var sprintDetails: [Sprint] = []
     
     //API Call to firebase to add a new project
     //title: Title of Project; domain: Domain of project to be worked on; descp: Small description of the project; completion: Completion Handler
@@ -145,7 +147,8 @@ class POViewModel {
         firebase.removeTeamMember(projectName: projectName, teamMember: teamMember)
     }
     
-    func addSprint(projectName: String, sprint: Sprint, completion: @escaping ((Error?) -> Void)) {
+    func addSprint(projectName: String, sprint: Sprint?, completion: @escaping ((Error?) -> Void)) {
+        guard let sprint = sprint else { return }
         firebase.addSprintToProject(projectName: projectName, sprint: sprint, completion: completion)
     }
     
@@ -159,5 +162,40 @@ class POViewModel {
     
     func setCurrentSprint(title: String, startDate: String, endDate: String) {
         currentSprint = Sprint(title: title, startDate: startDate, endDate: endDate)
+    }
+    
+    func getSprintDetails(projectName: String, completion: @escaping (() -> Void)) {
+        sprintDetails.removeAll()
+        firebase.getSprintDetails(projectName: projectName) { [weak self] (snapshot) in
+            print(snapshot)
+            if let snapshot = snapshot.children.allObjects as? [DataSnapshot],
+               let self = self {
+                for child in snapshot {
+                    print(child)
+                    guard let sprint = child.value as? [String:String] else { return }
+                    
+                    let title = sprint[Constants.FirebaseConstants.ProjectTable.Sprint.title]
+                    let startData = sprint[Constants.FirebaseConstants.ProjectTable.Sprint.startDate]
+                    let endData = sprint[Constants.FirebaseConstants.ProjectTable.Sprint.endDate]
+                    self.sprintDetails.append(Sprint(title: title ?? "", startDate: startData ?? "", endDate: endData ?? ""))
+                    
+//                    for value in childSnapshot {
+//                        print(value)
+//                        let title = value.childSnapshot(forPath: Constants.FirebaseConstants.ProjectTable.Sprint.title).value as? String ?? ""
+//                        let startData = value.childSnapshot(forPath: Constants.FirebaseConstants.ProjectTable.Sprint.startDate).value as? String ?? ""
+//                        let endData = value.childSnapshot(forPath: Constants.FirebaseConstants.ProjectTable.Sprint.endDate).value as? String ?? ""
+//                        self.sprintDetails.append(Sprint(title: title, startDate: startData, endDate: endData))
+//                    }
+                    print(self.sprintDetails)
+                }
+                completion()
+            } else {
+                completion()
+            }
+        }
+    }
+    
+    func setCurrentProject(project: ProjectDetails) {
+        currentProject = project
     }
 }

@@ -30,6 +30,7 @@ class ProductOwnerMainVC: BaseVC {
             
             if weakSelf.viewModel.projectDetails?.isEmpty ?? true {
                 weakSelf.emptyLabel.isHidden = false
+                self?.stopLoading()
             }
             weakSelf.collectionView.reloadData()
             weakSelf.stopLoading()

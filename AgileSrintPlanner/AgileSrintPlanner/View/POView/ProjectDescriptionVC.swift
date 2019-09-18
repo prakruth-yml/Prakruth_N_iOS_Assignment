@@ -227,6 +227,10 @@ extension ProjectDescriptionVC: UITableViewDelegate, UITableViewDataSource {
         case .sprint?:
             guard let backlogVC = storyboard?.instantiateViewController(withIdentifier: String(describing: SprintDisplayVC.self)) as? SprintDisplayVC else { return }
             
+            backlogVC.viewModel = viewModel
+            guard let projectDetails = projectDetails else { return }
+            
+            viewModel.setCurrentProject(project: projectDetails)
             navigationController?.pushViewController(backlogVC, animated: true)
         default:
             print("")

@@ -15,7 +15,7 @@ class AddSprintVC: BaseVC {
     @IBOutlet private weak var endDate: UIDatePicker!
     @IBOutlet private weak var actualView: UIView!
     
-    var viewModel = POViewModel()
+    var viewModel: POViewModel?
     var callBack: (() -> Void)?
     
     override func viewDidLoad() {
@@ -33,22 +33,37 @@ class AddSprintVC: BaseVC {
         if titleLabel.text?.isEmpty ?? true {
             showAlert(title: Constants.AlertMessages.missingDataAlert, msg: "Sprint Title is Manadatory", actionTitle: Constants.AlertMessages.tryAgainAction)
         } else {
-            viewModel.setCurrentSprint(title: titleLabel.text ?? "", startDate: viewModel.sprintStartDate ?? "", endDate: viewModel.sprintEndDate ?? "")
+            startLoading()
+            viewModel?.setCurrentSprint(title: titleLabel.text ?? "", startDate: viewModel?.sprintStartDate ?? "", endDate: viewModel?.sprintEndDate ?? "")
+            viewModel?.addSprint(projectName: viewModel?.currentProject?.data.title ?? "", sprint: viewModel?.currentSprint) { [weak self] (error) in
+                guard let self = self else { return }
+                
+                if let error = error {
+                    self.stopLoading()
+                    self.showAlert(title: Constants.AlertMessages.errorAlert, msg: error.localizedDescription, actionTitle: Constants.AlertMessages.closeAction)
+                } else {
+                    self.stopLoading()
+                    self.view.removeFromSuperview()
+                    self.showAlert(title: Constants.AlertMessages.successAlert, msg: Constants.AlertMessages.sprintSuccess, actionTitle: Constants.AlertMessages.closeAction)
+                    self.callBack?()
+                }
+            }
         }
     }
     
     @IBAction private func startDatePicked(_ sender: Any) {
         let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
         dateFormatter.dateStyle = DateFormatter.Style.short
         print(dateFormatter.string(from: startdate.date))
-        viewModel.setSprintEndDate(date: dateFormatter.string(from: startdate.date))
+        viewModel?.setSprintStartDate(date: dateFormatter.string(from: startdate.date))
     }
     
     @IBAction private func endDatePicked(_ sender: Any) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = DateFormatter.Style.short
         print(dateFormatter.string(from: endDate.date))
-        viewModel.setSprintEndDate(date: dateFormatter.string(from: endDate.date))
+        viewModel?.setSprintEndDate(date: dateFormatter.string(from: endDate.date))
     }
     
     /// Function to animate the popover effect
@@ -63,12 +78,12 @@ class AddSprintVC: BaseVC {
         })
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        
-        let touch: UITouch? = touches.first
-        if touch?.view != actualView {
-            view.removeFromSuperview()
-        }
-    }
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        super.touchesBegan(touches, with: event)
+//
+//        let touch: UITouch? = touches.first
+//        if touch?.view != actualView {
+//            view.removeFromSuperview()
+//        }
+//    }
 }

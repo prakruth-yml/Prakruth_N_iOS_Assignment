@@ -77,7 +77,7 @@ class Constants {
                 static let tableName = "Sprints"
                 static let title = "Title"
                 static let startDate = "StartDate"
-                static let endDate = "endDate"
+                static let endDate = "EndDate"
             }
         }
     }
@@ -101,6 +101,7 @@ class Constants {
         static let poDeleteWarning = "Not Possible!"
         static let poDeleteMessage = "Can't remove Product Owner"
         static let storySuccess = "Story Added Successfully"
+        static let sprintSuccess = "Sprint Added Successfully"
     }
     
     struct EmailValidation {

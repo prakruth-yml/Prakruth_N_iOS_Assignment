@@ -20,31 +20,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {        
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
-//        if let role = UserDefaults.standard.object(forKey: Constants.UserDefaults.role) as? String {
-//            switch role {
-//            case Roles.developer.rawValue:
-//                guard let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: ProductOwnerMainVC.self)) as? ProductOwnerMainVC else { return true }
-//                let navigationController = UINavigationController(rootViewController: viewController)
-//                window?.rootViewController = navigationController
-//            case Roles.productOwner.rawValue:
-//                guard let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: ProductOwnerMainVC.self)) as? ProductOwnerMainVC else { return true }
-//                let navigationController = UINavigationController(rootViewController: viewController)
-//                window?.rootViewController = navigationController
-//            case Roles.projectManager.rawValue:
-//                print("")
-//            default:
-//                guard let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: ViewController.self)) as? ViewController else { return true }
-//                window?.rootViewController = viewController
-//            }
-//        }
-//        else {
-//            guard let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: ViewController.self)) as? ViewController else { return true }
-//            window?.rootViewController = viewController
-//        }
-        guard let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: ProductOwnerMainVC.self)) as? ProductOwnerMainVC else { return true }
-        let navigationController = UINavigationController(rootViewController: viewController)
-        window?.rootViewController = navigationController
-        window?.makeKeyAndVisible()
+        if let role = UserDefaults.standard.object(forKey: Constants.UserDefaults.role) as? String {
+            guard let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: ProductOwnerMainVC.self)) as? ProductOwnerMainVC else { return true }
+            let navigationController = UINavigationController(rootViewController: viewController)
+            window?.rootViewController = navigationController
+            window?.makeKeyAndVisible()
+        }
+        else {
+            guard let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: ViewController.self)) as? ViewController else { return true }
+            window?.rootViewController = viewController
+        }
+//        guard let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: ProductOwnerMainVC.self)) as? ProductOwnerMainVC else { return true }
+//        let navigationController = UINavigationController(rootViewController: viewController)
+//        window?.rootViewController = navigationController
+//        window?.makeKeyAndVisible()
         return true
     }
     func applicationWillEnterForeground(_ application: UIApplication) {
