@@ -58,7 +58,7 @@
 		AB171B0B232A864E00922E13 /* AddNewTeamMemberVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTeamMemberVC.swift; sourceTree = "<group>"; };
 		AB171B0E232D3E9900922E13 /* StoriesDisplayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesDisplayVC.swift; sourceTree = "<group>"; };
 		AB171B10232D3F9300922E13 /* StoriesDisplayTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesDisplayTVCell.swift; sourceTree = "<group>"; };
-		AB2B3E72231E28AD00B22599 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		AB2B3E72231E28AD00B22599 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AB2E20CB2326352E008AAB12 /* ProjectDescriptionTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDescriptionTVCell.swift; sourceTree = "<group>"; };
 		AB2E20CD23263589008AAB12 /* BaseTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTVCell.swift; sourceTree = "<group>"; };
 		AB2E20CF2326365F008AAB12 /* ProjectDescriptionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDescriptionVC.swift; sourceTree = "<group>"; };

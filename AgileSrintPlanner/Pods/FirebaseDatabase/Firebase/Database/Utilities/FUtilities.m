@@ -119,8 +119,7 @@ void firebaseJobsTroll(void) {
             [decodedPieces addObject:[FStringUtilities urlDecoded:piece]];
         }
     }
-    return [NSString
-        stringWithFormat:@"/%@", [decodedPieces componentsJoinedByString:@"/"]];
+    return [NSString stringWithFormat:@"/%@", [decodedPieces componentsJoinedByString:@"/"]];
 }
 
 + (NSString *)extractPathFromUrlString:(NSString *)url {

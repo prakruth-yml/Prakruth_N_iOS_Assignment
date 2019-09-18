@@ -35,7 +35,7 @@ class SprintDescriptionVC: BaseVC {
         let role = UserDefaults.standard.object(forKey: Constants.UserDefaults.role) as? String ?? ""
         if(role == Roles.projectManager.rawValue) {
             
-            navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "icons8-delete-16"), style: .plain, target: self, action: #selector(deleteSprintButtonDidPress))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icons8-delete-16"), style: .plain, target: self, action: #selector(deleteSprintButtonDidPress))
         }
     }
 }

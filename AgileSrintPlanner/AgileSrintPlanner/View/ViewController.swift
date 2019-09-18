@@ -4,7 +4,7 @@ import Crashlytics
 import GoogleSignIn
 import FirebaseUI
 
-class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
+class ViewController: BaseVC {
     
     @IBOutlet private weak var emailSignInButton: UIButton!
     @IBOutlet private weak var signUpButton: UIButton!
@@ -16,8 +16,8 @@ class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        GIDSignIn.sharedInstance()?.uiDelegate = self
-        GIDSignIn.sharedInstance()?.delegate = self
+//        GIDSignIn.sharedInstance()?.uiDelegate = self
+        //GIDSignIn.sharedInstance()?.delegate = self
         setupTextFieldDelegates()
         emailSignInButton.imageView?.contentMode = .scaleAspectFit
         NotificationCenter.default.addObserver(self, selector: #selector(moveViewWhenKeyboardAppears), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -99,29 +99,29 @@ class ViewController: BaseVC, GIDSignInDelegate, GIDSignInUIDelegate {
         super.startLoading()
     }
     
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        if let error = error {
-            print(error)
-            return
-        }
-        guard let authentication = user.authentication else { return }
-        
-        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
-                                                       accessToken: authentication.accessToken)
-        Auth.auth().signIn(with: credential) { (authResult, error) in
-            if let error = error {
-                print(error)
-                return
-            }
-            
-            let firebaseAuth = Auth.auth()
-            do {
-                try firebaseAuth.signOut()
-            } catch let signOutError as NSError {
-                print ("Error signing out: %@", signOutError)
-            }
-        }
-    }
+//    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+//        if let error = error {
+//            print(error)
+//            return
+//        }
+//        guard let authentication = user.authentication else { return }
+//        
+//        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+//                                                       accessToken: authentication.accessToken)
+//        Auth.auth().signIn(with: credential) { (authResult, error) in
+//            if let error = error {
+//                print(error)
+//                return
+//            }
+//            
+//            let firebaseAuth = Auth.auth()
+//            do {
+//                try firebaseAuth.signOut()
+//            } catch let signOutError as NSError {
+//                print ("Error signing out: %@", signOutError)
+//            }
+//        }
+//    }
     
     @objc func moveViewWhenKeyboardAppears(notification: Notification) {
         let notificationInfoObj = notification.userInfo

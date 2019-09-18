@@ -87,8 +87,7 @@ class FirebaseManager {
                     .instantiateViewController(withIdentifier: String(describing: ProductOwnerMainVC.self))
                 completion(vc, Roles.projectManager.rawValue)
             case Roles.productOwner.rawValue:
-                let vc = UIStoryboard(name: "Main", bundle: nil)
-                    .instantiateViewController(withIdentifier: String(describing: ProductOwnerMainVC.self))
+                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: ProductOwnerMainVC.self))
                 completion(vc, Roles.productOwner.rawValue)
             default:
                 break

@@ -5,7 +5,7 @@ import FirebaseUI
 
 class ProductBacklogsViewModel {
     
-    var poViewModel = POViewModel()
+//    var poViewModel = POViewModel()
     var firebase = FirebaseManager()
     let tableViewDataSource = [Constants.StoryDisplayTableView.textViewCell : ["Summary", "Dscription"], Constants.StoryDisplayTableView.pickerViewCell : ["Issue Type", "Platform"]]
     let pickerIssueTyeps = ["Story", "Task"]
