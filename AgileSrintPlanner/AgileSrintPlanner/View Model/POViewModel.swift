@@ -21,7 +21,7 @@ class POViewModel {
     
     //API Call to firebase to add a new project
     //title: Title of Project; domain: Domain of project to be worked on; descp: Small description of the project; completion: Completion Handler
-    func addNewProject(title: String, domain: String, descp: String, poName: String, completion: @escaping (() -> Void)) {
+    func addNewProject(title: String, domain: String, descp: String, poName: String, completion: @escaping ((Error?) -> Void)) {
         firebase.addNewProjectByPO(title: title, domain: domain, descp: descp, poName: poName, completion: completion)
     }
     
@@ -125,12 +125,12 @@ class POViewModel {
         firebase.deleteChild(name: projectName)
     }
     
-    func addNewTeamMember(projectName: String, teamMember: [String : String], role: String?, email: String,completion: @escaping (() -> Void)) {
-        firebase.addNewTeamMemberToProject(projectName: projectName, member: teamMember, role: role, email: email, completion: completion)
+    func addNewTeamMember(projectName: String, teamMember: [String : String], role: String?, completion: @escaping (() -> Void)) {
+        firebase.addNewTeamMemberToProject(projectName: projectName, member: teamMember, role: role, completion: completion)
     }
     
-    func addDeveloper(projectName: String, teamMember: [String : String], completion: @escaping (() -> Void)) {
-        firebase.addNewDeveloper(projectName: projectName, member: teamMember, completion: completion)
+    func addDeveloper(projectName: String, teamMember: ProfileDetails, completion: @escaping (() -> Void)) {
+        firebase.addNewTeamMemberToProject2(projectName: projectName, member: teamMember, completion: completion)
     }
     
     func getDevelopersForProject(projectName: String) {

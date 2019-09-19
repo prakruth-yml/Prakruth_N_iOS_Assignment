@@ -20,10 +20,9 @@ class AccDetailsVC: BaseVC {
         UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier ?? "") 
         UserDefaults.standard.synchronize()
         
-        firebase.emailUserSignOut { [weak self] in
-            guard let viewController = self?.storyboard?.instantiateViewController(withIdentifier: String(describing: ViewController.self)) as? ViewController else { return }
-            self?.present(viewController, animated: true, completion: nil)
-        }
+        firebase.emailUserSignOut()
+        guard let viewController = storyboard?.instantiateViewController(withIdentifier: String(describing: ViewController.self)) as? ViewController else { return }
+        present(viewController, animated: true, completion: nil)
     }
     
     override func decideRole(role: String) -> String {

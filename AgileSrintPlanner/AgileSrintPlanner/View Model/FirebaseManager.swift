@@ -6,9 +6,18 @@ import FirebaseUI
 class FirebaseManager {
 
     private var ref = Database.database().reference()
+    
     typealias SuccessHandler = ((_ error: Error?) -> Void)
     typealias SnapshotResponse = ((_ response: DataSnapshot) -> Void)
+    typealias BaseCompletionHandler = (() -> Void)
     
+    /// Api call to create user with firebase autheticattion
+    ///
+    /// - Parameters:
+    ///   - name: name of user to create
+    ///   - email: email of the user
+    ///   - password: password of the user
+    ///   - completion: Completion block
     func emailLoginUserCreate(name: String, email: String, password: String, completion: @escaping SuccessHandler) {
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] (authRes, error) in
             guard let weakSelf = self else { return }
@@ -33,15 +42,18 @@ class FirebaseManager {
         }
     }
     
+    /// Api call to check if user is already present in the database
+    ///
+    /// - Parameters:
+    ///   - email: email of the user
+    ///   - completion: Completion block
     func isPresentUserInFirebase(email: String, completion: @escaping ((Bool) -> Void)) {
         ref.child(Constants.FirebaseConstants.employeeTable).observeSingleEvent(of: .value) { (snapshot) in
             guard let response = snapshot.children.allObjects as? [DataSnapshot] else { return }
             
-            
             for child in response {
                 let responseDict = child.value as? [String:String]
-                print(responseDict?["emailId"])
-                if email ==  responseDict?["emailId"] {
+                if email == responseDict?[Constants.FirebaseConstants.empEmail] {
                     completion(true)
                     return 
                 }
@@ -50,20 +62,35 @@ class FirebaseManager {
         }
     }
     
+    /// Api call to autheticate user and login in to application
+    ///
+    /// - Parameters:
+    ///   - email: email of the user
+    ///   - password: password of the user
+    ///   - completion: Completion Block
     func emailUserLogin(email: String?, password: String?, completion: @escaping ((Any?, Error?) -> Void)) {
         guard let email = email,
               let password = password else { return }
         
-        Auth.auth().signIn(withEmail: email, password: password) { user, error in
-            completion(Auth.auth().currentUser as? User, error)
+        Auth.auth().signIn(withEmail: email, password: password) { _, error in
+            completion(Auth.auth().currentUser, error)
         }
     }
     
-    func emailUserSignOut(completion: @escaping (() -> Void)) {
-        try? Auth.auth().signOut()
-        completion()
+    /// Api call to sign out the current user
+    func emailUserSignOut() {
+         do {
+            try Auth.auth().signOut()
+        } catch {
+            print("Couldn't Log out")
+        }
     }
     
+    /// Api call to check the role of the curretn user
+    ///
+    /// - Parameters:
+    ///   - user: The current logged in user
+    ///   - completion: Completion Handler
     func decideUserRole(user: User?, completion: @escaping (UIViewController?, String) -> Void) {
         ref.child(Constants.FirebaseConstants.employeeTable).observeSingleEvent(of: .value) { (snapshot) in
             guard let user = Auth.auth().currentUser,
@@ -72,21 +99,21 @@ class FirebaseManager {
             var role: String = ""
             for child in response {
                 let responseDict = child.value as? [String:String]
-                print("\(user.email) \(responseDict?["emailId"])")
-                if user.email == responseDict?["emailId"] {
-                    role = responseDict?["role"] ?? ""
+                if user.email == responseDict?[Constants.FirebaseConstants.empEmail] {
+                    role = responseDict?[Constants.FirebaseConstants.empRole] ?? ""
                 }
             }
-            switch role {
-            case Roles.developer.rawValue:
+            let roleInSwitch = Roles(rawValue: role)
+            switch roleInSwitch {
+            case .developer?:
                 let vc = UIStoryboard(name: "Main", bundle: nil)
                     .instantiateViewController(withIdentifier: String(describing: ProductOwnerMainVC.self))
                 completion(vc, Roles.developer.rawValue)
-            case Roles.projectManager.rawValue:
+            case .projectManager?:
                 let vc = UIStoryboard(name: "Main", bundle: nil)
                     .instantiateViewController(withIdentifier: String(describing: ProductOwnerMainVC.self))
                 completion(vc, Roles.projectManager.rawValue)
-            case Roles.productOwner.rawValue:
+            case .productOwner?:
                 let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: ProductOwnerMainVC.self))
                 completion(vc, Roles.productOwner.rawValue)
             default:
@@ -95,10 +122,12 @@ class FirebaseManager {
         }
     }
     
+    /// Api call to retreive user details from firebase
+    ///
+    /// - Parameter completion: Completion handler
     func getUserDetails(completion: @escaping ((_ profile: ProfileDetails) -> Void)) {
         ref.child(Constants.FirebaseConstants.employeeTable).observeSingleEvent(of: .value) { (snapshot) in
-            guard let user = Auth.auth().currentUser,
-                  let response = snapshot.children.allObjects as? [DataSnapshot] else { return }
+            guard let user = Auth.auth().currentUser, let response = snapshot.children.allObjects as? [DataSnapshot] else { return }
         
             for child in response {
                 let responseDict = child.value as? [String:String]
@@ -109,40 +138,44 @@ class FirebaseManager {
                 }
             }
         }
-        
-//
-//        ref.child(Constants.FirebaseConstants.employeeTable).observeSingleEvent(of: .value) { (snapshot) in
-//            guard let user = Auth.auth().currentUser else { return }
-//
-//            completion(ProfileDetails(name: snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: Constants.FirebaseConstants.empName).value as? String ?? "",
-//                                      role: snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: Constants.FirebaseConstants.empRole).value as? String ?? "",
-//                                      email: snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: Constants.FirebaseConstants.empEmail).value as? String ?? ""))
-//        }
     }
     
-    func gmailLogin() {
-    }
-    
-    func addNewProjectByPO(title: String, domain: String, descp: String, poName: String, completion: @escaping (() -> Void)) {
-        guard let key = ref.child(Constants.FirebaseConstants.projectsTable).child(title).key else { return }
+    /// Api call to add a new project to database
+    ///
+    /// - Parameters:
+    ///   - title: Title of the project
+    ///   - domain: domain of the project
+    ///   - descp: description of the project
+    ///   - poName: po name of the project
+    ///   - completion: Completion Handler
+    func addNewProjectByPO(title: String, domain: String, descp: String, poName: String, completion: @escaping SuccessHandler) {
         let data = [Constants.FirebaseConstants.projectTitle: title, Constants.FirebaseConstants.projectDomain: domain, Constants.FirebaseConstants.projectDescription: descp]
-//        let members: [String:String] = [poName : Constants.FirebaseConstants.poNameInAddProject]
         let members: [String:String] = [Constants.FirebaseConstants.poNameInAddProject : poName]
         let childUpdates = ["\(Constants.FirebaseConstants.projectsTable)/\(title)/Data":data, "\(Constants.FirebaseConstants.projectsTable)/\(title)/Members": members]
-        ref.updateChildValues(childUpdates)
-        completion()
+        ref.updateChildValues(childUpdates) { (error, _) in
+            DispatchQueue.main.async {
+                completion(error)
+            }
+        }
     }
     
+    /// Api call to get current project Details
+    ///
+    /// - Parameter completion: Completion Handler
     func getProjectDetails(completion: @escaping SnapshotResponse) {
         ref.child(Constants.FirebaseConstants.ProjectTable.name).observeSingleEvent(of: .value) { (snapshot) in
             completion(snapshot)
         }
     }
     
+    /// Function to get current project team members
+    ///
+    /// - Parameters:
+    ///   - project: project Name
+    ///   - completion: completion handler
     func getProjectTeam(project: String, completion: @escaping SnapshotResponse) {
         ref.child(Constants.FirebaseConstants.ProjectTable.name).child(project).child(Constants.FirebaseConstants.ProjectTable.members).observe(.value) { (snapshot) in
             completion(snapshot)
-            print(snapshot)
         }
     }
     
@@ -153,8 +186,8 @@ class FirebaseManager {
     ///   - updates: array of updates of project details.
     ///   - members: array of updates of project members
     ///   - completion: completion handler
-    func updateDetailsOfProject(projectName: String, updates: [String], completion: @escaping (() -> Void)) {
-        var nonDevs: [String : Any] = [:]
+    func updateDetailsOfProject(projectName: String, updates: [String], completion: @escaping BaseCompletionHandler) {
+        var team: [String : Any] = [:]
         var devs: [String : String] = [:]
         ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.members).observeSingleEvent(of: .value) { (snapshot) in
             guard let snapshot = snapshot.children.allObjects as? [DataSnapshot] else { return }
@@ -166,18 +199,21 @@ class FirebaseManager {
                     for eachDev in dev {
                         devs[eachDev.key] = eachDev.value as? String
                     }
-                    nonDevs[Constants.FirebaseConstants.ProjectTable.developers] = devs
+                    team[Constants.FirebaseConstants.ProjectTable.developers] = devs
                 } else {
-                    nonDevs[child.key] = child.value as? String
+                    team[child.key] = child.value as? String
                 }
             }
             let data = [Constants.FirebaseConstants.projectTitle: updates[0], Constants.FirebaseConstants.projectDomain: updates[1], Constants.FirebaseConstants.projectDescription: updates[2]]
-            let childUpdates = ["\(Constants.FirebaseConstants.projectsTable)/\(updates[0])/Data":data, "\(Constants.FirebaseConstants.projectsTable)/\(updates[0])/Members": nonDevs] as [String : Any]
-            self.ref.updateChildValues(childUpdates)
-            if projectName != updates[0] {
-                self.ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).removeValue()
-            }
-            completion()
+            let childUpdates = ["\(Constants.FirebaseConstants.projectsTable)/\(updates[0])/Data":data, "\(Constants.FirebaseConstants.projectsTable)/\(updates[0])/Members": team] as [String : Any]
+            self.ref.updateChildValues(childUpdates, withCompletionBlock: { (_, _) in
+                if projectName != updates[0] {
+                    self.ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).removeValue()
+                }
+                DispatchQueue.main.async {
+                    completion()
+                }
+            })
         }
     }
 
@@ -187,16 +223,48 @@ class FirebaseManager {
     ///   - projectName: name of the project
     ///   - member: the new team member to add
     ///   - completion: completion block
-    func addNewTeamMemberToProject(projectName: String, member: [String : String], role: String?, email: String, completion: @escaping (() -> Void)) {
-        ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.members).updateChildValues(member) { [weak self] (_, _) in
-            var childUpdates: [String:String] = [:]
-            for (key, value) in member {
-                childUpdates = ["emailId": email, "name": value, "role": "PM"]
-            }
-            self?.ref.child(Constants.FirebaseConstants.employeeTable).childByAutoId().updateChildValues(childUpdates)
-            completion()
+    func addNewTeamMemberToProject(projectName: String, member: [String : String], role: String?, completion: @escaping (() -> Void)) {
+        var childUpdates: [String:String] = ["Project Manager": member["Project Manager"] ?? ""]
+        ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.members).updateChildValues(childUpdates) { [weak self] (_, _) in
+                    childUpdates = ["emailId": member["email"], "name": member["Project Manager"], "role": role ?? ""] as? [String : String] ?? ["":""]
+                self?.ref.child(Constants.FirebaseConstants.employeeTable).childByAutoId().updateChildValues(childUpdates, withCompletionBlock: { (_, _) in
+                DispatchQueue.main.async {
+                    completion()
+                }
+            })
         }
     }
+    
+    
+    
+    func addNewTeamMemberToProject2(projectName: String, member: ProfileDetails, completion: @escaping BaseCompletionHandler) {
+        let empChildUpdates = ["name": member.name, "role": member.role, "emailId": member.email]
+        let switchItem = Roles(rawValue: member.role)
+        switch switchItem {
+        case .developer?:
+            let projectChildUpdates = [member.name : member.email]
+        ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.members).child(Constants.FirebaseConstants.ProjectTable.developers).updateChildValues(projectChildUpdates) { [weak self] (_, _) in
+                guard let self = self else { return }
+            
+                self.ref.child(Constants.FirebaseConstants.employeeTable).childByAutoId().updateChildValues(empChildUpdates) { (_, _) in
+                    completion()
+                }
+            }
+        case .projectManager?:
+            let projectChildUpdates = [member.role: member.name]
+            ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.members).updateChildValues(projectChildUpdates) { [weak self] (_, _) in
+                guard let self = self else { return }
+            
+                self.ref.child(Constants.FirebaseConstants.employeeTable).childByAutoId().updateChildValues(empChildUpdates) { (_, _) in
+                    completion()
+                }
+            }
+        default:
+            print("")
+        }
+    }
+    
+    
     
     /// Removes the child from firebase table
     ///

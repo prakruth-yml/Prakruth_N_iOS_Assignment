@@ -179,7 +179,11 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" alpha="0.65000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6CG-lL-A5S">
-                                        <rect key="frame" x="356" y="0.0" width="50" height="50"/>
+                                        <rect key="frame" x="350" y="0.0" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="HYc-gY-QFy"/>
+                                            <constraint firstAttribute="width" constant="50" id="rgF-fo-iRe"/>
+                                        </constraints>
                                         <state key="normal" image="icon-close"/>
                                         <connections>
                                             <action selector="closeButtonDidPress:" destination="qvq-F9-ndB" eventType="touchUpInside" id="ijz-CL-lAN"/>
@@ -212,7 +216,7 @@
                                     <constraint firstItem="27b-X3-3kY" firstAttribute="height" secondItem="SNS-Qw-UkW" secondAttribute="height" id="Plw-vl-M1I"/>
                                     <constraint firstItem="5tf-GD-am9" firstAttribute="width" secondItem="Q4L-ZA-yLn" secondAttribute="width" id="Y8V-1m-PXd"/>
                                     <constraint firstItem="SNS-Qw-UkW" firstAttribute="bottom" secondItem="bhy-uz-1OR" secondAttribute="bottom" multiplier="0.7957" id="YLw-s4-XpQ"/>
-                                    <constraint firstAttribute="trailing" secondItem="6CG-lL-A5S" secondAttribute="trailing" constant="8" id="bW2-2H-7f2"/>
+                                    <constraint firstAttribute="trailing" secondItem="6CG-lL-A5S" secondAttribute="trailing" constant="14" id="bW2-2H-7f2"/>
                                     <constraint firstItem="SNS-Qw-UkW" firstAttribute="width" secondItem="bhy-uz-1OR" secondAttribute="width" multiplier="325:375" id="cbg-ui-rA8"/>
                                     <constraint firstItem="27b-X3-3kY" firstAttribute="width" secondItem="SNS-Qw-UkW" secondAttribute="width" id="dVh-ER-qjO"/>
                                     <constraint firstItem="27b-X3-3kY" firstAttribute="centerX" secondItem="bhy-uz-1OR" secondAttribute="centerX" id="iab-hx-ts5"/>

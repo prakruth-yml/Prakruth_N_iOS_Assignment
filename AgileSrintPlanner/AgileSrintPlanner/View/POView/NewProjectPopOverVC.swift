@@ -48,18 +48,17 @@ class NewProjectPopOverVC: BaseVC {
             startLoading()
             guard let poName = UserDefaults.standard.object(forKey: Constants.UserDefaults.currentUserName) as? String else { return }
             
-            viewModel.addNewProject(title: titleTextField?.text ?? "", domain: domainTextField?.text ?? "", descp: descpTextField?.text ?? "", poName: poName) { [weak self] in
-                guard let weakSelf = self else { return }
-
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
-                    
-                    weakSelf.stopLoading()
-                    weakSelf.showAlert(title: Constants.AlertMessages.successAlert, msg: Constants.ProjectValidation.success, actionTitle: Constants.AlertMessages.closeAction)
-                    self.callback?()
+            viewModel.addNewProject(title: titleTextField?.text ?? "", domain: domainTextField?.text ?? "", descp: descpTextField?.text ?? "", poName: poName) { [weak self] (error) in
+                guard let weakSelf = self, error == nil else {
+                    self?.showAlert(title: Constants.AlertMessages.errorAlert, msg: error?.localizedDescription ?? "", actionTitle: Constants.AlertMessages.closeAction)
+                    return
                 }
+    
+                weakSelf.stopLoading()
+                weakSelf.showAlert(title: Constants.AlertMessages.successAlert, msg: Constants.ProjectValidation.success, actionTitle: Constants.AlertMessages.closeAction)
+                weakSelf.callback?()
+                weakSelf.view.removeFromSuperview()
             }
-            view.removeFromSuperview()
         }
     }
     

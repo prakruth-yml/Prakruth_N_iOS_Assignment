@@ -23,20 +23,20 @@ class AddNewTeamMemberVC: BaseVC {
         } else if !isValidEmail(email: emailTextField.text ?? Constants.NilCoalescingDefaults.string) {
             showAlert(title: Constants.AlertMessages.errorAlert, msg: Constants.EmailValidation.entriesWrongFormat, actionTitle: Constants.AlertMessages.tryAgainAction)
         } else {
-            guard let nameTextField = nameTextField.text else { return }
-            guard let emailTextField = emailTextField.text else { return }
+            guard let nameTextFieldText = nameTextField.text else { return }
+            guard let emailTextFieldText = emailTextField.text else { return }
             startLoading()
-            //FORCED HERE CHECK IT
             if viewModel.projectRolePicked == "Developer" {
-                let teamMember = [nameTextField : emailTextField]
-                viewModel.addDeveloper(projectName: projectName ?? Constants.NilCoalescingDefaults.string, teamMember: teamMember ) { [weak self] in
+                let teamMember = ProfileDetails(name: nameTextFieldText, role: "dev", email: emailTextFieldText)
+                
+                viewModel.addDeveloper(projectName: projectName ?? Constants.NilCoalescingDefaults.string, teamMember: teamMember) { [weak self] in
                     guard let self = self else { return }
                     
                     self.reloadAfterAddingUser()
                 }
             } else {
-                let teamMember = [viewModel.projectRolePicked : nameTextField]
-                viewModel.addNewTeamMember(projectName: projectName ?? Constants.NilCoalescingDefaults.string, teamMember: teamMember as? [String : String] ?? ["":""], role: "PM", email: emailTextField) { [weak self] in
+                let teamMember = Profile
+                viewModel.addNewTeamMember(projectName: projectName ?? Constants.NilCoalescingDefaults.string, teamMember: teamMember as? [String : String] ?? ["":""], role: Roles.projectManager.rawValue) { [weak self] in
                     guard let self = self else { return }
                     
                     self.reloadAfterAddingUser()
