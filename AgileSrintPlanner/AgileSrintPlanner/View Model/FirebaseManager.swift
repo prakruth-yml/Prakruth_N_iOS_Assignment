@@ -6,10 +6,10 @@ import FirebaseUI
 class FirebaseManager {
 
     private var ref = Database.database().reference()
-    
     typealias SuccessHandler = ((_ error: Error?) -> Void)
     typealias SnapshotResponse = ((_ response: DataSnapshot) -> Void)
     typealias BaseCompletionHandler = (() -> Void)
+    typealias ErrorCompletionHandler = ((Error?) -> Void)
     
     /// Api call to create user with firebase autheticattion
     ///
@@ -223,21 +223,7 @@ class FirebaseManager {
     ///   - projectName: name of the project
     ///   - member: the new team member to add
     ///   - completion: completion block
-    func addNewTeamMemberToProject(projectName: String, member: [String : String], role: String?, completion: @escaping (() -> Void)) {
-        var childUpdates: [String:String] = ["Project Manager": member["Project Manager"] ?? ""]
-        ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.members).updateChildValues(childUpdates) { [weak self] (_, _) in
-                    childUpdates = ["emailId": member["email"], "name": member["Project Manager"], "role": role ?? ""] as? [String : String] ?? ["":""]
-                self?.ref.child(Constants.FirebaseConstants.employeeTable).childByAutoId().updateChildValues(childUpdates, withCompletionBlock: { (_, _) in
-                DispatchQueue.main.async {
-                    completion()
-                }
-            })
-        }
-    }
-    
-    
-    
-    func addNewTeamMemberToProject2(projectName: String, member: ProfileDetails, completion: @escaping BaseCompletionHandler) {
+    func addNewTeamMemberToProject(projectName: String, member: ProfileDetails, completion: @escaping ErrorCompletionHandler) {
         let empChildUpdates = ["name": member.name, "role": member.role, "emailId": member.email]
         let switchItem = Roles(rawValue: member.role)
         switch switchItem {
@@ -246,8 +232,10 @@ class FirebaseManager {
         ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.members).child(Constants.FirebaseConstants.ProjectTable.developers).updateChildValues(projectChildUpdates) { [weak self] (_, _) in
                 guard let self = self else { return }
             
-                self.ref.child(Constants.FirebaseConstants.employeeTable).childByAutoId().updateChildValues(empChildUpdates) { (_, _) in
-                    completion()
+                self.ref.child(Constants.FirebaseConstants.employeeTable).child(member.name).updateChildValues(empChildUpdates) { (error, _) in
+                    DispatchQueue.main.async {
+                        completion(error)
+                    }
                 }
             }
         case .projectManager?:
@@ -255,8 +243,10 @@ class FirebaseManager {
             ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.members).updateChildValues(projectChildUpdates) { [weak self] (_, _) in
                 guard let self = self else { return }
             
-                self.ref.child(Constants.FirebaseConstants.employeeTable).childByAutoId().updateChildValues(empChildUpdates) { (_, _) in
-                    completion()
+                self.ref.child(Constants.FirebaseConstants.employeeTable).childByAutoId().updateChildValues(empChildUpdates) { (error, _) in
+                    DispatchQueue.main.async {
+                        completion(error)
+                    }
                 }
             }
         default:
@@ -264,40 +254,23 @@ class FirebaseManager {
         }
     }
     
-    
-    
     /// Removes the child from firebase table
     ///
     /// - Parameter name: name of child
-    func deleteChild(name: String) {
-        ref.child(Constants.FirebaseConstants.ProjectTable.name).child(name).removeValue()
-    }
-    
-    /// Adds a new developer to the firebase database
-    ///
-    /// - Parameters:
-    ///   - projectName: name of the project of the team member
-    ///   - member: details of the member
-    ///   - role: role of the member
-    ///   - completion: completion Handler
-    func addNewDeveloper(projectName: String, member: [String : String],completion: @escaping (() -> Void)) {
-        ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.members).child(Constants.FirebaseConstants.ProjectTable.developers).updateChildValues(member) { [weak self] (_, _) in
-            var childUpdates: [String:String] = [:]
-            for (key, value) in member {
-                childUpdates = ["emailId": value, "name": key, "role": "dev"]
+    func deleteChild(name: String, completion: @escaping ErrorCompletionHandler) {
+        ref.child(Constants.FirebaseConstants.ProjectTable.name).child(name).removeValue { (error, _) in
+            DispatchQueue.main.async {
+                completion(error)
             }
-            self?.ref.child(Constants.FirebaseConstants.employeeTable).childByAutoId().updateChildValues(childUpdates)
-            completion()
         }
     }
-    
+
     /// Function to make an API call remove a team member from database
     ///
     /// - Parameters:
     ///   - projectName: The project to which the member belongs to
     ///   - teamMember: The team member to remove
     func removeTeamMember(projectName: String, teamMember: TeamMember) {
-        
         if teamMember.role != Constants.FirebaseConstants.ProjectTable.developer {
         ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.members).child(teamMember.role).removeValue()
         } else {
@@ -311,7 +284,7 @@ class FirebaseManager {
     ///   - projectName: name of project
     ///   - story: the details of story to add
     ///   - completion: completion handle
-    func addStory(projectName: String, story: [String], completion: @escaping ((Error?) -> Void)) {
+    func addStory(projectName: String, story: [String], completion: @escaping ErrorCompletionHandler) {
         let storyRef = Constants.FirebaseConstants.ProjectTable.Stories.self
         let updateDetails = [storyRef.title: story[0], storyRef.summary: story[2], storyRef.description:story[3], storyRef.platform: story[4], storyRef.status: story[5]]
     ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.Stories.tableName).child(updateDetails[storyRef.title] ?? "").updateChildValues(updateDetails) { (error, _) in

@@ -3,7 +3,7 @@ import Firebase
 import FirebaseDatabase
 import FirebaseUI
 
-class POViewModel {
+class POViewModel: BaseVM {
     
     private var firebase = FirebaseManager()
     var projectDetails: [ProjectDetails]?
@@ -121,20 +121,12 @@ class POViewModel {
     /// Removes the project from firebase table
     ///
     /// - Parameter projectName: name of project
-    func removeProject(projectName: String) {
-        firebase.deleteChild(name: projectName)
+    func removeProject(projectName: String, comppletion: @escaping ErrorCompletionHandler) {
+        firebase.deleteChild(name: projectName, completion: comppletion)
     }
     
-    func addNewTeamMember(projectName: String, teamMember: [String : String], role: String?, completion: @escaping (() -> Void)) {
-        firebase.addNewTeamMemberToProject(projectName: projectName, member: teamMember, role: role, completion: completion)
-    }
-    
-    func addDeveloper(projectName: String, teamMember: ProfileDetails, completion: @escaping (() -> Void)) {
-        firebase.addNewTeamMemberToProject2(projectName: projectName, member: teamMember, completion: completion)
-    }
-    
-    func getDevelopersForProject(projectName: String) {
-        
+    func addNewTeamMember(projectName: String, teamMember: ProfileDetails, completion: @escaping ErrorCompletionHandler) {
+        firebase.addNewTeamMemberToProject(projectName: projectName, member: teamMember, completion: completion)
     }
     
     /// Function to remove a team member

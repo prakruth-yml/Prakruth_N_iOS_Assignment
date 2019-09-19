@@ -26,21 +26,15 @@ class AddNewTeamMemberVC: BaseVC {
             guard let nameTextFieldText = nameTextField.text else { return }
             guard let emailTextFieldText = emailTextField.text else { return }
             startLoading()
-            if viewModel.projectRolePicked == "Developer" {
-                let teamMember = ProfileDetails(name: nameTextFieldText, role: "dev", email: emailTextFieldText)
-                
-                viewModel.addDeveloper(projectName: projectName ?? Constants.NilCoalescingDefaults.string, teamMember: teamMember) { [weak self] in
-                    guard let self = self else { return }
-                    
-                    self.reloadAfterAddingUser()
+            let teamMember = ProfileDetails(name: nameTextFieldText, role: "dev", email: emailTextFieldText)
+            
+            viewModel.addNewTeamMember(projectName: projectName ?? Constants.NilCoalescingDefaults.string, teamMember: teamMember) { [weak self] (error) in
+                guard let weakSelf = self, error == nil else {
+                    self?.showAlert(title: Constants.AlertMessages.errorAlert, msg: error?.localizedDescription ?? "", actionTitle: Constants.AlertMessages.closeAction)
+                    return
                 }
-            } else {
-                let teamMember = Profile
-                viewModel.addNewTeamMember(projectName: projectName ?? Constants.NilCoalescingDefaults.string, teamMember: teamMember as? [String : String] ?? ["":""], role: Roles.projectManager.rawValue) { [weak self] in
-                    guard let self = self else { return }
-                    
-                    self.reloadAfterAddingUser()
-                }
+    
+                weakSelf.reloadAfterAddingUser()
             }
         }
     }

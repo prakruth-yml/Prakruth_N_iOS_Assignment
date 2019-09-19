@@ -23,35 +23,24 @@ class AddNewStoryVC: BaseVC {
     
     /// Function to make api call to add story to database
     private func addStory() {
-        viewModel.storyDetailsToAdd?.removeAll()
-        if viewModel.storyDetailsToAdd?.append(titleTextField.text ?? Constants.NilCoalescingDefaults.string) == nil {
-            viewModel.storyDetailsToAdd = [titleTextField.text ?? Constants.NilCoalescingDefaults.string]
-        }
+        viewModel.storyDetailsToAdd.removeAll()
+        viewModel.storyDetailsToAdd.append(titleTextField.text ?? "")
         for row in 0..<Constants.StoryDisplayTableView.numberOfRows {
-            let cellItem = Constants.StoryDisplayTableView.CellToChoose(rawValue: row)
+            guard let cellItem = Constants.StoryDisplayTableView.CellTag(rawValue: row) else { return }
             switch cellItem {
-            case .issueType?:
-                if viewModel.storyDetailsToAdd?.append(viewModel.newTaskPicked) == nil {
-                    viewModel.storyDetailsToAdd = [viewModel.newTaskPicked]
-                }
-            case .platform?:
-                if viewModel.storyDetailsToAdd?.append(viewModel.newPlatformPicked) == nil {
-                    viewModel.storyDetailsToAdd = [viewModel.newPlatformPicked]
-                }
-            case .summary?, .descp?:
+            case .issueType:
+                viewModel.storyDetailsToAdd.append(viewModel.newTaskPicked)
+            case .platform:
+                viewModel.storyDetailsToAdd.append(viewModel.newPlatformPicked)
+            case .summary, .descp:
                 guard let cell = tableView.cellForRow(at: IndexPath(row: row, section: 0)) as? AddNewStoryTextViewTVCell else { return }
                 
-                if viewModel.storyDetailsToAdd?.append(cell.descpTextView.text ?? Constants.NilCoalescingDefaults.string) == nil {
-                    viewModel.storyDetailsToAdd = [cell.descpTextView.text ?? Constants.NilCoalescingDefaults.string]
-                }
-            default:
-                print("")
+                viewModel.storyDetailsToAdd.append(cell.descpTextView.text ?? "")
             }
         }
-        viewModel.storyDetailsToAdd?.append(Constants.FirebaseConstants.ProjectTable.Stories.status)
+        viewModel.storyDetailsToAdd.append(Constants.FirebaseConstants.ProjectTable.Stories.status)
         startLoading()
-//        navigationController?.popViewController(animated: true)
-        viewModel.addStoryToFirebase(projectName: projectName ?? Constants.NilCoalescingDefaults.string, story: viewModel.storyDetailsToAdd ?? [""]) { [weak self] (error) in
+        viewModel.addStoryToFirebase(projectName: projectName ?? Constants.NilCoalescingDefaults.string, story: viewModel.storyDetailsToAdd) { [weak self] (error) in
             guard let self = self else { return }
             if let error = error {
                 self.stopLoading()
@@ -74,12 +63,12 @@ extension AddNewStoryVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellItem = Constants.StoryDisplayTableView.CellToChoose(rawValue: indexPath.row)
+        let cellItem = Constants.StoryDisplayTableView.CellTag(rawValue: indexPath.row)
         switch cellItem {
         case .issueType?:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddNewStoryDataPickerTVCell.self), for: indexPath) as? AddNewStoryDataPickerTVCell else { return AddNewStoryDataPickerTVCell() }
             
-            cell.fieldDataPicker.tag = Constants.StoryDisplayTableView.CellToChoose.issueType.rawValue
+            cell.fieldDataPicker.tag = Constants.StoryDisplayTableView.CellTag.issueType.rawValue
             cell.fieldDataPicker.dataSource = self
             cell.fieldDataPicker.delegate = self
             cell.setupCell(title: "Issue Type")
@@ -100,7 +89,7 @@ extension AddNewStoryVC: UITableViewDataSource, UITableViewDelegate {
             cell.setupCell(title: "Platform")
             cell.fieldDataPicker.dataSource = self
             cell.fieldDataPicker.delegate = self
-            cell.fieldDataPicker.tag = Constants.StoryDisplayTableView.CellToChoose.platform.rawValue
+            cell.fieldDataPicker.tag = Constants.StoryDisplayTableView.CellTag.platform.rawValue
             return cell
         default:
             return AddNewStoryTextViewTVCell()
@@ -124,9 +113,9 @@ extension AddNewStoryVC: UIPickerViewDataSource, UIPickerViewDelegate {
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch  pickerView.tag {
-        case Constants.StoryDisplayTableView.CellToChoose.issueType.rawValue:
+        case Constants.StoryDisplayTableView.CellTag.issueType.rawValue:
             return viewModel.pickerIssueTyeps.count
-        case Constants.StoryDisplayTableView.CellToChoose.platform.rawValue:
+        case Constants.StoryDisplayTableView.CellTag.platform.rawValue:
             return viewModel.pickerPlatforms.count
         default:
             return 1
@@ -135,9 +124,9 @@ extension AddNewStoryVC: UIPickerViewDataSource, UIPickerViewDelegate {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch  pickerView.tag {
-        case Constants.StoryDisplayTableView.CellToChoose.issueType.rawValue:
+        case Constants.StoryDisplayTableView.CellTag.issueType.rawValue:
             viewModel.newTaskPicked = viewModel.pickerIssueTyeps[row]
-        case Constants.StoryDisplayTableView.CellToChoose.platform.rawValue:
+        case Constants.StoryDisplayTableView.CellTag.platform.rawValue:
             viewModel.newPlatformPicked = viewModel.pickerPlatforms[row]
         default:
             print("")
@@ -146,9 +135,9 @@ extension AddNewStoryVC: UIPickerViewDataSource, UIPickerViewDelegate {
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch  pickerView.tag {
-        case Constants.StoryDisplayTableView.CellToChoose.issueType.rawValue:
+        case Constants.StoryDisplayTableView.CellTag.issueType.rawValue:
             return viewModel.pickerIssueTyeps[row]
-        case Constants.StoryDisplayTableView.CellToChoose.platform.rawValue:
+        case Constants.StoryDisplayTableView.CellTag.platform.rawValue:
             return viewModel.pickerPlatforms[row]
         default:
             return ""

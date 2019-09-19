@@ -12,7 +12,7 @@ class ProductBacklogsViewModel {
     let pickerPlatforms = ["iOS", "Android", "Backend", "Frontend"]
     var newPlatformPicked: String = "iOS"
     var newTaskPicked: String = "Story"
-    var storyDetailsToAdd: [String]?
+    var storyDetailsToAdd: [String] = []
     var storyResponse: [Story]?
     let displayTitle = ["Issue Type", "Summary", "Description", "Platform", "Status"]
     var dataSrc: [String]?

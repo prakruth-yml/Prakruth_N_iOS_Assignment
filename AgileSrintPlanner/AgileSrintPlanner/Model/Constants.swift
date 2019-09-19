@@ -169,7 +169,7 @@ class Constants {
         static let numberOfRows = 4
         static let textViewCell = 0
         static let pickerViewCell = 1
-        enum CellToChoose: Int {
+        enum CellTag: Int {
             case issueType = 0
             case summary = 1
             case descp = 2

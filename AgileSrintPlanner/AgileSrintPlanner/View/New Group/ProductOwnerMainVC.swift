@@ -75,8 +75,13 @@ class ProductOwnerMainVC: BaseVC {
             guard let self = self else { return }
             
             let projectTitle = self.viewModel.projectDetails?[button.tag].data.title
-            self.viewModel.removeProject(projectName: projectTitle ?? Constants.NilCoalescingDefaults.string)
-            self.getAndReloadData()
+            self.viewModel.removeProject(projectName: projectTitle ?? "") { (error) in
+                if let error = error {
+                    self.showAlert(title: Constants.AlertMessages.errorAlert, msg: error.localizedDescription, actionTitle: Constants.AlertMessages.closeAction)
+                } else {
+                    self.getAndReloadData()
+                }
+            }
         }
         showAlert(title: Constants.AlertMessages.confirmDelete, msg: Constants.AlertMessages.deleteMessage, alertStyle: .alert, actions: [closeAction, deleteAction])
     }
