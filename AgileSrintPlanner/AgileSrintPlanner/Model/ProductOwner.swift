@@ -1,6 +1,11 @@
 struct ProjectDetails {
     var data: Data
     var teamMember: [TeamMember]
+    
+    func getDataAtIndex(index: Int) -> String {
+        let array = [data.title, data.descp, data.domain]
+        return array[index]
+    }
 }
 
 struct Data {
@@ -24,4 +29,4 @@ struct ProfileDetails {
     var email: String
 }
 
-let projectRoles = ["Project Manager", "Developer"]
+let projectRoles = ["PM", "dev"]

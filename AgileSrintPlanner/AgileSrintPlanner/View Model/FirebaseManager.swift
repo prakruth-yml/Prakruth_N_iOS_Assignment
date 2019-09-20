@@ -164,7 +164,9 @@ class FirebaseManager {
     /// - Parameter completion: Completion Handler
     func getProjectDetails(completion: @escaping SnapshotResponse) {
         ref.child(Constants.FirebaseConstants.ProjectTable.name).observeSingleEvent(of: .value) { (snapshot) in
-            completion(snapshot)
+            DispatchQueue.main.async {
+                completion(snapshot)
+            }
         }
     }
     
@@ -243,7 +245,7 @@ class FirebaseManager {
             ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.members).updateChildValues(projectChildUpdates) { [weak self] (_, _) in
                 guard let self = self else { return }
             
-                self.ref.child(Constants.FirebaseConstants.employeeTable).childByAutoId().updateChildValues(empChildUpdates) { (error, _) in
+                self.ref.child(Constants.FirebaseConstants.employeeTable).child(member.name).updateChildValues(empChildUpdates) { (error, _) in
                     DispatchQueue.main.async {
                         completion(error)
                     }
@@ -289,18 +291,31 @@ class FirebaseManager {
         let updateDetails = [storyRef.title: story[0], storyRef.summary: story[2], storyRef.description:story[3], storyRef.platform: story[4], storyRef.status: story[5]]
     ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.Stories.tableName).child(updateDetails[storyRef.title] ?? "").updateChildValues(updateDetails) { (error, _) in
         
-            completion(error)
+            DispatchQueue.main.async {
+                completion(error)
+            }
         }
     }
     
+    /// API Call to fetch details of all stories in the project
+    ///
+    /// - Parameters:
+    ///   - projectName: name of the project
+    ///   - completion: commpletion handler
     func getStoryDetails(projectName: String, completion: @escaping SnapshotResponse) {
         ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.Stories.tableName).observeSingleEvent(of: .value) { (snapshot) in
-            completion(snapshot)
+            DispatchQueue.main.async {
+                completion(snapshot)
+            }
         }
     }
     
-    func removeStory(projectName: String, storyName: String) {
-        ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.Stories.tableName).child(storyName).removeValue()
+    func removeStory(projectName: String, storyName: String, completion: @escaping ErrorCompletionHandler) {
+        ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.Stories.tableName).child(storyName).removeValue { (error, _) in
+            DispatchQueue.main.async {
+                completion(error)
+            }
+        }
     }
     
     /// Function to add a sprint to database
@@ -308,17 +323,26 @@ class FirebaseManager {
     /// - Parameters:
     ///   - projectName: Name of project
     ///   - sprint: Sprint to add
-    func addSprintToProject(projectName: String, sprint: Sprint, completion: @escaping ((Error?) -> Void)) {
+    func addSprintToProject(projectName: String, sprint: Sprint, completion: @escaping ErrorCompletionHandler) {
         let tableRef = Constants.FirebaseConstants.ProjectTable.Sprint.self
         let childUpdates = [tableRef.title : sprint.title, tableRef.startDate: sprint.startDate, tableRef.endDate: sprint.endDate]
         ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.Sprint.tableName).child(sprint.title).updateChildValues(childUpdates) { (error, _) in
-            completion(error)
+            DispatchQueue.main.async {
+                completion(error)
+            }
         }
     }
     
+    /// API Call to fetch details fo the current project sprint details
+    ///
+    /// - Parameters:
+    ///   - projectName: current project name
+    ///   - completion: completion handler
     func getSprintDetails(projectName: String, completion: @escaping SnapshotResponse) {
         ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.Sprint.tableName).observeSingleEvent(of: .value) { (snapshot) in
-            completion(snapshot)
+            DispatchQueue.main.async {
+                completion(snapshot)
+            }
         }
     }
 }

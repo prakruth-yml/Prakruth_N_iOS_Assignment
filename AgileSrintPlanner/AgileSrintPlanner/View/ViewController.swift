@@ -13,13 +13,15 @@ class ViewController: BaseVC {
     
     var fireBaseManager = FirebaseManager()
     
+    deinit {
+        print("MAina VC deinit")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupTextFieldDelegates()
-        emailSignInButton.imageView?.contentMode = .scaleAspectFit
-        NotificationCenter.default.addObserver(self, selector: #selector(moveViewWhenKeyboardAppears), name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(moveViewWhenKeyboardAppears), name: UIResponder.keyboardWillShowNotification, object: nil)
+        setupTextFieldDelegates(textField: nameTextField, returnType: .next)
+        setupTextFieldDelegates(textField: passwordextField, returnType: .done)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -29,6 +31,7 @@ class ViewController: BaseVC {
     }
     
     @IBAction private func newUserButtonDidPress(_ button: UIButton) {
+        NotificationCenter.default.removeObserver(self)
         guard let popVC = self.storyboard?.instantiateViewController(withIdentifier: String(describing: EmailSignInPopUpVC.self)) as? EmailSignInPopUpVC else { return }
         
         addChild(popVC)
@@ -66,8 +69,11 @@ class ViewController: BaseVC {
                             
                             UserDefaults.standard.set(token.claims, forKey: Constants.UserDefaults.currentUser)
                         })
-                        let navigationController = UINavigationController(rootViewController: viewController)
-                        weakSelf.present(navigationController, animated: true)
+                        DispatchQueue.main.async {
+                            let navigationController = UINavigationController(rootViewController: viewController)
+//                            weakSelf.dismiss(animated: true, completion: nil)
+                            weakSelf.present(navigationController, animated: true)
+                        }
                     }
                 }
                 weakSelf.stopLoading()
@@ -95,40 +101,5 @@ class ViewController: BaseVC {
     
     override func startLoading() {
         super.startLoading()
-    }
-
-    @objc func moveViewWhenKeyboardAppears(notification: Notification) {
-        let notificationInfoObj = notification.userInfo
-        guard let notificationInfo = notificationInfoObj else { return }
-        
-        if notification.name == UIResponder.keyboardWillShowNotification {
-            if let keyBoardFrame = (notificationInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-                if self.view.frame.origin.y == 0 {
-                    self.view.frame.origin.y -= keyBoardFrame.height
-                }
-            } else {
-                return
-            }
-        } else if notification.name == UIResponder.keyboardWillHideNotification {
-            if self.view.frame.origin.y != 0 {
-                self.view.frame.origin.y = 0
-            }
-        }
-    }
-}
-
-extension ViewController: UITextFieldDelegate {
-    
-    /// setup textfield delegates
-    func setupTextFieldDelegates() {
-        passwordextField.delegate = self
-        passwordextField.returnKeyType = .done
-        nameTextField.delegate = self
-        nameTextField.returnKeyType = .next
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
     }
 }

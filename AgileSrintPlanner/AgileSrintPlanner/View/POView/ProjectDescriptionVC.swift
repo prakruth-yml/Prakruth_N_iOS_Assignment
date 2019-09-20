@@ -6,18 +6,18 @@ class ProjectDescriptionVC: BaseVC {
     @IBOutlet private weak var newUserButton: UIButton!
     @IBOutlet private weak var actualView: UIView!
     
-    var projectDetails: ProjectDetails?
-    var projectDetailsArr: [String] = []
-    var updateDetails: [String] = []
-    var viewModel: POViewModel?
+    weak var viewModel: POViewModel?
     var index: Int?
     var teamMembersToRemove: [Int] = []
+    
+    deinit {
+        print("Project Descp deinit")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         userSpecificUI()
-        projectDetailsArr = [projectDetails?.data.title, projectDetails?.data.domain, projectDetails?.data.descp] as? [String] ?? [""]
         navigationItem.title = viewModel?.projectDetails?[index ?? 0].data.title
         tableView.tableFooterView = UIView()
         newUserButton.layer.cornerRadius = newUserButton.imageView?.frame.width ?? 1.0 / 2
@@ -27,7 +27,7 @@ class ProjectDescriptionVC: BaseVC {
         super.touchesBegan(touches, with: event)
         
         let touch: UITouch? = touches.first
-        if touch?.view != actualView {
+        if touch?.view == view {
             view.removeFromSuperview()
         }
     }
@@ -40,8 +40,7 @@ class ProjectDescriptionVC: BaseVC {
             guard let self = self else { return }
          
             self.getCurrentProjectDetails(projectName: projectName)
-            self.projectDetailsArr = [self.projectDetails?.data.title, self.projectDetails?.data.domain, self.projectDetails?.data.descp] as? [String] ?? [""]
-            self.navigationItem.title = self.projectDetailsArr.first
+            self.navigationItem.title = projectName
             self.tableView.reloadData()
             guard let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: Constants.ProjectDescription.Sections.team.rawValue)) as? TeamMembersTVCell else { return }
             
@@ -52,34 +51,31 @@ class ProjectDescriptionVC: BaseVC {
     private func getCurrentProjectDetails(projectName: String) {
         guard let projectDetailsToSearch = viewModel?.projectDetails else { return }
         
-        for project in projectDetailsToSearch {
-            if project.data.title == projectName {
-                projectDetails = project
-                return
-            }
+        for project in projectDetailsToSearch where project.data.title == projectName {
+            viewModel?.setCurrentProject(project: project)
+            return
         }
     }
     
     //Edit button action function
     @objc func editNavBarItemDidPress() {
         if viewModel?.editCondition == false {
-            viewModel?.editCondition = true
             newUserButton.isHidden = false
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constants.NavigationBarConstants.doneTitle, style: .done, target: self, action: #selector(editNavBarItemDidPress))
             navigationItem.hidesBackButton = true
             guard let tvCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as? TeamMembersTVCell else { return }
             
             tvCell.collectionView.reloadData()
-    
-            self.tableView.reloadData()
+            tableView.reloadData()
+            viewModel?.reverseEditCondition()
         } else {
-            updateDetails.removeAll()
+            var updateDetails: [String] = []
             for row in 0..<Constants.ProjectDescription.rowsInDescription {
                 guard let cell = tableView.cellForRow(at: IndexPath(row: row, section: 0)) as? ProjectDescriptionTVCell else { return }
             
                 updateDetails.append(cell.textToDisplay.text)
             }
-            viewModel?.editCondition = false
+            viewModel?.reverseEditCondition()
             newUserButton.isHidden = true
             guard let tvCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as? TeamMembersTVCell else { return }
             
@@ -87,30 +83,27 @@ class ProjectDescriptionVC: BaseVC {
                 #selector(editNavBarItemDidPress))
             navigationItem.hidesBackButton = false
             let confirmAction = UIAlertAction(title: Constants.AlertMessages.confirmChanges, style: .default) { [weak self] (_) in
-                guard let self = self,
-                      let poName = UserDefaults.standard.object(forKey: Constants.UserDefaults.currentUserName) as? String,
-                      let projectDetails = self.projectDetails else { return }
+                guard let self = self else { return }
                 
                 self.startLoading()
                 for index in self.teamMembersToRemove {
-                    self.viewModel?.removeTeamMember(projectName: self.projectDetailsArr[0], teamMember: projectDetails.teamMember[index])
+                    self.viewModel?.removeTeamMember(projectName: self.viewModel?.currentProject?.data.title ?? "", teamMember: self.viewModel?.currentProject?.teamMember[index])
                 }
                 self.teamMembersToRemove.removeAll()
-                self.viewModel?.updateDetailsOfProject(title: self.projectDetailsArr.first ?? Constants.NilCoalescingDefaults.string, updateDetails: self.updateDetails) { [weak self] in
+                self.viewModel?.updateDetailsOfProject(title: self.viewModel?.currentProject?.data.title ?? "", updateDetails: updateDetails) { [weak self] in
                     guard let self = self else { return }
                     
-                    self.getAndReloadData(projectName: self.updateDetails[0])
+                    self.getAndReloadData(projectName: updateDetails[0])
                     self.stopLoading()
                     self.showAlert(title: Constants.AlertMessages.successAlert, msg: Constants.AlertMessages.successUpdate, actionTitle: Constants.AlertMessages.closeAction)
                 }
                 tvCell.collectionView.reloadData()
             }
             let declineAction = UIAlertAction(title: Constants.AlertMessages.checkAgain, style: .cancel) { [weak self] (_) in
-                guard let self = self,
-                    let poName = UserDefaults.standard.object(forKey: Constants.UserDefaults.currentUserName) as? String else { return }
+                guard let self = self else { return }
 
                 self.startLoading()
-                self.getAndReloadData(projectName: self.projectDetailsArr.first ?? Constants.NilCoalescingDefaults.string)
+                self.getAndReloadData(projectName: self.viewModel?.currentProject?.data.title ?? "")
                 self.stopLoading()
             }
             showAlert(title: Constants.AlertMessages.confirmChanges, msg: Constants.AlertMessages.confirmMessage, alertStyle: .alert, actions: [confirmAction, declineAction])
@@ -120,7 +113,7 @@ class ProjectDescriptionVC: BaseVC {
     @objc private func cancelButtonDidPress() {
         
         self.startLoading()
-        self.getAndReloadData(projectName: self.projectDetailsArr.first ?? Constants.NilCoalescingDefaults.string)
+        self.getAndReloadData(projectName: viewModel?.currentProject?.data.title ?? "")
         self.stopLoading()
     }
     
@@ -128,12 +121,11 @@ class ProjectDescriptionVC: BaseVC {
         guard let newMemberVC = storyboard?.instantiateViewController(withIdentifier: String(describing:AddNewTeamMemberVC.self)) as? AddNewTeamMemberVC else { return }
         
         newMemberVC.callback = { [weak self] in
-            guard let self = self,
-                  let projectName = self.projectDetailsArr.first else { return }
+            guard let self = self else { return }
             
-            self.getAndReloadData(projectName: projectName)
+            self.getAndReloadData(projectName: self.viewModel?.currentProject?.data.title ?? "")
         }
-        newMemberVC.projectName = projectDetailsArr.first
+        newMemberVC.projectName = self.viewModel?.currentProject?.data.title ?? ""
         addChild(newMemberVC)
         newMemberVC.view.frame = view.frame
         view.addSubview(newMemberVC.view)
@@ -180,7 +172,7 @@ extension ProjectDescriptionVC: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProjectDescriptionTVCell.self), for: indexPath) as? ProjectDescriptionTVCell else { return ProjectDescriptionTVCell() }
             
             cell.label.text = viewModel?.headings[indexPath.row]
-            cell.textToDisplay.text = projectDetailsArr[indexPath.row]
+            cell.textToDisplay.text = viewModel?.currentProject?.getDataAtIndex(index: indexPath.row)
             if viewModel?.editCondition == true{
                 if indexPath.row != 0 {
                     cell.textToDisplay.isUserInteractionEnabled = true
@@ -226,15 +218,13 @@ extension ProjectDescriptionVC: UITableViewDelegate, UITableViewDataSource {
         case .backlog?:
             guard let backlogVC = storyboard?.instantiateViewController(withIdentifier: String(describing: StoriesDisplayVC.self)) as? StoriesDisplayVC else { return }
             
-            backlogVC.projectName = projectDetailsArr[0]
+            backlogVC.projectName = viewModel?.currentProject?.data.title ?? ""
+            backlogVC.poViewModel = viewModel
             navigationController?.pushViewController(backlogVC, animated: true)
         case .sprint?:
             guard let backlogVC = storyboard?.instantiateViewController(withIdentifier: String(describing: SprintDisplayVC.self)) as? SprintDisplayVC else { return }
             
             backlogVC.viewModel = viewModel
-            guard let projectDetails = projectDetails else { return }
-            
-            viewModel?.setCurrentProject(project: projectDetails)
             navigationController?.pushViewController(backlogVC, animated: true)
         default:
             print("")
@@ -245,7 +235,7 @@ extension ProjectDescriptionVC: UITableViewDelegate, UITableViewDataSource {
 
 extension ProjectDescriptionVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-                return projectDetails?.teamMember.count ?? 0
+                return viewModel?.currentProject?.teamMember.count ?? 1
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -253,19 +243,17 @@ extension ProjectDescriptionVC: UICollectionViewDelegate, UICollectionViewDataSo
 
         cell.imageView.image = UIImage(named: "Teamwork-Theme")
         cell.imageView.layer.cornerRadius = cell.imageView.frame.width / 2
-        cell.nameLabel.text = projectDetails?.teamMember[indexPath.row].name
-        cell.roleLabel.text = projectDetails?.teamMember[indexPath.row].role
+        cell.nameLabel.text = viewModel?.currentProject?.teamMember[indexPath.row].name
+        cell.roleLabel.text = viewModel?.currentProject?.teamMember[indexPath.row].role
         cell.deleteTeamMeberButton.addTarget(self, action: #selector(removeUserButtonDidPress(_:)), for: .touchUpInside)
         cell.deleteTeamMeberButton.tag = indexPath.row
         cell.nameLabel.textColor = .black
         cell.roleLabel.textColor = .black
         cell.imageView?.alpha = 1.0
-        if !(projectDetails?.teamMember[indexPath.row].role == Constants.RolesFullForm.productOwner) {
-            if viewModel?.editCondition == false {
-                cell.deleteTeamMeberButton.isHidden = true
-            } else {
-                cell.deleteTeamMeberButton.isHidden = false
-            }
+        if (viewModel?.currentProject?.teamMember[indexPath.row].role == Roles.productOwner.rawValue) || viewModel?.editCondition == false {
+            cell.deleteTeamMeberButton.isHidden = true
+        } else {
+            cell.deleteTeamMeberButton.isHidden = false
         }
         return cell
     }
@@ -274,7 +262,7 @@ extension ProjectDescriptionVC: UICollectionViewDelegate, UICollectionViewDataSo
         let cellsPerRow = CGFloat(2.5)
         let availableWidth = collectionView.frame.size.width - CGFloat(Constants.CollectionViewCell.leftSpacing)
         let widthPerItem = availableWidth / cellsPerRow
-        return CGSize(width: widthPerItem, height: widthPerItem)
+        return CGSize(width: widthPerItem, height: widthPerItem+10)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -282,13 +270,13 @@ extension ProjectDescriptionVC: UICollectionViewDelegate, UICollectionViewDataSo
     }
 
     @objc func removeUserButtonDidPress(_ button: UIButton) {
-        if projectDetails?.teamMember[button.tag].role == Roles.productOwner.rawValue {
+        if viewModel?.currentProject?.teamMember[button.tag].role == Roles.productOwner.rawValue {
             showAlert(title: Constants.AlertMessages.poDeleteWarning, msg: Constants.AlertMessages.poDeleteMessage, actionTitle: Constants.AlertMessages.closeAction)
             return
         }
         let closeAlertAction = UIAlertAction(title: Constants.AlertMessages.checkAgain, style: .default, handler: nil)
         let confirmAlertAction = UIAlertAction(title: Constants.AlertMessages.confirmChanges, style: .destructive) { [weak self] (_) in
-            guard let self = self else  { return }
+            guard let self = self else { return }
             
             self.teamMembersToRemove.append(button.tag)
             guard let tvCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: Constants.ProjectDescription.Sections.team.rawValue)) as? TeamMembersTVCell,

@@ -11,6 +11,10 @@ class ProductOwnerMainVC: BaseVC {
 
     private var viewModel = POViewModel()
     
+    deinit {
+        print("po view deallocated")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -42,6 +46,7 @@ class ProductOwnerMainVC: BaseVC {
         switch role {
         case Roles.developer.rawValue, Roles.projectManager.rawValue:
             addProjectButton.isHidden = true
+            emptyLabel.text = "You are not assigned asny projects as of now"
         default:
             print()
         }
@@ -120,18 +125,10 @@ extension ProductOwnerMainVC: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let viewController = storyboard?.instantiateViewController(withIdentifier: String(describing: ProjectDescriptionVC.self)) as? ProjectDescriptionVC else { return }
-        
-        viewController.projectDetails = viewModel.projectDetails?[indexPath.row]
+    
         viewController.viewModel = viewModel
         viewController.index = indexPath.row
         viewModel.setCurrentProject(project: viewModel.projectDetails?[indexPath.row])
         navigationController?.pushViewController(viewController, animated: true)
-    }
-}
-
-extension UIColor {
-    
-    static func randomClr() -> UIColor {
-        return UIColor(red: CGFloat.random(in: 0.5...1), green: CGFloat.random(in: 0.5...1), blue: CGFloat.random(in: 0.5...1), alpha: 1.0)
     }
 }

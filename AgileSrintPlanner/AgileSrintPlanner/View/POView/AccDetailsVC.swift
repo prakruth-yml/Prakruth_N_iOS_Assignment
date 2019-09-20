@@ -9,6 +9,9 @@ class AccDetailsVC: BaseVC {
     
     private var firebase = FirebaseManager()
 
+    deinit {
+        print("profile details vc deinit")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,10 +26,6 @@ class AccDetailsVC: BaseVC {
         firebase.emailUserSignOut()
         guard let viewController = storyboard?.instantiateViewController(withIdentifier: String(describing: ViewController.self)) as? ViewController else { return }
         present(viewController, animated: true, completion: nil)
-    }
-    
-    override func decideRole(role: String) -> String {
-        return super.decideRole(role: role)
     }
     
     override func stopLoading() {

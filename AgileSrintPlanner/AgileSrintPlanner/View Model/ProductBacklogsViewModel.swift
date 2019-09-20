@@ -1,12 +1,10 @@
-import Foundation
+import UIKit
 import Firebase
 import FirebaseDatabase
 import FirebaseUI
 
-class ProductBacklogsViewModel {
+class ProductBacklogsViewModel: BaseVM {
     
-//    var poViewModel = POViewModel()
-    var firebase = FirebaseManager()
     let tableViewDataSource = [Constants.StoryDisplayTableView.textViewCell : ["Summary", "Dscription"], Constants.StoryDisplayTableView.pickerViewCell : ["Issue Type", "Platform"]]
     let pickerIssueTyeps = ["Story", "Task"]
     let pickerPlatforms = ["iOS", "Android", "Backend", "Frontend"]
@@ -18,11 +16,11 @@ class ProductBacklogsViewModel {
     var dataSrc: [String]?
     var storyDetails: Story?
     
-    func addStoryToFirebase(projectName: String, story: [String], completion: @escaping ((Error?) -> Void)) {
+    func addStoryToFirebase(projectName: String, story: [String], completion: @escaping ErrorCompletionHandler) {
         firebase.addStory(projectName: projectName, story: story, completion: completion)
     }
     
-    func getStoriesDetailsOfProject(projectName: String, completion: @escaping (() -> Void)) {
+    func getStoriesDetailsOfProject(projectName: String, completion: @escaping BaseCompletionHandler) {
         storyResponse?.removeAll()
         firebase.getStoryDetails(projectName: projectName) { [weak self] (snapshot) in
             guard let self = self,
@@ -43,7 +41,7 @@ class ProductBacklogsViewModel {
         }
     }
     
-    func removeStory(projectName: String, storyName: String) {
-        firebase.removeStory(projectName: projectName, storyName: storyName)
+    func removeStory(projectName: String, storyName: String, completion: @escaping ErrorCompletionHandler) {
+        firebase.removeStory(projectName: projectName, storyName: storyName, completion: completion)
     }
 }

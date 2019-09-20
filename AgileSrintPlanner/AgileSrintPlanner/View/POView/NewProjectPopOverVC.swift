@@ -13,6 +13,10 @@ class NewProjectPopOverVC: BaseVC {
     
     var callback: (() -> Void)?
     var viewModel = POViewModel()
+    
+    deinit {
+        print("New project deinit")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,7 +78,8 @@ class NewProjectPopOverVC: BaseVC {
     private func setTextField(button: UIButton, stringToAppend: String) {
         guard let textFieldText = domainTextField.text else { return }
         
-        if(domainTextField.text?.isEmpty ?? Constants.NilCoalescingDefaults.bool){
+           button.isUserInteractionEnabled = false
+        if(domainTextField.text?.isEmpty ?? Constants.NilCoalescingDefaults.bool) {
             domainTextField.text = stringToAppend
             button.setTitleColor(UIColor(red: 1.0, green: 0, blue: 0, alpha: 0.35), for: .normal)
             return
@@ -92,7 +97,7 @@ class NewProjectPopOverVC: BaseVC {
         super.touchesBegan(touches, with: event)
         
         let touch: UITouch? = touches.first
-        if touch?.view != actualView {
+        if touch?.view == view {
             view.removeFromSuperview()
         }
     }
@@ -107,13 +112,5 @@ class NewProjectPopOverVC: BaseVC {
             weakSelf.view.alpha = 1.0
             weakSelf.view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
         })
-    }
-    
-    override func startLoading() {
-        super.startLoading()
-    }
-    
-    override func stopLoading() {
-        super.stopLoading()
     }
 }

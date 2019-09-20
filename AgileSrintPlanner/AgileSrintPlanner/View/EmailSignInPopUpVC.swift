@@ -15,10 +15,12 @@ class EmailSignInPopUpVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupTextFieldDelegates()
+        setupTextFieldDelegatesInLocal()
         view.backgroundColor = UIColor.black.withAlphaComponent(0.8)
         signUpButton.imageView?.contentMode = .scaleAspectFit
         popOver()
+        NotificationCenter.default.addObserver(self, selector: #selector(moveViewWhenKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(moveViewWhenKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -69,22 +71,11 @@ class EmailSignInPopUpVC: BaseVC {
             }
         }
     }
-}
-
-extension EmailSignInPopUpVC: UITextFieldDelegate {
     
-    /// function to setup textfield delegates
-    func setupTextFieldDelegates() {
-        emailIdTextField.delegate = self
-        passwordTextField.delegate = self
-        confirmPasswordTF.delegate = self
-        emailIdTextField.returnKeyType = .next
-        passwordTextField.returnKeyType = .next
-        confirmPasswordTF.returnKeyType = .done
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
+    func setupTextFieldDelegatesInLocal(){
+        setupTextFieldDelegates(textField: nameTextField, returnType: .next)
+        setupTextFieldDelegates(textField: emailIdTextField, returnType: .next)
+        setupTextFieldDelegates(textField: passwordTextField, returnType: .next)
+        setupTextFieldDelegates(textField: confirmPasswordTF, returnType: .done)
     }
 }

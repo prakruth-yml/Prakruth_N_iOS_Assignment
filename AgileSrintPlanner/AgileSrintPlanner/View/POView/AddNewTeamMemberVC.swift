@@ -26,7 +26,7 @@ class AddNewTeamMemberVC: BaseVC {
             guard let nameTextFieldText = nameTextField.text else { return }
             guard let emailTextFieldText = emailTextField.text else { return }
             startLoading()
-            let teamMember = ProfileDetails(name: nameTextFieldText, role: "dev", email: emailTextFieldText)
+            let teamMember = ProfileDetails(name: nameTextFieldText, role: viewModel.projectRolePicked ?? "", email: emailTextFieldText)
             
             viewModel.addNewTeamMember(projectName: projectName ?? Constants.NilCoalescingDefaults.string, teamMember: teamMember) { [weak self] (error) in
                 guard let weakSelf = self, error == nil else {
@@ -47,7 +47,7 @@ class AddNewTeamMemberVC: BaseVC {
         super.touchesBegan(touches, with: event)
         
         let touch: UITouch? = touches.first
-        if touch?.view != actualView {
+        if touch?.view == view {
             view.removeFromSuperview()
         }
     }
@@ -83,10 +83,10 @@ extension AddNewTeamMemberVC: UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        viewModel.projectRolePicked = projectRoles[row]
+        viewModel.setRolePicked(role: projectRoles[row])
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return projectRoles[row]
+        return decideRole(role: projectRoles[row])
     }
 }

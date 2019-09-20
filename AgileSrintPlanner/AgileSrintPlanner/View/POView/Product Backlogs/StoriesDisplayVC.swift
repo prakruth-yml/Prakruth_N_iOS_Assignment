@@ -6,6 +6,7 @@ class StoriesDisplayVC: BaseVC {
     
     var projectName: String?
     var viewModel = ProductBacklogsViewModel()
+    weak var poViewModel: POViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,8 +71,14 @@ extension StoriesDisplayVC: UITableViewDelegate, UITableViewDataSource {
             case .delete:
                 guard let cell = tableView.cellForRow(at: indexPath) as? StoriesDisplayTVCell else { return }
                 
-                viewModel.removeStory(projectName: projectName ?? "", storyName: cell.storyTitleLabel.text ?? "")
-                getAndReloadData()
+                viewModel.removeStory(projectName: projectName ?? "", storyName: cell.storyTitleLabel.text ?? "") { [weak self] (error) in
+                    guard let weakSelf = self, error == nil else {
+                        self?.showAlert(title: Constants.AlertMessages.errorAlert, msg: error?.localizedDescription ?? "", actionTitle: Constants.AlertMessages.closeAction)
+                        return
+                    }
+                    
+                    weakSelf.getAndReloadData()
+                }
             default:
                 print("")
             }

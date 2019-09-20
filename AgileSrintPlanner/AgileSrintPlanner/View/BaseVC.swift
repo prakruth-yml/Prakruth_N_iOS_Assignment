@@ -8,6 +8,9 @@ class BaseVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(moveViewWhenKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(moveViewWhenKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
     /// Base function to show alert view controller
@@ -86,5 +89,39 @@ class BaseVC: UIViewController {
         default:
             return ""
         }
+    }
+    
+    @objc func moveViewWhenKeyboard(notification: Notification) {
+        guard let notificationInfo = notification.userInfo else { return }
+        
+        if notification.name == UIResponder.keyboardWillShowNotification {
+            guard let keyBoardFrame = (notificationInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+            
+            if view.frame.origin.y == 0 {
+                view.frame.origin.y -= keyBoardFrame.height
+            }
+        } else if notification.name == UIResponder.keyboardWillHideNotification && view.frame.origin.y != 0 {
+            view.frame.origin.y = 0
+        }
+    }
+}
+
+extension BaseVC: UITextFieldDelegate {
+    
+    /// setup textfield delegates
+    func setupTextFieldDelegates(textField: UITextField, returnType: UIReturnKeyType) {
+        textField.delegate = self
+        textField.returnKeyType = returnType
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
+extension UIColor {
+    
+    static func randomClr() -> UIColor {
+        return UIColor(red: CGFloat.random(in: 0.5...1), green: CGFloat.random(in: 0.5...1), blue: CGFloat.random(in: 0.5...1), alpha: 1.0)
     }
 }

@@ -5,55 +5,29 @@ import FirebaseUI
 
 class POViewModel: BaseVM {
     
-    private var firebase = FirebaseManager()
     var projectDetails: [ProjectDetails]?
     var projectMembers: [ProjectMembers]?
-    let headings = ["Title", "Domain", "Description"]
-    let sectionHeading = ["Project Description", "Backlogs", "Team"]
-    var editCondition = false
     var projectRolePicked: String?
-    let productBacklog = ["Product Backlogs", "Sprints"]
     var currentProject: ProjectDetails?
     var sprintStartDate: String?
     var sprintEndDate: String?
     var currentSprint: Sprint?
     var sprintDetails: [Sprint] = []
     
+    let headings = ["Title", "Domain", "Description"]
+    let sectionHeading = ["Project Description", "Backlogs", "Team"]
+    var editCondition = false
+    let productBacklog = ["Product Backlogs", "Sprints"]
+    
     //API Call to firebase to add a new project
     //title: Title of Project; domain: Domain of project to be worked on; descp: Small description of the project; completion: Completion Handler
-    func addNewProject(title: String, domain: String, descp: String, poName: String, completion: @escaping ((Error?) -> Void)) {
+    func addNewProject(title: String, domain: String, descp: String, poName: String, completion: @escaping ErrorCompletionHandler) {
         firebase.addNewProjectByPO(title: title, domain: domain, descp: descp, poName: poName, completion: completion)
-    }
-    
-    //API Call to firebase to fetch all project detals
-    //completion: Completion Handler
-    func getProjectDetailsFromFM(completion: @escaping (() -> Void)) {
-        var detailsArr: [ProjectDetails] = []
-        firebase.getProjectDetails { [weak self] (snapshot) in
-            guard let snapshot = snapshot.children.allObjects as? [DataSnapshot],
-                  let weakSelf = self else { return }
-
-            for child in snapshot {
-                let title = child.childSnapshot(forPath: Constants.FirebaseConstants.projectMembers).childSnapshot(forPath: Constants.FirebaseConstants.projectTitle).value as? String ?? ""
-                let domain = child.childSnapshot(forPath: Constants.FirebaseConstants.projectMembers).childSnapshot(forPath: Constants.FirebaseConstants.projectDomain).value as? String ?? ""
-                let descp = child.childSnapshot(forPath: Constants.FirebaseConstants.projectMembers).childSnapshot(forPath: Constants.FirebaseConstants.projectDescription
-                    ).value as? String ?? ""
-                var teamMembers: [TeamMember] = []
-                guard let member = child.childSnapshot(forPath: Constants.FirebaseConstants.ProjectTable.members).children.allObjects as? [DataSnapshot] else { return }
-                for eachMember in member {
-                    teamMembers.append(TeamMember(name: eachMember.value as? String ?? "", role: eachMember.key))
-                }
-                let projectStructure = ProjectDetails(data: Data(title: title, domain: domain, descp: descp), teamMember: teamMembers)
-                detailsArr.append(projectStructure)
-            }
-            weakSelf.projectDetails = detailsArr
-            completion()
-        }
     }
     
     //API Call to firebase to get project details of current user
     //email: Current signed in user; completion: Completion Handle
-    func getProjectDetailsForUserWith(userName: String, completion: @escaping (() -> Void)) {
+    func getProjectDetailsForUserWith(userName: String, completion: @escaping BaseCompletionHandler) {
         let email = userName
         var detailsArr: [ProjectDetails] = []
         firebase.getProjectDetails { [weak self] (snapshot) in
@@ -70,16 +44,14 @@ class POViewModel: BaseVM {
                         ).value as? String ?? ""
                     var teamMembers: [TeamMember] = []
                     for eachMember in member {
-                        print(eachMember)
                         if eachMember.key != Constants.FirebaseConstants.ProjectTable.developers {
                             teamMembers.append(TeamMember(name: eachMember.value as? String ?? "", role: eachMember.key))
                         } else {
                             guard let devs = eachMember.children.allObjects as? [DataSnapshot] else { return }
                             
-                            print(devs)
                             for dev in devs {
                                 print(dev)
-                                teamMembers.append(TeamMember(name: dev.key as? String ?? "" , role: Constants.FirebaseConstants.ProjectTable.developer))
+                                teamMembers.append(TeamMember(name: dev.key, role: Constants.FirebaseConstants.ProjectTable.developer))
                             }
                         }
                     }
@@ -88,7 +60,9 @@ class POViewModel: BaseVM {
                 }
             }
             weakSelf.projectDetails = detailsArr
-            completion()
+            DispatchQueue.main.async {
+                completion()
+            }
         }
     }
     
@@ -104,17 +78,15 @@ class POViewModel: BaseVM {
             } else {
                 guard let devs = member.value as? [String:String] else { return true }
                 
-                for (key, _) in devs {
-                    if key == email {
-                        return true
-                    }
+                for (key, _) in devs where key == email {
+                    return true
                 }
             }
         }
         return false
     }
     
-    func updateDetailsOfProject(title: String, updateDetails: [String], completion: @escaping (() -> Void)) {
+    func updateDetailsOfProject(title: String, updateDetails: [String], completion: @escaping BaseCompletionHandler) {
         firebase.updateDetailsOfProject(projectName: title, updates: updateDetails, completion: completion)
     }
     
@@ -134,11 +106,13 @@ class POViewModel: BaseVM {
     /// - Parameters:
     ///   - projectName: The project to which the member belongs to
     ///   - teamMember: The team member to remove
-    func removeTeamMember(projectName: String, teamMember: TeamMember) {
+    func removeTeamMember(projectName: String, teamMember: TeamMember?) {
+        guard let teamMember = teamMember else { return }
+        
         firebase.removeTeamMember(projectName: projectName, teamMember: teamMember)
     }
     
-    func addSprint(projectName: String, sprint: Sprint?, completion: @escaping ((Error?) -> Void)) {
+    func addSprint(projectName: String, sprint: Sprint?, completion: @escaping ErrorCompletionHandler) {
         guard let sprint = sprint else { return }
         firebase.addSprintToProject(projectName: projectName, sprint: sprint, completion: completion)
     }
@@ -155,7 +129,7 @@ class POViewModel: BaseVM {
         currentSprint = Sprint(title: title, startDate: startDate, endDate: endDate)
     }
     
-    func getSprintDetails(projectName: String, completion: @escaping (() -> Void)) {
+    func getSprintDetails(projectName: String, completion: @escaping BaseCompletionHandler) {
         sprintDetails.removeAll()
         firebase.getSprintDetails(projectName: projectName) { [weak self] (snapshot) in
             print(snapshot)
@@ -169,15 +143,6 @@ class POViewModel: BaseVM {
                     let startData = sprint[Constants.FirebaseConstants.ProjectTable.Sprint.startDate]
                     let endData = sprint[Constants.FirebaseConstants.ProjectTable.Sprint.endDate]
                     self.sprintDetails.append(Sprint(title: title ?? "", startDate: startData ?? "", endDate: endData ?? ""))
-                    
-//                    for value in childSnapshot {
-//                        print(value)
-//                        let title = value.childSnapshot(forPath: Constants.FirebaseConstants.ProjectTable.Sprint.title).value as? String ?? ""
-//                        let startData = value.childSnapshot(forPath: Constants.FirebaseConstants.ProjectTable.Sprint.startDate).value as? String ?? ""
-//                        let endData = value.childSnapshot(forPath: Constants.FirebaseConstants.ProjectTable.Sprint.endDate).value as? String ?? ""
-//                        self.sprintDetails.append(Sprint(title: title, startDate: startData, endDate: endData))
-//                    }
-                    print(self.sprintDetails)
                 }
                 completion()
             } else {
@@ -188,5 +153,17 @@ class POViewModel: BaseVM {
     
     func setCurrentProject(project: ProjectDetails?) {
         currentProject = project
+    }
+    
+    func reverseEditCondition() {
+        if editCondition {
+            editCondition = false
+        } else{
+            editCondition = true
+        }
+    }
+    
+    func setRolePicked(role: String) {
+        projectRolePicked = role
     }
 }

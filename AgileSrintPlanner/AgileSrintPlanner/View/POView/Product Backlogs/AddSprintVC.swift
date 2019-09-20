@@ -38,11 +38,10 @@ class AddSprintVC: BaseVC {
             viewModel?.addSprint(projectName: viewModel?.currentProject?.data.title ?? "", sprint: viewModel?.currentSprint) { [weak self] (error) in
                 guard let self = self else { return }
                 
+                self.stopLoading()
                 if let error = error {
-                    self.stopLoading()
                     self.showAlert(title: Constants.AlertMessages.errorAlert, msg: error.localizedDescription, actionTitle: Constants.AlertMessages.closeAction)
                 } else {
-                    self.stopLoading()
                     self.view.removeFromSuperview()
                     self.showAlert(title: Constants.AlertMessages.successAlert, msg: Constants.AlertMessages.sprintSuccess, actionTitle: Constants.AlertMessages.closeAction)
                     self.callBack?()
@@ -77,13 +76,4 @@ class AddSprintVC: BaseVC {
             weakSelf.view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
         })
     }
-    
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        super.touchesBegan(touches, with: event)
-//
-//        let touch: UITouch? = touches.first
-//        if touch?.view != actualView {
-//            view.removeFromSuperview()
-//        }
-//    }
 }
