@@ -86,6 +86,20 @@ class EmailSignInPopUpVC: BaseVC {
         }
     }
     
+    @objc func moveViewWhenKeyboard(notification: Notification) {
+        guard let notificationInfo = notification.userInfo else { return }
+        
+        if notification.name == UIResponder.keyboardWillShowNotification {
+            guard let keyBoardFrame = (notificationInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+            
+            if view.frame.origin.y == 0 {
+                view.frame.origin.y -= keyBoardFrame.height
+            }
+        } else if notification.name == UIResponder.keyboardWillHideNotification && view.frame.origin.y != 0 {
+            view.frame.origin.y = 0
+        }
+    }
+    
     @objc func backButtonDidPress() {
         dismiss(animated: true, completion: nil)
     }

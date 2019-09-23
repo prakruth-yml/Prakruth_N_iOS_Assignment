@@ -177,7 +177,7 @@
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5tf-GD-am9">
-                                        <rect key="frame" x="27.5" y="86.5" width="359" height="30"/>
+                                        <rect key="frame" x="27.5" y="86" width="359" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -202,7 +202,7 @@
                                     <constraint firstItem="27b-X3-3kY" firstAttribute="centerX" secondItem="bhy-uz-1OR" secondAttribute="centerX" id="iab-hx-ts5"/>
                                     <constraint firstItem="5tf-GD-am9" firstAttribute="bottom" secondItem="Q4L-ZA-yLn" secondAttribute="top" multiplier="0.9428" id="jGX-BN-dO1"/>
                                     <constraint firstItem="DkL-Sj-ZdJ" firstAttribute="centerX" secondItem="bhy-uz-1OR" secondAttribute="centerX" id="jWh-zA-ZIq"/>
-                                    <constraint firstAttribute="height" constant="350" id="lxb-UO-tds"/>
+                                    <constraint firstAttribute="height" constant="350" id="q1e-wR-Tvt"/>
                                     <constraint firstItem="5tf-GD-am9" firstAttribute="height" secondItem="Q4L-ZA-yLn" secondAttribute="height" id="qJD-85-puL"/>
                                     <constraint firstItem="27b-X3-3kY" firstAttribute="bottom" secondItem="DkL-Sj-ZdJ" secondAttribute="top" multiplier="0.9428" id="rZs-pB-zTn"/>
                                     <constraint firstItem="DkL-Sj-ZdJ" firstAttribute="height" secondItem="SNS-Qw-UkW" secondAttribute="height" id="weE-jp-2Cz"/>
@@ -217,10 +217,10 @@
                         <color key="backgroundColor" red="0.23207822442054749" green="0.56919831037521362" blue="0.57460159063339233" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Ooy-i7-Hb9" firstAttribute="top" secondItem="UhK-rK-1zg" secondAttribute="top" constant="20" id="0w2-qr-aek"/>
-                            <constraint firstItem="bhy-uz-1OR" firstAttribute="height" secondItem="ad9-b7-lYp" secondAttribute="height" multiplier="350:896" id="MBa-xs-lFF"/>
+                            <constraint firstItem="UhK-rK-1zg" firstAttribute="bottom" secondItem="bhy-uz-1OR" secondAttribute="bottom" constant="172.5" id="IEk-N5-KQ6"/>
                             <constraint firstItem="Ooy-i7-Hb9" firstAttribute="height" secondItem="ad9-b7-lYp" secondAttribute="height" multiplier="161:896" id="O00-5q-xVK"/>
-                            <constraint firstItem="bhy-uz-1OR" firstAttribute="bottom" secondItem="UhK-rK-1zg" secondAttribute="bottom" multiplier="0.8" id="aVr-kO-e0g"/>
                             <constraint firstItem="Ooy-i7-Hb9" firstAttribute="centerX" secondItem="ad9-b7-lYp" secondAttribute="centerX" id="bWm-uU-dRy"/>
+                            <constraint firstItem="bhy-uz-1OR" firstAttribute="top" relation="lessThanOrEqual" secondItem="Ooy-i7-Hb9" secondAttribute="bottom" constant="114.5" id="d0w-Sp-1K2"/>
                             <constraint firstItem="bhy-uz-1OR" firstAttribute="centerX" secondItem="ad9-b7-lYp" secondAttribute="centerX" id="s8f-2o-uTs"/>
                             <constraint firstItem="UhK-rK-1zg" firstAttribute="trailing" secondItem="bhy-uz-1OR" secondAttribute="trailing" id="tZC-kH-7Ej"/>
                             <constraint firstItem="Ooy-i7-Hb9" firstAttribute="width" secondItem="ad9-b7-lYp" secondAttribute="width" multiplier="299:414" id="wl2-6b-I5c"/>

@@ -92,9 +92,6 @@ class BaseVC: UIViewController {
             return ""
         }
     }
-    
-    @objc func moveViewWhenKeyboard(notification: Notification) {
-    }
 }
 
 extension BaseVC: UITextFieldDelegate {
