@@ -5,6 +5,7 @@ import Crashlytics
 class BaseVC: UIViewController {
     
     let activityIndicator = UIActivityIndicatorView()
+    var activityView = UIView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,15 +55,19 @@ class BaseVC: UIViewController {
     /// Function to start activity indicator
     func startLoading() {
         
-        let blurVC = UIVisualEffectView()
-        blurVC.frame = activityIndicator.frame
-        blurVC.effect = UIBlurEffect(style: .regular)
-        activityIndicator.addSubview(blurVC)
-        activityIndicator.center = self.view.center
+        activityView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width/2, height: view.frame.height/4))
+        let blurVC = UIVisualEffectView(frame: activityView.frame)
+        blurVC.effect = UIBlurEffect(style: .prominent)
+        activityView.center = view.center
+        activityView.addSubview(blurVC)
+        activityView.addSubview(activityIndicator)
+        blurVC.clipsToBounds = true
+        blurVC.layer.cornerRadius = 15
+        activityIndicator.center = CGPoint(x: activityView.frame.width/2, y: activityView.frame.height/2)
         activityIndicator.hidesWhenStopped = true
         activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
-        activityIndicator.color = UIColor.blue
-        view.addSubview(activityIndicator)
+        activityIndicator.color = .darkGray
+        view.addSubview(activityView)
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
     }
@@ -70,7 +75,7 @@ class BaseVC: UIViewController {
     /// Function to stop activity indicator
     func stopLoading() {
         activityIndicator.stopAnimating()
-        activityIndicator.removeFromSuperview()
+        activityView.removeFromSuperview()
         UIApplication.shared.endIgnoringInteractionEvents()
     }
     

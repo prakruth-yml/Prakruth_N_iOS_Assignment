@@ -27,16 +27,16 @@ class ProductBacklogsViewModel: BaseVM {
                   let snapshot = snapshot.children.allObjects as? [DataSnapshot] else { return }
             
             let storyRef = Constants.FirebaseConstants.ProjectTable.Stories.self
-            for child in snapshot {
-                let title = child.childSnapshot(forPath: storyRef.title).value as? String ?? ""
-                let descp = child.childSnapshot(forPath: storyRef.description).value as? String ?? ""
-                let summary = child.childSnapshot(forPath: storyRef.summary).value as? String ?? ""
-                let platform = child.childSnapshot(forPath: storyRef.platform).value as? String ?? ""
-                let status = child.childSnapshot(forPath: storyRef.status).value as? String ?? ""
+            snapshot.map({ (snapshot) in
+                let title = snapshot.childSnapshot(forPath: storyRef.title).value as? String ?? ""
+                let descp = snapshot.childSnapshot(forPath: storyRef.description).value as? String ?? ""
+                let summary = snapshot.childSnapshot(forPath: storyRef.summary).value as? String ?? ""
+                let platform = snapshot.childSnapshot(forPath: storyRef.platform).value as? String ?? ""
+                let status = snapshot.childSnapshot(forPath: storyRef.status).value as? String ?? ""
                 if self.storyResponse?.append(Story(title: title, summary: summary, description: descp, platform: platform, status: status)) == nil {
                     self.storyResponse = [Story(title: title, summary: summary, description: descp, platform: platform, status: status)]
                 }
-            }
+            })
             completion()
         }
     }

@@ -214,7 +214,7 @@ extension ProjectDescriptionVC: UITableViewDelegate, UITableViewDataSource {
     @objc func backlogButtonDidPress(_ button: UIButton) {
         
         let buttonTag = Constants.ProjectDescription.BacklogButton(rawValue: button.tag)
-        switch buttonTag{
+        switch buttonTag {
         case .backlog?:
             guard let backlogVC = storyboard?.instantiateViewController(withIdentifier: String(describing: StoriesDisplayVC.self)) as? StoriesDisplayVC else { return }
             
@@ -262,11 +262,17 @@ extension ProjectDescriptionVC: UICollectionViewDelegate, UICollectionViewDataSo
         let cellsPerRow = CGFloat(2.5)
         let availableWidth = collectionView.frame.size.width - CGFloat(Constants.CollectionViewCell.leftSpacing)
         let widthPerItem = availableWidth / cellsPerRow
-        return CGSize(width: widthPerItem, height: widthPerItem+10)
+        return CGSize(width: widthPerItem, height: widthPerItem + 20)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("called")
+        guard let detailsVC = storyboard?.instantiateViewController(withIdentifier: String(describing: AccDetailsVC.self)) as? AccDetailsVC else { return }
+        
+        detailsVC.nameLabel.text = viewModel?.currentProject?.teamMember[indexPath.row].name
+        detailsVC.emailLabel.text = viewModel?.currentProject?.teamMember[indexPath.row].name
+        detailsVC.roleLabel.text = viewModel?.currentProject?.teamMember[indexPath.row].role
+        navigationController?.pushViewController(detailsVC, animated: true)
     }
 
     @objc func removeUserButtonDidPress(_ button: UIButton) {

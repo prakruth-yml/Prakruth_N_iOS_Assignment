@@ -20,8 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {        
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
-        if let role = UserDefaults.standard.object(forKey: Constants.UserDefaults.role) as? String {
-            guard let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: ProductOwnerMainVC.self)) as? ProductOwnerMainVC else { return true }
+        if (UserDefaults.standard.object(forKey: Constants.UserDefaults.role) as? String) != nil {
+            let viewController = ProjectsDisplayVC(nibName: String(describing: ProjectsDisplayVC.self), bundle: nil)
             let navigationController = UINavigationController(rootViewController: viewController)
             window?.rootViewController = navigationController
             window?.makeKeyAndVisible()

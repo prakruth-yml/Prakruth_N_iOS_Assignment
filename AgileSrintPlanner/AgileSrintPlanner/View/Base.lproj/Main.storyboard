@@ -34,13 +34,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="13E-cD-Krn">
-                                <rect key="frame" x="44.5" y="436.5" width="325" height="30"/>
+                                <rect key="frame" x="44.5" y="430" width="325" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6cJ-Mb-1LC" userLabel="Button: email Sign in">
-                                <rect key="frame" x="44.5" y="498" width="325" height="44"/>
+                                <rect key="frame" x="44.5" y="473.5" width="325" height="44"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="19"/>
                                 <inset key="titleEdgeInsets" minX="32" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -72,17 +72,13 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="25L-Ie-VN5">
-                                <rect key="frame" x="44.5" y="379.5" width="325" height="30"/>
+                                <rect key="frame" x="44.5" y="372.5" width="325" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Ao-PE-yhA" userLabel="GSignView" customClass="GIDSignInButton">
-                                <rect key="frame" x="44.5" y="700.5" width="325" height="44"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                             <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1aT-yu-1be">
-                                <rect key="frame" x="335" y="435.5" width="35" height="30"/>
+                                <rect key="frame" x="335" y="430" width="35" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="35" id="adg-wN-oXc"/>
                                     <constraint firstAttribute="height" constant="30" id="rPk-Bh-99x"/>
@@ -101,28 +97,23 @@
                             <constraint firstItem="Edc-W9-Q9c" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="0EL-TG-9Hx"/>
                             <constraint firstItem="Edc-W9-Q9c" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="299:414" id="2js-pU-wsF"/>
                             <constraint firstItem="25L-Ie-VN5" firstAttribute="width" secondItem="13E-cD-Krn" secondAttribute="width" id="2ju-3P-n1A"/>
-                            <constraint firstItem="4Ao-PE-yhA" firstAttribute="width" secondItem="JMe-jI-DTn" secondAttribute="width" id="4r5-Gc-VVO"/>
-                            <constraint firstItem="6cJ-Mb-1LC" firstAttribute="top" secondItem="1aT-yu-1be" secondAttribute="bottom" constant="32.5" id="Cih-J4-hf0"/>
+                            <constraint firstItem="1aT-yu-1be" firstAttribute="bottom" secondItem="6cJ-Mb-1LC" secondAttribute="top" multiplier="0.9717" id="Cih-J4-hf0"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="1aT-yu-1be" secondAttribute="trailing" constant="44" id="I9Z-1r-kgA"/>
                             <constraint firstItem="JMe-jI-DTn" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" multiplier="0.94" id="JCN-nA-DWG"/>
                             <constraint firstItem="25L-Ie-VN5" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="JoT-BO-2WB"/>
-                            <constraint firstItem="Edc-W9-Q9c" firstAttribute="bottom" secondItem="25L-Ie-VN5" secondAttribute="top" multiplier="0.7061" id="MdR-VY-uNd"/>
+                            <constraint firstItem="JMe-jI-DTn" firstAttribute="height" secondItem="6cJ-Mb-1LC" secondAttribute="height" id="Mqs-W3-jQU"/>
                             <constraint firstItem="13E-cD-Krn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="NyT-mG-W1o"/>
                             <constraint firstItem="JMe-jI-DTn" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="44:896" id="Qcm-bg-aQG"/>
-                            <constraint firstItem="13E-cD-Krn" firstAttribute="bottom" secondItem="6cJ-Mb-1LC" secondAttribute="top" multiplier="0.9372" id="S2S-yq-dUt"/>
-                            <constraint firstItem="4Ao-PE-yhA" firstAttribute="height" secondItem="JMe-jI-DTn" secondAttribute="height" id="VAX-B1-DG8"/>
-                            <constraint firstItem="6cJ-Mb-1LC" firstAttribute="height" secondItem="4Ao-PE-yhA" secondAttribute="height" id="VCl-dK-ag2"/>
-                            <constraint firstItem="6cJ-Mb-1LC" firstAttribute="width" secondItem="4Ao-PE-yhA" secondAttribute="width" id="eRO-Rb-xvg"/>
-                            <constraint firstItem="4Ao-PE-yhA" firstAttribute="bottom" secondItem="JMe-jI-DTn" secondAttribute="top" multiplier="0.9717" id="f40-ma-UPR"/>
-                            <constraint firstItem="25L-Ie-VN5" firstAttribute="height" secondItem="13E-cD-Krn" secondAttribute="height" id="gDI-E4-AYp"/>
+                            <constraint firstItem="13E-cD-Krn" firstAttribute="bottom" secondItem="6cJ-Mb-1LC" secondAttribute="top" multiplier="0.9717" id="S2S-yq-dUt"/>
+                            <constraint firstItem="JMe-jI-DTn" firstAttribute="width" secondItem="6cJ-Mb-1LC" secondAttribute="width" id="eL2-4M-xYo"/>
                             <constraint firstItem="JMe-jI-DTn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="jlI-MI-Z6V"/>
                             <constraint firstItem="Edc-W9-Q9c" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="161:896" id="lft-Sx-OPs"/>
+                            <constraint firstItem="6cJ-Mb-1LC" firstAttribute="bottom" secondItem="JMe-jI-DTn" secondAttribute="top" multiplier="0.6753" id="m4J-EX-Slt"/>
                             <constraint firstItem="Edc-W9-Q9c" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" multiplier="2.4274" id="mv6-8z-y3j"/>
                             <constraint firstItem="13E-cD-Krn" firstAttribute="width" secondItem="6cJ-Mb-1LC" secondAttribute="width" id="rL1-tm-Ynf"/>
                             <constraint firstItem="JMe-jI-DTn" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="294:375" id="wHm-k5-Kcm"/>
-                            <constraint firstItem="25L-Ie-VN5" firstAttribute="bottom" secondItem="13E-cD-Krn" secondAttribute="top" multiplier="0.9372" id="wRx-zd-EvT"/>
+                            <constraint firstItem="25L-Ie-VN5" firstAttribute="bottom" secondItem="13E-cD-Krn" secondAttribute="top" constant="-27.5" id="wRx-zd-EvT"/>
                             <constraint firstItem="6cJ-Mb-1LC" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="xSN-MG-8PZ"/>
-                            <constraint firstItem="4Ao-PE-yhA" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="yzE-c4-WX7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -394,7 +385,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="Projects" id="gwb-c7-YYX">
                         <barButtonItem key="leftBarButtonItem" image="icon-user-acc" style="plain" id="Ebv-Lv-VFR"/>
-                        <barButtonItem key="rightBarButtonItem" image="icons8-menu-50" style="plain" id="Die-Bw-r5s"/>
                     </navigationItem>
                     <connections>
                         <outlet property="addProjectButton" destination="Ee6-gM-097" id="WEm-je-Ysx"/>
@@ -909,7 +899,7 @@
                                 <rect key="frame" x="0.0" y="108" width="414" height="754"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SprintDisplayTVCell" rowHeight="98" id="wZA-em-BcR">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SprintDisplayTVCell" rowHeight="98" id="wZA-em-BcR">
                                         <rect key="frame" x="0.0" y="28" width="414" height="98"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wZA-em-BcR" id="bUn-VN-aAZ">
@@ -1035,7 +1025,7 @@
                                 <rect key="frame" x="0.0" y="108" width="414" height="754"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="StoriesDisplayTVCell" rowHeight="75" id="Kdx-8z-RgE" customClass="StoriesDisplayTVCell" customModule="AgileSrintPlanner" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" showsReorderControl="YES" indentationWidth="10" reuseIdentifier="StoriesDisplayTVCell" rowHeight="75" id="Kdx-8z-RgE" customClass="StoriesDisplayTVCell" customModule="AgileSrintPlanner" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Kdx-8z-RgE" id="fjQ-gi-ajs">
@@ -1060,7 +1050,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="aMU-VJ-maB">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="aMU-VJ-maB">
                                                     <rect key="frame" x="350" y="0.0" width="56" height="74.5"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -1316,7 +1306,7 @@
                                 <rect key="frame" x="0.0" y="34" width="414" height="828"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="StoryDescriptionTVCell" rowHeight="145" id="cKv-jS-9TX" customClass="StoryDescriptionTVCell" customModule="AgileSrintPlanner" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StoryDescriptionTVCell" rowHeight="145" id="cKv-jS-9TX" customClass="StoryDescriptionTVCell" customModule="AgileSrintPlanner" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="145"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cKv-jS-9TX" id="7gm-Ye-pdh">
@@ -1387,7 +1377,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProjectDescriptionTVCell" rowHeight="195" id="Cgw-bD-Wkt" customClass="ProjectDescriptionTVCell" customModule="AgileSrintPlanner" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ProjectDescriptionTVCell" rowHeight="195" id="Cgw-bD-Wkt" customClass="ProjectDescriptionTVCell" customModule="AgileSrintPlanner" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="195"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Cgw-bD-Wkt" id="jmn-bS-ca0">
@@ -1780,7 +1770,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U1C-zA-vXV">
                                         <rect key="frame" x="4" y="146" width="335" height="34"/>
                                         <subviews>
-                                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PRT-Ou-UPp">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PRT-Ou-UPp">
                                                 <rect key="frame" x="8" y="0.0" width="30" height="34"/>
                                                 <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="16"/>
                                                 <state key="normal" title="IOS">
@@ -1996,7 +1986,6 @@
         <image name="icon-user-acc" width="50" height="50"/>
         <image name="icons8-add-50" width="50" height="50"/>
         <image name="icons8-delete-16" width="40" height="40"/>
-        <image name="icons8-menu-50" width="50" height="50"/>
         <image name="icons8-plus-24" width="24" height="24"/>
         <image name="message-48" width="36" height="36"/>
         <image name="plus-5-48" width="36" height="36"/>

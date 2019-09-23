@@ -2,16 +2,17 @@ import UIKit
 
 class AccDetailsVC: BaseVC {
     
-    @IBOutlet private weak var imageView: UIImageView!
-    @IBOutlet private weak var nameLabel: UILabel!
-    @IBOutlet private weak var emailLabel: UILabel!
-    @IBOutlet private weak var roleLabel: UILabel!
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var roleLabel: UILabel!
     
     private var firebase = FirebaseManager()
 
     deinit {
         print("profile details vc deinit")
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

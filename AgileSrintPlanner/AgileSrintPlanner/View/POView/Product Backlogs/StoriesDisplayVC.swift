@@ -12,7 +12,7 @@ class StoriesDisplayVC: BaseVC {
         super.viewDidLoad()
         
         userSpecificUI()
-        navigationItem.title = projectName
+        navigationItem.title = "Stories"
         tableView.tableFooterView = UIView()
         getAndReloadData()
     }

@@ -38,6 +38,8 @@ class FirebaseManager {
                     }
                     completion(error)
                 })
+            } else {
+                completion(error)
             }
         }
     }
@@ -50,15 +52,9 @@ class FirebaseManager {
     func isPresentUserInFirebase(email: String, completion: @escaping ((Bool) -> Void)) {
         ref.child(Constants.FirebaseConstants.employeeTable).observeSingleEvent(of: .value) { (snapshot) in
             guard let response = snapshot.children.allObjects as? [DataSnapshot] else { return }
-            
-            for child in response {
-                let responseDict = child.value as? [String:String]
-                if email == responseDict?[Constants.FirebaseConstants.empEmail] {
-                    completion(true)
-                    return 
-                }
-            }
-            completion(false)
+        
+            let emailSearchResult = response.filter({ ($0.value as? [String: String])?[Constants.FirebaseConstants.empEmail] == email }).isEmpty
+            completion(!emailSearchResult)
         }
     }
     
@@ -96,26 +92,18 @@ class FirebaseManager {
             guard let user = Auth.auth().currentUser,
                   let response = snapshot.children.allObjects as? [DataSnapshot] else { return }
             
-            var role: String = ""
-            for child in response {
-                let responseDict = child.value as? [String:String]
-                if user.email == responseDict?[Constants.FirebaseConstants.empEmail] {
-                    role = responseDict?[Constants.FirebaseConstants.empRole] ?? ""
-                }
-            }
+            let responseDict = response.filter({ ($0.value as? [String : String])?[Constants.FirebaseConstants.empEmail] == user.email })
+            guard let role = (responseDict[0].value as? [String: String])?[Constants.FirebaseConstants.empRole] else { return }
+
+            let projectsDisplayVC = ProjectsDisplayVC(nibName: "ProjectsDisplayVC", bundle: nil)
             let roleInSwitch = Roles(rawValue: role)
             switch roleInSwitch {
             case .developer?:
-                let vc = UIStoryboard(name: "Main", bundle: nil)
-                    .instantiateViewController(withIdentifier: String(describing: ProductOwnerMainVC.self))
-                completion(vc, Roles.developer.rawValue)
+                completion(projectsDisplayVC, Roles.developer.rawValue)
             case .projectManager?:
-                let vc = UIStoryboard(name: "Main", bundle: nil)
-                    .instantiateViewController(withIdentifier: String(describing: ProductOwnerMainVC.self))
-                completion(vc, Roles.projectManager.rawValue)
+                completion(projectsDisplayVC, Roles.projectManager.rawValue)
             case .productOwner?:
-                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: ProductOwnerMainVC.self))
-                completion(vc, Roles.productOwner.rawValue)
+                completion(projectsDisplayVC, Roles.productOwner.rawValue)
             default:
                 break
             }
@@ -129,14 +117,9 @@ class FirebaseManager {
         ref.child(Constants.FirebaseConstants.employeeTable).observeSingleEvent(of: .value) { (snapshot) in
             guard let user = Auth.auth().currentUser, let response = snapshot.children.allObjects as? [DataSnapshot] else { return }
         
-            for child in response {
-                let responseDict = child.value as? [String:String]
-                if user.email == responseDict?[Constants.FirebaseConstants.empEmail] {
-                    completion(ProfileDetails(name: responseDict?[Constants.FirebaseConstants.empName]  ?? "",
-                                              role: responseDict?[Constants.FirebaseConstants.empRole] ?? "",
-                                              email: responseDict?[Constants.FirebaseConstants.empEmail] ?? ""))
-                }
-            }
+            guard let child = response.filter({ ($0.value as? [String : String])?[Constants.FirebaseConstants.empEmail] == user.email })[0].value as? [String : String] else { return }
+            
+            completion(ProfileDetails(name: child[Constants.FirebaseConstants.empName] ?? "", role: Constants.FirebaseConstants.empRole ?? "", email: Constants.FirebaseConstants.empEmail ?? ""))
         }
     }
     

@@ -177,4 +177,8 @@ class Constants {
         }
         static let storyDescpNumRows = 4
     }
+    
+    struct MainStoryboard {
+        static let name = "Main"
+    }
 }
