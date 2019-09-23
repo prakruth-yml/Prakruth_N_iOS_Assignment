@@ -22,6 +22,8 @@ class ViewController: BaseVC {
         
         setupTextFieldDelegates(textField: nameTextField, returnType: .next)
         setupTextFieldDelegates(textField: passwordextField, returnType: .done)
+        NotificationCenter.default.addObserver(self, selector: #selector(moveViewWhenKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(moveViewWhenKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -32,12 +34,10 @@ class ViewController: BaseVC {
     
     @IBAction private func newUserButtonDidPress(_ button: UIButton) {
         NotificationCenter.default.removeObserver(self)
-        guard let popVC = self.storyboard?.instantiateViewController(withIdentifier: String(describing: EmailSignInPopUpVC.self)) as? EmailSignInPopUpVC else { return }
+        guard let newUserVC = self.storyboard?.instantiateViewController(withIdentifier: String(describing: EmailSignInPopUpVC.self)) as? EmailSignInPopUpVC else { return }
         
-        addChild(popVC)
-        popVC.view.frame = view.frame
-        view.addSubview(popVC.view)
-        popVC.didMove(toParent: self)
+        let navigationController = UINavigationController(rootViewController: newUserVC)
+        present(navigationController, animated: true)
     }
     
     @IBAction private func emailLoginButtonDidPress(_ button: UIButton) {
@@ -86,6 +86,20 @@ class ViewController: BaseVC {
             passwordextField.isSecureTextEntry = false
         } else {
             passwordextField.isSecureTextEntry = true
+        }
+    }
+    
+    @objc func moveViewWhenKeyboard(notification: Notification) {
+        guard let notificationInfo = notification.userInfo else { return }
+        
+        if notification.name == UIResponder.keyboardWillShowNotification {
+            guard let keyBoardFrame = (notificationInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+            
+            if view.frame.origin.y == 0 {
+                view.frame.origin.y -= keyBoardFrame.height
+            }
+        } else if notification.name == UIResponder.keyboardWillHideNotification && view.frame.origin.y != 0 {
+            view.frame.origin.y = 0
         }
     }
     

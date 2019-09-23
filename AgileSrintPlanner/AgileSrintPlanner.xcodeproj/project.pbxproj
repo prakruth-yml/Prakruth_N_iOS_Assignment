@@ -41,6 +41,7 @@
 		ABA0477F2334F5270047A34A /* ProjectsDisplayVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABA0477D2334F5270047A34A /* ProjectsDisplayVC.xib */; };
 		ABA047822334FCE40047A34A /* ProjectDisplayTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA047802334FCE40047A34A /* ProjectDisplayTVCell.swift */; };
 		ABA047832334FCE40047A34A /* ProjectDisplayTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABA047812334FCE40047A34A /* ProjectDisplayTVCell.xib */; };
+		ABA047852338FCE20047A34A /* AddNewStoryTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA047842338FCE10047A34A /* AddNewStoryTVCell.swift */; };
 		ABAC160A2327625900DF0059 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAC16092327625900DF0059 /* ViewController.swift */; };
 		ABAC160C2327717400DF0059 /* TeamMembersTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAC160B2327717400DF0059 /* TeamMembersTVCell.swift */; };
 		ABAC160E232780BF00DF0059 /* TeamDisplayCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAC160D232780BF00DF0059 /* TeamDisplayCVCell.swift */; };
@@ -97,6 +98,7 @@
 		ABA0477D2334F5270047A34A /* ProjectsDisplayVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProjectsDisplayVC.xib; sourceTree = "<group>"; };
 		ABA047802334FCE40047A34A /* ProjectDisplayTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDisplayTVCell.swift; sourceTree = "<group>"; };
 		ABA047812334FCE40047A34A /* ProjectDisplayTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProjectDisplayTVCell.xib; sourceTree = "<group>"; };
+		ABA047842338FCE10047A34A /* AddNewStoryTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewStoryTVCell.swift; sourceTree = "<group>"; };
 		ABAC16092327625900DF0059 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		ABAC160B2327717400DF0059 /* TeamMembersTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamMembersTVCell.swift; sourceTree = "<group>"; };
 		ABAC160D232780BF00DF0059 /* TeamDisplayCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDisplayCVCell.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 				AB39F1DB2331FA1300A4719D /* SprintDescriptionVC.swift */,
 				AB39F1DD2331FB0A00A4719D /* AvailableSprintTVCell.swift */,
 				AB39F1DF2331FB3300A4719D /* CurrentStroiesInSprintTVCell.swift */,
+				ABA047842338FCE10047A34A /* AddNewStoryTVCell.swift */,
 			);
 			path = "Product Backlogs";
 			sourceTree = "<group>";
@@ -444,6 +447,7 @@
 				AB6C8080232F5AF600B8D760 /* AddNewStoryVC.swift in Sources */,
 				AB6710F7231E9F6B00E2897E /* FirebaseManager.swift in Sources */,
 				AB39F1E02331FB3300A4719D /* CurrentStroiesInSprintTVCell.swift in Sources */,
+				ABA047852338FCE20047A34A /* AddNewStoryTVCell.swift in Sources */,
 				AB171B0F232D3E9900922E13 /* StoriesDisplayVC.swift in Sources */,
 				AB2E20CC2326352E008AAB12 /* ProjectDescriptionTVCell.swift in Sources */,
 				AB39F1DA2331212000A4719D /* AddSprintVC.swift in Sources */,

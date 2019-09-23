@@ -16,9 +16,8 @@ class EmailSignInPopUpVC: BaseVC {
         super.viewDidLoad()
         
         setupTextFieldDelegatesInLocal()
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.8)
         signUpButton.imageView?.contentMode = .scaleAspectFit
-        popOver()
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backButtonDidPress))
         NotificationCenter.default.addObserver(self, selector: #selector(moveViewWhenKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(moveViewWhenKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
@@ -27,16 +26,6 @@ class EmailSignInPopUpVC: BaseVC {
         super.viewDidDisappear(animated)
         
         NotificationCenter.default.removeObserver(self)
-    }
-    
-    /// function to describe animation for popover
-    private func popOver() {
-        view.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-        view.alpha = 0.0
-        UIView.animate(withDuration: 0.25, animations: {
-            self.view.alpha = 1.0
-            self.view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-        })
     }
     
     @IBAction private func closeButtonDidPress(_ button: UIButton) {
@@ -63,13 +52,42 @@ class EmailSignInPopUpVC: BaseVC {
                     }
                 } else {
                     DispatchQueue.main.async {
-                        weakSelf.view.removeFromSuperview()
-                        weakSelf.stopLoading()
-                        weakSelf.showAlert(title: Constants.AlertMessages.closeAction, msg: "Account has been created successfully. Please login with the same", actionTitle: Constants.AlertMessages.closeAction)
+                        weakSelf.firebaseManager.emailUserLogin(email: weakSelf.emailIdTextField.text ?? "", password: weakSelf.passwordTextField.text ?? "") { (user, error) in
+                            
+                            if let error = error {
+                                let alertAction = UIAlertAction(title: Constants.AlertMessages.closeAction, style: .cancel, handler: nil)
+                                DispatchQueue.main.async {
+                                    weakSelf.showAlert(title: Constants.AlertMessages.failedLoginAlert, msg: error.localizedDescription, alertStyle: .alert, actions: [alertAction])
+                                }
+                            } else {
+                                weakSelf.firebaseManager.decideUserRole(user: Auth.auth().currentUser) { (viewController, role) in
+                                    guard let viewController = viewController else { return }
+                                    
+                                    let currentUser = Auth.auth().currentUser
+                                    UserDefaults.standard.set(role, forKey: Constants.UserDefaults.role)
+                                    UserDefaults.standard.set(currentUser?.displayName, forKey: Constants.UserDefaults.currentUserName)
+                                    UserDefaults.standard.set(currentUser?.uid, forKey: Constants.UserDefaults.currentUserId)
+                                    UserDefaults.standard.set(currentUser?.email, forKey: Constants.UserDefaults.currentUserEmail)
+                                    currentUser?.getIDTokenResult(forcingRefresh: true, completion: { (token, _) in
+                                        guard let token = token else { return }
+                                        
+                                        UserDefaults.standard.set(token.claims, forKey: Constants.UserDefaults.currentUser)
+                                    })
+                                    DispatchQueue.main.async {
+                                        weakSelf.navigationController?.pushViewController(viewController, animated: true)
+                                    }
+                                }
+                            }
+                            weakSelf.stopLoading()
+                        }
                     }
                 }
             }
         }
+    }
+    
+    @objc func backButtonDidPress() {
+        dismiss(animated: true, completion: nil)
     }
     
     func setupTextFieldDelegatesInLocal(){

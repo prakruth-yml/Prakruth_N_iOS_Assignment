@@ -34,7 +34,7 @@ class FirebaseManager {
                 }
                 weakSelf.isPresentUserInFirebase(email: email, completion: { (userPresence) in
                     if !userPresence {
-                        weakSelf.ref.child(Constants.FirebaseConstants.employeeTable).child(user.uid).setValue([Constants.FirebaseConstants.empName: name, Constants.FirebaseConstants.empEmail: email, Constants.FirebaseConstants.empRole: "PO"])
+                        weakSelf.ref.child(Constants.FirebaseConstants.employeeTable).child(name).setValue([Constants.FirebaseConstants.empName: name, Constants.FirebaseConstants.empEmail: email, Constants.FirebaseConstants.empRole: "PO"])
                     }
                     completion(error)
                 })

@@ -1,15 +1,8 @@
-
-//
-//  AddNewStoryTVCell.swift
-//  AgileSrintPlanner
-//
-//  Created by Prakruth Nagaraj on 23/09/19.
-//  Copyright © 2019 Prakruth Nagaraj. All rights reserved.
-//
-
 import UIKit
 
 class AddNewStoryTVCell: UITableViewCell {
+    
+    @IBOutlet weak var addButton: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,5 +14,4 @@ class AddNewStoryTVCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
 }

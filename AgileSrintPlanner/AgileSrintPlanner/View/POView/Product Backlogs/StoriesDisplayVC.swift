@@ -17,7 +17,7 @@ class StoriesDisplayVC: BaseVC {
         getAndReloadData()
     }
     
-    @objc private func addStoryButtonDidPress(_ button: UIButton) {
+    @objc private func addStoryButtonDidPress() {
         guard let addStoryVC = storyboard?.instantiateViewController(withIdentifier: String(describing: AddNewStoryVC.self)) as? AddNewStoryVC else { return }
         
         addStoryVC.projectName = projectName
@@ -50,16 +50,21 @@ class StoriesDisplayVC: BaseVC {
 
 extension StoriesDisplayVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.storyResponse?.count ?? Constants.NilCoalescingDefaults.int
+        return (viewModel.storyResponse?.count ?? Constants.NilCoalescingDefaults.int) + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row == 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddNewStoryTVCell.self), for: indexPath) as? AddNewStoryTVCell else { return AddNewStoryTVCell()}
+            
+            return cell
+        }
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StoriesDisplayTVCell.self), for: indexPath) as? StoriesDisplayTVCell else { return StoriesDisplayTVCell() }
         
-        cell.storyIdLabel.text = String(indexPath.row)
-        cell.storyTitleLabel.text = viewModel.storyResponse?[indexPath.row].title
-        cell.storyDescriptionLabel.text = viewModel.storyResponse?[indexPath.row].summary
-        cell.storyStatusLabel.text = viewModel.storyResponse?[indexPath.row].status
+        cell.storyIdLabel.text = "Story " + String(indexPath.row)
+        cell.storyTitleLabel.text = viewModel.storyResponse?[indexPath.row - 1].title
+        cell.storyDescriptionLabel.text = viewModel.storyResponse?[indexPath.row - 1].summary
+        cell.storyStatusLabel.text = viewModel.storyResponse?[indexPath.row-1].status
         return cell
     }
     
@@ -86,11 +91,16 @@ extension StoriesDisplayVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        guard let storyDescpVC = storyboard?.instantiateViewController(withIdentifier: String(describing: StoriesDescriptionVC.self)) as? StoriesDescriptionVC else { return }
         
-        storyDescpVC.storyDetails = viewModel.storyResponse?[indexPath.row]
-        navigationController?.pushViewController(storyDescpVC, animated: true)
+        if indexPath.row == 0 {
+            addStoryButtonDidPress()
+        } else {
+        
+            guard let storyDescpVC = storyboard?.instantiateViewController(withIdentifier: String(describing: StoriesDescriptionVC.self)) as? StoriesDescriptionVC else { return }
+            
+            storyDescpVC.storyDetails = viewModel.storyResponse?[indexPath.row - 1]
+            navigationController?.pushViewController(storyDescpVC, animated: true)
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
