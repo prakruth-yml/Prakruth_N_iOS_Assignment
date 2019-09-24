@@ -19,8 +19,9 @@ class EmailSignInPopUpVC: BaseVC {
         
         setupTextFieldDelegatesInLocal()
         signUpButton.imageView?.contentMode = .scaleAspectFit
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backButtonDidPress))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "icons8-back-50"), style: .plain, target: self, action: #selector(backButtonDidPress))
         navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.backgroundColor = UIColor(red: 0.0, green: 145/255, blue: 147/255, alpha: 1.0)
         NotificationCenter.default.addObserver(self, selector: #selector(moveViewWhenKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(moveViewWhenKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
@@ -90,33 +91,7 @@ class EmailSignInPopUpVC: BaseVC {
     }
     
     @objc func moveViewWhenKeyboard(notification: Notification) {
-//        guard let notificationInfo = notification.userInfo,
-//              let keyBoardFrame = (notificationInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
-//
-//        let bottomConstant = getConstantConstraint(multiplier: regButtonBottomConstraint.multiplier, viewSize: view.frame.height)
-//
-//        if keyBoardFrame.height < bottomConstant {
-//
-//        } else if notification.name == UIResponder.keyboardWillShowNotification {
-//            UIView.animate(withDuration: 1.5) {
-//                [weak self] in
-//                guard let modifiedConstraint = self?.regButtonBottomConstraint.constraintWithMultiplier(1.0) else { return }
-//
-//                self?.view.removeConstraint(self?.regButtonBottomConstraint ?? modifiedConstraint)
-//                self?.view.addConstraint(modifiedConstraint)
-//                self?.view.layoutIfNeeded()
-//                self?.regButtonBottomConstraint = modifiedConstraint
-//            }
-//        } else if notification.name == UIResponder.keyboardWillHideNotification {
-//            UIView.animate(withDuration: 1.5) { [weak self] in
-//                guard let modifiedConstraint = self?.regButtonBottomConstraint.constraintWithMultiplier(self?.viewModel.constraintMultiplier ?? 0.0) else { return }
-//
-//                self?.view.removeConstraint(self?.regButtonBottomConstraint ?? modifiedConstraint)
-//                self?.view.addConstraint(modifiedConstraint)
-//                self?.view.layoutIfNeeded()
-//                self?.regButtonBottomConstraint = modifiedConstraint
-//            }
-//        }
+
     }
     
     @objc func backButtonDidPress() {
@@ -125,7 +100,7 @@ class EmailSignInPopUpVC: BaseVC {
     
 //    override func setupTextFieldDelegates(textField: UITextField, returnType: UIReturnKeyType) {
 //        super.setupTextFieldDelegates(textField: textField, returnType: returnType)
-//        
+//
 //        if returnType == .next {
 //            textField.resignFirstResponder()
 //        }
