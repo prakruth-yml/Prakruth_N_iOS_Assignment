@@ -9,8 +9,10 @@ class EmailSignInPopUpVC: BaseVC {
     @IBOutlet private weak var emailIdTextField: UITextField!
     @IBOutlet private weak var passwordTextField: UITextField!
     @IBOutlet private weak var confirmPasswordTF: UITextField!
+    @IBOutlet private weak var regButtonBottomConstraint: NSLayoutConstraint!
     
     var firebaseManager = FirebaseManager()
+    var viewModel = BaseVM()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +20,7 @@ class EmailSignInPopUpVC: BaseVC {
         setupTextFieldDelegatesInLocal()
         signUpButton.imageView?.contentMode = .scaleAspectFit
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backButtonDidPress))
+        navigationController?.navigationBar.isTranslucent = true
         NotificationCenter.default.addObserver(self, selector: #selector(moveViewWhenKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(moveViewWhenKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
@@ -87,24 +90,48 @@ class EmailSignInPopUpVC: BaseVC {
     }
     
     @objc func moveViewWhenKeyboard(notification: Notification) {
-        guard let notificationInfo = notification.userInfo else { return }
-        
-        if notification.name == UIResponder.keyboardWillShowNotification {
-            guard let keyBoardFrame = (notificationInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
-            
-            if view.frame.origin.y == 0 {
-                view.frame.origin.y -= keyBoardFrame.height
-            }
-        } else if notification.name == UIResponder.keyboardWillHideNotification && view.frame.origin.y != 0 {
-            view.frame.origin.y = 0
-        }
+//        guard let notificationInfo = notification.userInfo,
+//              let keyBoardFrame = (notificationInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+//
+//        let bottomConstant = getConstantConstraint(multiplier: regButtonBottomConstraint.multiplier, viewSize: view.frame.height)
+//
+//        if keyBoardFrame.height < bottomConstant {
+//
+//        } else if notification.name == UIResponder.keyboardWillShowNotification {
+//            UIView.animate(withDuration: 1.5) {
+//                [weak self] in
+//                guard let modifiedConstraint = self?.regButtonBottomConstraint.constraintWithMultiplier(1.0) else { return }
+//
+//                self?.view.removeConstraint(self?.regButtonBottomConstraint ?? modifiedConstraint)
+//                self?.view.addConstraint(modifiedConstraint)
+//                self?.view.layoutIfNeeded()
+//                self?.regButtonBottomConstraint = modifiedConstraint
+//            }
+//        } else if notification.name == UIResponder.keyboardWillHideNotification {
+//            UIView.animate(withDuration: 1.5) { [weak self] in
+//                guard let modifiedConstraint = self?.regButtonBottomConstraint.constraintWithMultiplier(self?.viewModel.constraintMultiplier ?? 0.0) else { return }
+//
+//                self?.view.removeConstraint(self?.regButtonBottomConstraint ?? modifiedConstraint)
+//                self?.view.addConstraint(modifiedConstraint)
+//                self?.view.layoutIfNeeded()
+//                self?.regButtonBottomConstraint = modifiedConstraint
+//            }
+//        }
     }
     
     @objc func backButtonDidPress() {
         dismiss(animated: true, completion: nil)
     }
     
-    func setupTextFieldDelegatesInLocal(){
+//    override func setupTextFieldDelegates(textField: UITextField, returnType: UIReturnKeyType) {
+//        super.setupTextFieldDelegates(textField: textField, returnType: returnType)
+//        
+//        if returnType == .next {
+//            textField.resignFirstResponder()
+//        }
+//    }
+    
+    func setupTextFieldDelegatesInLocal() {
         setupTextFieldDelegates(textField: nameTextField, returnType: .next)
         setupTextFieldDelegates(textField: emailIdTextField, returnType: .next)
         setupTextFieldDelegates(textField: passwordTextField, returnType: .next)

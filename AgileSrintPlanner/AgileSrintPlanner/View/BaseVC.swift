@@ -92,6 +92,16 @@ class BaseVC: UIViewController {
             return ""
         }
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        
+        view.endEditing(true)
+    }
+    
+    func getConstantConstraint(multiplier: CGFloat, viewSize: CGFloat) -> CGFloat {
+        return (1 - multiplier) * viewSize
+    }
 }
 
 extension BaseVC: UITextFieldDelegate {
@@ -111,5 +121,11 @@ extension UIColor {
     
     static func randomClr() -> UIColor {
         return UIColor(red: CGFloat.random(in: 0.5...1), green: CGFloat.random(in: 0.5...1), blue: CGFloat.random(in: 0.5...1), alpha: 1.0)
+    }
+}
+
+extension NSLayoutConstraint {
+    func constraintWithMultiplier(_ multiplier: CGFloat) -> NSLayoutConstraint {
+        return NSLayoutConstraint(item: self.firstItem!, attribute: self.firstAttribute, relatedBy: self.relation, toItem: self.secondItem, attribute: self.secondAttribute, multiplier: multiplier, constant: self.constant)
     }
 }

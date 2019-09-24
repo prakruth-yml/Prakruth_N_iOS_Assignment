@@ -10,6 +10,7 @@ class ViewController: BaseVC {
     @IBOutlet private weak var signUpButton: UIButton!
     @IBOutlet private weak var nameTextField: UITextField!
     @IBOutlet private weak var passwordextField: UITextField!
+    @IBOutlet weak var bottomElementConstraint: NSLayoutConstraint!
     
     var fireBaseManager = FirebaseManager()
     
@@ -90,23 +91,6 @@ class ViewController: BaseVC {
     }
     
     @objc func moveViewWhenKeyboard(notification: Notification) {
-        guard let notificationInfo = notification.userInfo else { return }
-        
-        if notification.name == UIResponder.keyboardWillShowNotification {
-            guard let keyBoardFrame = (notificationInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
-            
-            if view.frame.origin.y == 0 {
-                view.frame.origin.y -= keyBoardFrame.height
-            }
-        } else if notification.name == UIResponder.keyboardWillHideNotification && view.frame.origin.y != 0 {
-            view.frame.origin.y = 0
-        }
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        
-        view.endEditing(true)
     }
     
     override func stopLoading() {
