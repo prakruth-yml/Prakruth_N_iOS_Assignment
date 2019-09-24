@@ -269,9 +269,9 @@ class FirebaseManager {
     ///   - projectName: name of project
     ///   - story: the details of story to add
     ///   - completion: completion handle
-    func addStory(projectName: String, story: [String], completion: @escaping ErrorCompletionHandler) {
+    func addStory(projectName: String, story: [String]?, completion: @escaping ErrorCompletionHandler) {
         let storyRef = Constants.FirebaseConstants.ProjectTable.Stories.self
-        let updateDetails = [storyRef.title: story[0], storyRef.summary: story[2], storyRef.description:story[3], storyRef.platform: story[4], storyRef.status: story[5]]
+        let updateDetails = [storyRef.title: story?[0] ?? "", storyRef.summary: story?[2] ?? "", storyRef.description:story?[3] ?? "", storyRef.platform: story?[4] ?? "", storyRef.status: story?[5] ?? ""]
     ref.child(Constants.FirebaseConstants.ProjectTable.name).child(projectName).child(Constants.FirebaseConstants.ProjectTable.Stories.tableName).child(updateDetails[storyRef.title] ?? "").updateChildValues(updateDetails) { (error, _) in
         
             DispatchQueue.main.async {

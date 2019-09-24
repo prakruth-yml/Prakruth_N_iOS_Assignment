@@ -15,8 +15,10 @@ class ProductBacklogsViewModel: BaseVM {
     let displayTitle = ["Issue Type", "Summary", "Description", "Platform", "Status"]
     var dataSrc: [String]?
     var storyDetails: Story?
+    var currentStory: Story?
+    var currentProject: ProjectDetails?
     
-    func addStoryToFirebase(projectName: String, story: [String], completion: @escaping ErrorCompletionHandler) {
+    func addStoryToFirebase(projectName: String, story: [String]?, completion: @escaping ErrorCompletionHandler) {
         firebase.addStory(projectName: projectName, story: story, completion: completion)
     }
     
@@ -43,5 +45,17 @@ class ProductBacklogsViewModel: BaseVM {
     
     func removeStory(projectName: String, storyName: String, completion: @escaping ErrorCompletionHandler) {
         firebase.removeStory(projectName: projectName, storyName: storyName, completion: completion)
+    }
+    
+    func setCurrentStory(index: Int) {
+        currentStory = storyResponse?[index]
+    }
+    
+    func setStoryDescpDataSrc() {
+        dataSrc = ["Story", currentStory?.summary, currentStory?.description, currentStory?.platform, currentStory?.status] as? [String]
+    }
+    
+    func setCurrentProject(project: ProjectDetails?) {
+        currentProject = project
     }
 }

@@ -21,7 +21,7 @@ class SprintDisplayVC: BaseVC {
         if role == Roles.projectManager.rawValue {
             navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icons8-plus-24"), style: .plain, target: self, action: #selector(addSprintButtonDidPress))
         } else {
-            emptyWarningLabel.text = "No current sprints for this project"
+            emptyWarningLabel.text = "No active sprints for this project"
         }
     }
     

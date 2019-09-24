@@ -3,7 +3,7 @@ struct ProjectDetails {
     var teamMember: [TeamMember]
     
     func getDataAtIndex(index: Int) -> String {
-        let array = [data.title, data.descp, data.domain]
+        let array = [data.title, data.domain, data.descp]
         return array[index]
     }
 }
