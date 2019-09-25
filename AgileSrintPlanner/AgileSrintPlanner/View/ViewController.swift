@@ -58,7 +58,12 @@ class ViewController: BaseVC {
                     }
                 } else {
                     weakSelf.fireBaseManager.decideUserRole(user: Auth.auth().currentUser) { (viewController, role) in
-                        guard let viewController = viewController else { return }
+                        guard let viewController = viewController else {
+                            self?.showAlert(title: Constants.AlertMessages.errorAlert, msg: "User Not Assign any project", actionTitle: Constants.AlertMessages.closeAction)
+                            self?.fireBaseManager.emailUserSignOut()
+                            self?.stopLoading()
+                            return
+                        }
                 
                         let currentUser = Auth.auth().currentUser
                         UserDefaults.standard.set(role, forKey: Constants.UserDefaults.role)

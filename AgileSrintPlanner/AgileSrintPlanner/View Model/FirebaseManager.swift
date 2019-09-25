@@ -87,25 +87,29 @@ class FirebaseManager {
     /// - Parameters:
     ///   - user: The current logged in user
     ///   - completion: Completion Handler
-    func decideUserRole(user: User?, completion: @escaping (UIViewController?, String) -> Void) {
+    func decideUserRole(user: User?, completion: @escaping (UIViewController?, String?) -> Void) {
         ref.child(Constants.FirebaseConstants.employeeTable).observeSingleEvent(of: .value) { (snapshot) in
             guard let user = Auth.auth().currentUser,
                   let response = snapshot.children.allObjects as? [DataSnapshot] else { return }
             
             let responseDict = response.filter({ ($0.value as? [String : String])?[Constants.FirebaseConstants.empEmail] == user.email })
-            guard let role = (responseDict[0].value as? [String: String])?[Constants.FirebaseConstants.empRole] else { return }
-
-            let projectsDisplayVC = ProjectsDisplayVC(nibName: "ProjectsDisplayVC", bundle: nil)
-            let roleInSwitch = Roles(rawValue: role)
-            switch roleInSwitch {
-            case .developer?:
-                completion(projectsDisplayVC, Roles.developer.rawValue)
-            case .projectManager?:
-                completion(projectsDisplayVC, Roles.projectManager.rawValue)
-            case .productOwner?:
-                completion(projectsDisplayVC, Roles.productOwner.rawValue)
-            default:
-                break
+            if responseDict.isEmpty {
+                completion(nil, nil)
+            } else {
+                guard let role = (responseDict[0].value as? [String: String])?[Constants.FirebaseConstants.empRole] else { return }
+                
+                let projectsDisplayVC = ProjectsDisplayVC(nibName: "ProjectsDisplayVC", bundle: nil)
+                let roleInSwitch = Roles(rawValue: role)
+                switch roleInSwitch {
+                case .developer?:
+                    completion(projectsDisplayVC, Roles.developer.rawValue)
+                case .projectManager?:
+                    completion(projectsDisplayVC, Roles.projectManager.rawValue)
+                case .productOwner?:
+                    completion(projectsDisplayVC, Roles.productOwner.rawValue)
+                default:
+                    break
+                }
             }
         }
     }
