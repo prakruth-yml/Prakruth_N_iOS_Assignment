@@ -43,14 +43,17 @@ class StoriesDisplayVC: BaseVC {
         guard let role = UserDefaults.standard.object(forKey: Constants.UserDefaults.role) as? String else { return }
         
         if role == Roles.productOwner.rawValue {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icons8-plus-24"), style: .plain, target: self, action: #selector(addStoryButtonDidPress))
         }
     }
 }
 
 extension StoriesDisplayVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if (UserDefaults.standard.object(forKey: Constants.UserDefaults.role) as? String) == Roles.productOwner.rawValue {
         return (viewModel.storyResponse?.count ?? Constants.NilCoalescingDefaults.int) + 1
+        } else {
+            return (viewModel.storyResponse?.count ?? Constants.NilCoalescingDefaults.int)
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -75,7 +78,7 @@ extension StoriesDisplayVC: UITableViewDelegate, UITableViewDataSource {
             cell.storyIdLabel.text = "Story " + String(indexPath.row)
             cell.storyTitleLabel.text = viewModel.storyResponse?[indexPath.row - 1].title
             cell.storyDescriptionLabel.text = viewModel.storyResponse?[indexPath.row - 1].summary
-            cell.storyStatusLabel.text = viewModel.storyResponse?[indexPath.row-1].status
+            cell.storyStatusLabel.text = viewModel.storyResponse?[indexPath.row - 1].status
             return cell
         }
     }
