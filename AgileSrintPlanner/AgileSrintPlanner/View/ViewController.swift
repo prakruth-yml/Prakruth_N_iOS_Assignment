@@ -1,81 +1,105 @@
-//
-//  ViewController.swift
-//  AgileSrintPlanner
-//
-//  Created by Prakruth Nagaraj on 30/08/19.
-//  Copyright © 2019 Prakruth Nagaraj. All rights reserved.
-//
-
 import UIKit
 import Firebase
 import Crashlytics
+import GoogleSignIn
+import FirebaseUI
 
-class ViewController: UIViewController {
+class ViewController: BaseVC {
     
-    @IBOutlet weak var gSignInButton: UIButton!
-    @IBOutlet weak var emailSignInButton: UIButton!
-    @IBOutlet weak var signUpButton: UIButton!
-    @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var passwordextField: UITextField!
-//    let temp = FirebaseApp.configure()
-//    var db = Firestore.firestore()
-//    var ref: DatabaseReference!
-//
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        gSignInButton.imageView?.contentMode = .scaleAspectFit
-        emailSignInButton.imageView?.contentMode = .scaleAspectFit
-        
-        
-        
-//        let db = Firestore.firestore()
-//        db.collection("Test").getDocuments(completion: {(querySnaps, error) in
-//            if let err = error{
-//                print(err)
-//            }
-//            else{
-//                for document in querySnaps!.documents {
-//                    print("\(document.documentID) \(document.data())")
-//                }
-//            }
-//            })
-        
-//        ref = Database.database().reference()
-//        self.ref.child("users").child(user.uid).setValue(["username": "username"])
-//        ref.child("Test").child("Test").setValue("Prakruth N", forKey: "Name")
-        // Do any additional setup after loading the view, typically from a nib.
+    @IBOutlet private weak var emailSignInButton: UIButton!
+    @IBOutlet private weak var signUpButton: UIButton!
+    @IBOutlet private weak var nameTextField: UITextField!
+    @IBOutlet private weak var passwordextField: UITextField!
+    
+    var fireBaseManager = FirebaseManager()
+    
+    deinit {
+        print("MAina VC deinit")
     }
     
-    @IBAction func newUserButtonDidPress(_ button: UIButton) {
-        guard let popVC = self.storyboard?.instantiateViewController(withIdentifier: String(describing: EmailSignInPopUpVC.self)) as? EmailSignInPopUpVC else { fatalError() }
-        self.addChild(popVC)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupTextFieldDelegates(textField: nameTextField, returnType: .next)
+        setupTextFieldDelegates(textField: passwordextField, returnType: .done)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @IBAction private func newUserButtonDidPress(_ button: UIButton) {
+        NotificationCenter.default.removeObserver(self)
+        guard let popVC = self.storyboard?.instantiateViewController(withIdentifier: String(describing: EmailSignInPopUpVC.self)) as? EmailSignInPopUpVC else { return }
+        
+        addChild(popVC)
         popVC.view.frame = view.frame
         view.addSubview(popVC.view)
         popVC.didMove(toParent: self)
     }
     
-    @IBAction func duttonDidPress(_ button: UIButton) {
-//        var ref: DocumentReference = db.collection("Test").addDocument(data: ["name": "Bought Something", "fullName": "Bought something else"]) { err in
-//            if let err = err{
-//                print("Error")
-//            }
-//            else{
-//                print("Added")
-//            }
-//        }
-//        let db2 = Database.database().reference().child("Testing")
-//        let mesg = ["Sender": "Names", "msgBody": "Hello"]
-//        db2.childByAutoId().setValue(mesg) { (error, ref) in
-//            if error != nil{
-//                print(error)
-//            }
-//            else{
-//                print("YES")
-//            }
-//        }
-        Crashlytics.sharedInstance().crash()
+    @IBAction private func emailLoginButtonDidPress(_ button: UIButton) {
+        if nameTextField?.text?.isEmpty ?? true || passwordextField?.text?.isEmpty ?? true {
+            showAlert(title: Constants.AlertMessages.failedLoginAlert, msg: Constants.EmailValidation.entiresMissing, actionTitle: Constants.AlertMessages.closeAction)
+        } else if !isValidEmail(email: nameTextField.text ?? "") {
+            showAlert(title: Constants.AlertMessages.failedLoginAlert, msg: Constants.EmailValidation.entriesWrongFormat, actionTitle: Constants.AlertMessages.closeAction)
+        } else {
+            startLoading()
+            fireBaseManager.emailUserLogin(email: nameTextField?.text, password: passwordextField?.text) { [weak self] (user, error) in
+                guard let weakSelf = self else { return }
+                
+                if let error = error {
+                    let alertAction = UIAlertAction(title: Constants.AlertMessages.closeAction, style: .cancel, handler: nil)
+                    DispatchQueue.main.async {
+                        weakSelf.showAlert(title: Constants.AlertMessages.failedLoginAlert, msg: error.localizedDescription, alertStyle: .alert, actions: [alertAction])
+                    }
+                } else {
+                    weakSelf.fireBaseManager.decideUserRole(user: Auth.auth().currentUser) { (viewController, role) in
+                        guard let viewController = viewController else { return }
+                
+                        let currentUser = Auth.auth().currentUser
+                        UserDefaults.standard.set(role, forKey: Constants.UserDefaults.role)
+                        UserDefaults.standard.set(currentUser?.displayName, forKey: Constants.UserDefaults.currentUserName)
+                        UserDefaults.standard.set(currentUser?.uid, forKey: Constants.UserDefaults.currentUserId)
+                        UserDefaults.standard.set(currentUser?.email, forKey: Constants.UserDefaults.currentUserEmail)
+                        currentUser?.getIDTokenResult(forcingRefresh: true, completion: { (token, _) in
+                            guard let token = token else { return }
+                            
+                            UserDefaults.standard.set(token.claims, forKey: Constants.UserDefaults.currentUser)
+                        })
+                        DispatchQueue.main.async {
+                            let navigationController = UINavigationController(rootViewController: viewController)
+//                            weakSelf.dismiss(animated: true, completion: nil)
+                            weakSelf.present(navigationController, animated: true)
+                        }
+                    }
+                }
+                weakSelf.stopLoading()
+            }
+        }
     }
-
-
+    
+    @IBAction private func passwordHideShowButtonDidPress(_ button: UIButton) {
+        if passwordextField.isSecureTextEntry {
+            passwordextField.isSecureTextEntry = false
+        } else {
+            passwordextField.isSecureTextEntry = true
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        
+        view.endEditing(true)
+    }
+    
+    override func stopLoading() {
+        super.stopLoading()
+    }
+    
+    override func startLoading() {
+        super.startLoading()
+    }
 }
-
